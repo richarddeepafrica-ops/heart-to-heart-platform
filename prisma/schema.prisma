@@ -1,0 +1,248 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  FUNDRAISING_MANAGER
+  EVENTS_MANAGER
+  MARKETING_MANAGER
+  FINANCE_OFFICER
+  CONTENT_EDITOR
+  VOLUNTEER_COORDINATOR
+}
+
+enum DonationStatus {
+  PENDING
+  CONFIRMED
+  FAILED
+  REFUNDED
+  RECONCILED
+}
+
+enum PaymentMethod {
+  MPESA
+  CARD
+  BANK_TRANSFER
+  CASH
+}
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  COMPLETED
+  ARCHIVED
+}
+
+enum ConsentStatus {
+  DRAFT
+  GUARDIAN_PENDING
+  MEDICAL_REVIEW
+  APPROVED
+  REJECTED
+  ARCHIVED
+}
+
+enum MarketingChannel {
+  EMAIL
+  SMS
+  WHATSAPP
+  SOCIAL
+  MULTI_CHANNEL
+}
+
+enum MarketingCampaignStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  SENT
+  PAUSED
+  ARCHIVED
+}
+
+enum PaymentProviderStatus {
+  INITIATED
+  CALLBACK_RECEIVED
+  VERIFIED
+  FAILED
+  REVERSED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  role      UserRole
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Donor {
+  id             String     @id @default(cuid())
+  name           String
+  email          String?
+  phone          String?
+  organization   String?
+  isAnonymous    Boolean    @default(false)
+  acceptsEmail   Boolean    @default(true)
+  acceptsSms     Boolean    @default(true)
+  donations      Donation[]
+  registrations  EventRegistration[]
+  communications Communication[]
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Campaign {
+  id          String         @id @default(cuid())
+  slug        String         @unique
+  title       String
+  summary     String
+  goalAmount  Int
+  status      CampaignStatus @default(DRAFT)
+  startsAt    DateTime?
+  endsAt      DateTime?
+  donations   Donation[]
+  marketingCampaigns MarketingCampaign[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model Beneficiary {
+  id              String        @id @default(cuid())
+  publicName      String
+  privateName     String?
+  age             Int?
+  diagnosis       String?
+  storySummary    String
+  fundingGoal     Int
+  consentStatus   ConsentStatus @default(DRAFT)
+  donations       Donation[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model Donation {
+  id             String         @id @default(cuid())
+  donorId        String?
+  campaignId     String?
+  beneficiaryId  String?
+  amount         Int
+  currency       String         @default("KES")
+  method         PaymentMethod
+  status         DonationStatus @default(PENDING)
+  receiptNumber  String?
+  source         String?
+  providerRef    String?
+  donor          Donor?         @relation(fields: [donorId], references: [id])
+  campaign       Campaign?      @relation(fields: [campaignId], references: [id])
+  beneficiary    Beneficiary?   @relation(fields: [beneficiaryId], references: [id])
+  transactions   PaymentTransaction[]
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model PaymentTransaction {
+  id             String                @id @default(cuid())
+  donationId     String
+  provider       String
+  providerRef    String?
+  checkoutRef    String?
+  amount         Int
+  currency       String                @default("KES")
+  status         PaymentProviderStatus @default(INITIATED)
+  rawPayload     Json?
+  donation       Donation              @relation(fields: [donationId], references: [id])
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+}
+
+model Event {
+  id             String              @id @default(cuid())
+  slug           String              @unique
+  title          String
+  summary        String
+  startsAt       DateTime
+  venue          String?
+  registrations  EventRegistration[]
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+}
+
+model EventRegistration {
+  id          String   @id @default(cuid())
+  eventId     String
+  donorId     String?
+  ticketType  String
+  quantity    Int      @default(1)
+  totalAmount Int
+  qrCode      String?
+  checkedInAt DateTime?
+  event       Event    @relation(fields: [eventId], references: [id])
+  donor       Donor?   @relation(fields: [donorId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CorporatePartner {
+  id             String   @id @default(cuid())
+  organization   String
+  contactName    String?
+  contactEmail   String?
+  interest       String
+  estimatedValue Int?
+  pipelineStage  String   @default("NEW_INQUIRY")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model MarketingCampaign {
+  id             String                  @id @default(cuid())
+  campaignId     String?
+  name           String
+  objective      String
+  channel        MarketingChannel        @default(MULTI_CHANNEL)
+  audienceName   String
+  status         MarketingCampaignStatus @default(DRAFT)
+  scheduledAt    DateTime?
+  sentAt         DateTime?
+  budgetAmount   Int?
+  metrics        Json?
+  campaign       Campaign?               @relation(fields: [campaignId], references: [id])
+  communications Communication[]
+  createdAt      DateTime                @default(now())
+  updatedAt      DateTime                @updatedAt
+}
+
+model Communication {
+  id                  String            @id @default(cuid())
+  donorId             String?
+  marketingCampaignId String?
+  channel             MarketingChannel
+  subject             String?
+  body                String
+  status              String            @default("DRAFT")
+  sentAt              DateTime?
+  openedAt            DateTime?
+  clickedAt           DateTime?
+  donor               Donor?            @relation(fields: [donorId], references: [id])
+  marketingCampaign   MarketingCampaign? @relation(fields: [marketingCampaignId], references: [id])
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorEmail String?
+  action     String
+  entityType String
+  entityId   String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+}
