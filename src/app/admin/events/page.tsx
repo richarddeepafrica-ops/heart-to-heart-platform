@@ -1,67 +1,100 @@
-import { eventProducts, formatKes } from "@/lib/content";
+import { EventCheckInForm } from "@/components/EventCheckInForm";
+import { formatKes } from "@/lib/content";
+import { getEventDashboard } from "@/lib/event-data";
 
-const events = [
-  ["Heart Run", "March 2027", "684 registrations", "Planning"],
-  ["Goat Derby", "August", "Sponsor packages", "Draft"],
-  ["Gala Dinner", "Nov / Dec", "Major donors", "Planning"]
-];
+export default async function EventsAdminPage() {
+  const dashboard = await getEventDashboard();
+  const featuredEvent = dashboard.featuredEvent;
+  const checkInPercent = featuredEvent?.registrationCount
+    ? Math.round((featuredEvent.checkedInCount / featuredEvent.registrationCount) * 100)
+    : 0;
 
-export default function EventsAdminPage() {
   return (
     <>
       <header className="adminTopbar">
         <div><p className="eyebrow">Events</p><h1>Event operations</h1></div>
-        <div className="adminActions"><button type="button">Export registrations</button><button className="primaryAction" type="button">Create event</button></div>
+        <div className="adminActions"><a href="/events">Public events</a><a className="primaryAction" href="/events/heart-run/register">Test registration</a></div>
       </header>
+      <section className="adminKpis">
+        {[
+          ["Event revenue", formatKes(dashboard.totalRevenue), "registrations and event gifts"],
+          ["Registrations", String(dashboard.totalRegistrations), "all events"],
+          ["Checked in", String(dashboard.checkedInCount), "attendance marked"],
+          ["Events", String(dashboard.events.length), "active calendar"]
+        ].map(([label, value, meta]) => <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>)}
+      </section>
       <section className="adminDashboardGrid">
         <article className="appPanel span8">
           <div className="panelHeader"><div><p className="eyebrow">Calendar</p><h2>Fundraising events</h2></div></div>
-          <div className="simpleTable">
-            {events.map(([name, date, audience, status]) => <div key={name}><strong>{name}</strong><span>{date}</span><span>{audience}</span><em>{status}</em></div>)}
-          </div>
-        </article>
-        <article className="appPanel span4">
-          <div className="panelHeader"><div><p className="eyebrow">Heart Run</p><h2>Operational snapshot</h2></div><span className="status">Planning</span></div>
-          <div className="eventOps"><strong>684 registrations</strong><span>42 school teams, 18 corporate teams</span><div className="progress"><span style={{ width: "58%" }} /></div><small>Packages, sponsors, and participant messages need confirmation.</small></div>
-        </article>
-        <article className="appPanel span8">
-          <div className="panelHeader">
-            <div><p className="eyebrow">Event packages</p><h2>Heart Run registration packages</h2></div>
-            <button type="button">Preview checkout</button>
-          </div>
-          <div className="eventPackageAdminTable">
-            <div className="tableHead"><span>Package</span><span>Price</span><span>Sales</span><span>Status</span><span>Action</span></div>
-            {eventProducts.map((ticket, index) => (
-              <div className="tableLine" key={ticket.name}>
-                <span><strong>{ticket.name}</strong><small>{ticket.description}</small></span>
-                <span>{formatKes(ticket.price)}</span>
-                <span>{[184, 126, 42, 18][index]} sold</span>
-                <span className="status success">Published</span>
-                <button type="button">Edit</button>
+          <div className="simpleTable eventsAdminTable">
+            {dashboard.events.map((event) => (
+              <div key={event.id}>
+                <strong>{event.title}</strong>
+                <span>{event.dateLabel}</span>
+                <span>{event.registrationCount} registrations</span>
+                <span>{formatKes(event.revenue)}</span>
+                <em>{event.status}</em>
               </div>
             ))}
           </div>
         </article>
         <article className="appPanel span4">
-          <div className="panelHeader"><div><p className="eyebrow">Create package</p><h2>Add event package</h2></div></div>
-          <div className="builderPreview eventPackageBuilder">
-            <label>Event<select defaultValue="heart-run"><option value="heart-run">Heart Run / Walk</option><option value="goat-derby">Goat Derby</option><option value="gala-dinner">Gala Dinner</option></select></label>
-            <label>Package name<input defaultValue="Corporate Team" /></label>
-            <label>Price<input defaultValue="100000" /></label>
-            <label>Capacity<input defaultValue="Unlimited" /></label>
-            <button className="primaryAction" type="button">Save package</button>
+          <div className="panelHeader"><div><p className="eyebrow">{featuredEvent?.title || "Events"}</p><h2>Operational snapshot</h2></div><span className="status">{featuredEvent?.status || "Waiting"}</span></div>
+          <div className="eventOps">
+            <strong>{featuredEvent?.registrationCount || 0} registrations</strong>
+            <span>{featuredEvent?.checkedInCount || 0} checked in at {featuredEvent?.venue || "venue TBC"}</span>
+            <div className="progress"><span style={{ width: `${checkInPercent}%` }} /></div>
+            <small>{featuredEvent ? `${formatKes(featuredEvent.revenue)} collected for this event.` : "Events appear here after seeding or creation."}</small>
+          </div>
+        </article>
+        <article className="appPanel span8">
+          <div className="panelHeader">
+            <div><p className="eyebrow">Event packages</p><h2>Heart Run registration packages</h2></div>
+            <a href="/events/heart-run/register">Preview checkout</a>
+          </div>
+          <div className="eventPackageAdminTable">
+            <div className="tableHead"><span>Package</span><span>Price</span><span>Sales</span><span>Status</span><span>Revenue</span></div>
+            {dashboard.packages.map((ticket) => (
+              <div className="tableLine" key={ticket.name}>
+                <span><strong>{ticket.name}</strong><small>{ticket.description}</small></span>
+                <span>{formatKes(ticket.price)}</span>
+                <span>{ticket.sold} sold</span>
+                <span className="status success">{ticket.status}</span>
+                <span>{formatKes(ticket.revenue)}</span>
+              </div>
+            ))}
+          </div>
+        </article>
+        <article className="appPanel span4">
+          <div className="panelHeader"><div><p className="eyebrow">Package model</p><h2>Current setup</h2></div></div>
+          <div className="reviewStack">
+            <div><strong>Static package catalog</strong><span>Public package cards still come from content config.</span><em>Current</em></div>
+            <div><strong>Live package sales</strong><span>Admin sales are computed from registration ticket types.</span><em>Working</em></div>
+            <div><strong>Next schema step</strong><span>Add EventPackage records for publish, pause, capacity, and edits.</span><em>Next</em></div>
           </div>
         </article>
         <article className="appPanel span12">
-          <div className="panelHeader"><div><p className="eyebrow">Package strategy</p><h2>How packages should work per event</h2></div></div>
-          <div className="eventPackageRules">
-            {[
-              ["Event-specific", "Packages belong to one event and appear only on that event detail and registration flow."],
-              ["Checkout-ready", "Each package needs price, capacity, visibility, receipt label, and optional add-on donation."],
-              ["Admin-managed", "Teams can publish, pause, edit, duplicate, or archive packages without changing the public events hub."]
-            ].map(([title, copy]) => (
-              <span key={title}><strong>{title}</strong>{copy}</span>
-            ))}
+          <div className="panelHeader"><div><p className="eyebrow">Registration queue</p><h2>Latest event registrations</h2></div></div>
+          <div className="simpleTable eventRegistrationTable">
+            {dashboard.registrations.length ? dashboard.registrations.map((registration) => (
+              <div key={registration.id}>
+                <strong>{registration.donorName}</strong>
+                <span>{registration.eventTitle}</span>
+                <span>{registration.ticketType} x {registration.quantity}</span>
+                <span>{formatKes(registration.totalAmount)}</span>
+                <em>{registration.checkedInAt ? "Checked in" : registration.paymentStatus}</em>
+                <EventCheckInForm registrationId={registration.id} initialCheckedIn={Boolean(registration.checkedInAt)} />
+              </div>
+            )) : (
+              <div>
+                <strong>No registrations yet</strong>
+                <span>Event checkout registrations will appear here.</span>
+                <span>Package pending</span>
+                <span>{formatKes(0)}</span>
+                <em>Waiting</em>
+                <span>Use test registration</span>
+              </div>
+            )}
           </div>
         </article>
       </section>

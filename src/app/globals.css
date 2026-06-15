@@ -1896,6 +1896,16 @@ body:has(.adminApp) .siteHeader {
   min-width: 960px;
 }
 
+.simpleTable.eventsAdminTable > div {
+  grid-template-columns: minmax(160px, 1fr) 140px 150px 140px 120px;
+  min-width: 820px;
+}
+
+.simpleTable.eventRegistrationTable > div {
+  grid-template-columns: minmax(150px, 1fr) 160px 140px 130px 120px minmax(120px, 0.7fr);
+  min-width: 980px;
+}
+
 .simpleTable span {
   color: var(--muted);
 }
@@ -1952,6 +1962,10 @@ body:has(.adminApp) .siteHeader {
 .inlineAdminForm small {
   grid-column: 1 / -1;
   color: var(--muted);
+}
+
+.inlineAdminForm.compact {
+  grid-template-columns: 1fr;
 }
 
 .builderPreview {
