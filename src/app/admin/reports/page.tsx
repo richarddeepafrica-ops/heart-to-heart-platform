@@ -1,19 +1,82 @@
-const reports = [
-  ["Fundraising summary", "Donations, campaigns, events, and corporate support"],
-  ["Impact report", "Surgeries, prevention, awareness, and children supported"],
-  ["Finance export", "Receipts, reconciliation, methods, and bank review"],
-  ["Board pack", "Monthly executive summary and priorities"]
-];
+import { formatKes } from "@/lib/content";
+import { getReportDashboard } from "@/lib/report-data";
 
-export default function ReportsPage() {
+function formatDate(date: Date) {
+  return new Intl.DateTimeFormat("en-KE", {
+    dateStyle: "medium",
+    timeStyle: "short"
+  }).format(date);
+}
+
+export default async function ReportsPage() {
+  const report = await getReportDashboard();
+
   return (
     <>
       <header className="adminTopbar">
         <div><p className="eyebrow">Reports</p><h1>Impact and board reporting</h1></div>
-        <div className="adminActions"><button type="button">Schedule</button><button className="primaryAction" type="button">Generate report</button></div>
+        <div className="adminActions"><a href="/api/reports/fundraising">Download CSV</a><a className="primaryAction" href="/admin/finance">Review finance</a></div>
       </header>
+      <section className="adminKpis">
+        {[
+          ["Confirmed raised", formatKes(report.confirmedRaised), "confirmed or reconciled"],
+          ["Pending", formatKes(report.pendingAmount), "awaiting payment review"],
+          ["Failed", formatKes(report.failedAmount), "needs follow-up"],
+          ["Donors", String(report.donorCount), "CRM contacts"],
+          ["Registrations", String(report.eventRegistrationCount), "event tickets"]
+        ].map(([label, value, meta]) => <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>)}
+      </section>
       <section className="adminDashboardGrid">
-        {reports.map(([title, copy]) => <article className="appPanel span6" key={title}><div className="panelHeader"><div><p className="eyebrow">Report</p><h2>{title}</h2></div><button type="button">Open</button></div><p className="muted">{copy}</p></article>)}
+        <article className="appPanel span8">
+          <div className="panelHeader"><div><p className="eyebrow">Fundraising summary</p><h2>Campaign performance</h2></div><span className="status">Generated {formatDate(report.generatedAt)}</span></div>
+          <div className="simpleTable reportCampaignTable">
+            {report.campaigns.map((campaign) => (
+              <div key={campaign.name}>
+                <strong>{campaign.name}</strong>
+                <span>{formatKes(campaign.raised)}</span>
+                <span>{formatKes(campaign.goal)}</span>
+                <span><b>{campaign.percent}%</b><i><em style={{ width: `${campaign.percent}%` }} /></i></span>
+                <em>{campaign.status}</em>
+              </div>
+            ))}
+          </div>
+        </article>
+        <article className="appPanel span4">
+          <div className="panelHeader"><div><p className="eyebrow">Board pack</p><h2>Priorities</h2></div></div>
+          <div className="reviewStack">
+            {report.boardPriorities.map((priority, index) => (
+              <div key={priority}><strong>Priority {index + 1}</strong><span>{priority}</span><em>Board</em></div>
+            ))}
+          </div>
+        </article>
+        <article className="appPanel span6">
+          <div className="panelHeader"><div><p className="eyebrow">Finance export</p><h2>Payment methods</h2></div></div>
+          <div className="reportBreakdown">
+            {report.methods.length ? report.methods.map((method) => (
+              <div key={method.name}><span><strong>{method.name}</strong><small>{method.count} gifts</small></span><b>{formatKes(method.amount)}</b></div>
+            )) : <div><span><strong>No received gifts</strong><small>Confirmed payments will appear here.</small></span><b>{formatKes(0)}</b></div>}
+          </div>
+        </article>
+        <article className="appPanel span6">
+          <div className="panelHeader"><div><p className="eyebrow">Impact report</p><h2>Destination mix</h2></div></div>
+          <div className="reportBreakdown">
+            {report.destinations.length ? report.destinations.map((destination) => (
+              <div key={destination.name}><span><strong>{destination.name}</strong><small>{destination.count} gifts</small></span><b>{formatKes(destination.amount)}</b></div>
+            )) : <div><span><strong>No destination activity</strong><small>Received gifts will appear here.</small></span><b>{formatKes(0)}</b></div>}
+          </div>
+        </article>
+        <article className="appPanel span12">
+          <div className="panelHeader"><div><p className="eyebrow">Operational coverage</p><h2>What this report includes</h2></div></div>
+          <div className="eventPackageRules">
+            {[
+              ["Fundraising", `${report.campaignCount} campaigns with confirmed/reconciled gift totals and progress against goals.`],
+              ["Finance", "Payment method totals, pending amounts, failed payments, and export-ready CSV rows."],
+              ["Impact", `${report.beneficiaryCount} beneficiary profiles and event registration activity for board reporting.`]
+            ].map(([title, copy]) => (
+              <span key={title}><strong>{title}</strong>{copy}</span>
+            ))}
+          </div>
+        </article>
       </section>
     </>
   );
