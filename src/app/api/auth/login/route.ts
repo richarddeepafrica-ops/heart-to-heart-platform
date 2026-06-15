@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { adminSessionCookie, createAdminSession, getAdminCredentials, verifyPassword } from "@/lib/auth";
+import { adminSessionCookie, createAdminSession, getAdminConfigIssue, getAdminCredentials, verifyPassword } from "@/lib/auth";
 import { apiError, hasDatabaseUrl, readString } from "@/lib/api";
 import { db } from "@/lib/db";
 
@@ -9,6 +9,11 @@ export async function POST(request: Request) {
 
   const email = readString(body.email).toLowerCase();
   const password = readString(body.password);
+  const configIssue = getAdminConfigIssue();
+  if (configIssue) {
+    return NextResponse.json({ ok: false, message: configIssue }, { status: 503 });
+  }
+
   const credentials = getAdminCredentials();
   let authenticatedEmail = "";
 

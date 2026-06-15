@@ -10,6 +10,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:seed": "node prisma/seed.js",
+    "check:readiness": "node scripts/check-readiness.js",
     "db:up": "docker compose up -d db",
     "db:down": "docker compose down"
   },

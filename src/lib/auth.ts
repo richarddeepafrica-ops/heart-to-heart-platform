@@ -2,15 +2,38 @@ import crypto from "crypto";
 
 export const adminSessionCookie = "h2h_admin_session";
 const sessionDurationMs = 1000 * 60 * 60 * 8;
+const developmentSessionSecret = "change-this-secret-before-production";
+const developmentAdminEmail = "admin@hearttoheart.local";
+const developmentAdminPassword = "change-this-password";
+
+export function getAdminConfigIssue() {
+  if (process.env.NODE_ENV !== "production") return "";
+
+  if (!process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_SESSION_SECRET === developmentSessionSecret) {
+    return "ADMIN_SESSION_SECRET must be set to a unique production value.";
+  }
+
+  if (process.env.ADMIN_SESSION_SECRET.length < 32) {
+    return "ADMIN_SESSION_SECRET must be at least 32 characters.";
+  }
+
+  if (!process.env.DATABASE_URL) {
+    return "DATABASE_URL must be configured for production admin login.";
+  }
+
+  return "";
+}
 
 function getSessionSecret() {
-  return process.env.ADMIN_SESSION_SECRET || "change-this-secret-before-production";
+  const issue = getAdminConfigIssue();
+  if (issue) throw new Error(issue);
+  return process.env.ADMIN_SESSION_SECRET || developmentSessionSecret;
 }
 
 export function getAdminCredentials() {
   return {
-    email: process.env.ADMIN_EMAIL || "admin@hearttoheart.local",
-    password: process.env.ADMIN_PASSWORD || "change-this-password"
+    email: process.env.ADMIN_EMAIL || developmentAdminEmail,
+    password: process.env.ADMIN_PASSWORD || developmentAdminPassword
   };
 }
 
@@ -44,6 +67,7 @@ export function createAdminSession(email: string) {
 
 export function verifyAdminSession(token?: string) {
   if (!token) return null;
+  if (getAdminConfigIssue()) return null;
 
   const parts = token.split(":");
   if (parts.length !== 3) return null;

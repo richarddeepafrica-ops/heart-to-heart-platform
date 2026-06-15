@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 const adminSessionCookie = "h2h_admin_session";
 const protectedApiPrefixes = ["/api/beneficiaries", "/api/event-registrations", "/api/finance", "/api/marketing-campaigns", "/api/reports"];
 const protectedApiMutationPrefixes = ["/api/campaigns"];
+const developmentSessionSecret = "change-this-secret-before-production";
 
 function toHex(buffer: ArrayBuffer) {
   return Array.from(new Uint8Array(buffer))
@@ -12,7 +13,7 @@ function toHex(buffer: ArrayBuffer) {
 
 async function sign(payload: string) {
   const encoder = new TextEncoder();
-  const secret = process.env.ADMIN_SESSION_SECRET || "change-this-secret-before-production";
+  const secret = process.env.ADMIN_SESSION_SECRET || developmentSessionSecret;
   const key = await crypto.subtle.importKey(
     "raw",
     encoder.encode(secret),
@@ -25,6 +26,15 @@ async function sign(payload: string) {
 
 async function hasValidSession(token?: string) {
   if (!token) return false;
+  if (
+    process.env.NODE_ENV === "production" &&
+    (!process.env.ADMIN_SESSION_SECRET ||
+      process.env.ADMIN_SESSION_SECRET === developmentSessionSecret ||
+      process.env.ADMIN_SESSION_SECRET.length < 32)
+  ) {
+    return false;
+  }
+
   const parts = token.split(":");
   if (parts.length !== 3) return false;
 
