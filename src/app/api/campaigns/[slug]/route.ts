@@ -26,6 +26,7 @@ export async function PATCH(request: NextRequest, context: CampaignRouteContext)
   if (!body) return apiError("Invalid campaign update request.");
 
   const title = readString(body.title);
+  const type = readString(body.type) || "Fundraising appeal";
   const summary = readString(body.summary);
   const goalAmount = readPositiveInt(body.goalAmount);
   const status = readString(body.status).toUpperCase();
@@ -46,6 +47,7 @@ export async function PATCH(request: NextRequest, context: CampaignRouteContext)
         id: current?.id ?? `preview-${slug}`,
         slug,
         title,
+        type,
         summary,
         goalAmount,
         raised,
@@ -61,6 +63,7 @@ export async function PATCH(request: NextRequest, context: CampaignRouteContext)
       where: { slug },
       data: {
         title,
+        type,
         summary,
         goalAmount,
         status: status as CampaignStatus
@@ -76,6 +79,7 @@ export async function PATCH(request: NextRequest, context: CampaignRouteContext)
         id: campaign.id,
         slug: campaign.slug,
         title: campaign.title,
+        type: campaign.type,
         summary: campaign.summary,
         goalAmount: campaign.goalAmount,
         raised,

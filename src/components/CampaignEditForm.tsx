@@ -6,6 +6,7 @@ type CampaignEditFormProps = {
   campaign: {
     slug: string;
     title: string;
+    type: string;
     summary: string;
     goalAmount: number;
     status: string;
@@ -20,6 +21,7 @@ type SubmitState =
 
 export function CampaignEditForm({ campaign }: CampaignEditFormProps) {
   const [title, setTitle] = useState(campaign.title);
+  const [type, setType] = useState(campaign.type);
   const [summary, setSummary] = useState(campaign.summary);
   const [goalAmount, setGoalAmount] = useState(String(campaign.goalAmount));
   const [status, setStatus] = useState(campaign.status);
@@ -32,7 +34,7 @@ export function CampaignEditForm({ campaign }: CampaignEditFormProps) {
     const response = await fetch(`/api/campaigns/${campaign.slug}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, summary, goalAmount, status })
+      body: JSON.stringify({ title, type, summary, goalAmount, status })
     });
     const payload = (await response.json().catch(() => null)) as {
       ok?: boolean;
@@ -80,6 +82,10 @@ export function CampaignEditForm({ campaign }: CampaignEditFormProps) {
       <label>
         Title
         <input value={title} onChange={(event) => setTitle(event.target.value)} />
+      </label>
+      <label>
+        Type
+        <input value={type} onChange={(event) => setType(event.target.value)} />
       </label>
       <label>
         Summary

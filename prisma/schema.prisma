@@ -75,12 +75,13 @@ enum PaymentProviderStatus {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  role      UserRole
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String?
+  role         UserRole
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }
 
 model Donor {
@@ -103,6 +104,7 @@ model Campaign {
   id          String         @id @default(cuid())
   slug        String         @unique
   title       String
+  type        String         @default("Fundraising appeal")
   summary     String
   goalAmount  Int
   status      CampaignStatus @default(DRAFT)
@@ -192,7 +194,7 @@ model EventRegistration {
 
 model CorporatePartner {
   id             String   @id @default(cuid())
-  organization   String
+  organization   String   @unique
   contactName    String?
   contactEmail   String?
   interest       String

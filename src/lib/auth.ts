@@ -18,6 +18,24 @@ function sign(value: string) {
   return crypto.createHmac("sha256", getSessionSecret()).update(value).digest("hex");
 }
 
+export function hashPassword(password: string) {
+  const salt = crypto.randomBytes(16).toString("hex");
+  const hash = crypto.scryptSync(password, salt, 64).toString("hex");
+  return `${salt}:${hash}`;
+}
+
+export function verifyPassword(password: string, passwordHash?: string | null) {
+  if (!passwordHash) return false;
+
+  const [salt, storedHash] = passwordHash.split(":");
+  if (!salt || !storedHash) return false;
+
+  const hash = crypto.scryptSync(password, salt, 64);
+  const stored = Buffer.from(storedHash, "hex");
+
+  return stored.length === hash.length && crypto.timingSafeEqual(stored, hash);
+}
+
 export function createAdminSession(email: string) {
   const expiresAt = Date.now() + sessionDurationMs;
   const payload = `${email}:${expiresAt}`;

@@ -1,5 +1,7 @@
-import { campaigns, formatKes, fundedPercent } from "@/lib/content";
+import { notFound } from "next/navigation";
+import { formatKes } from "@/lib/content";
 import { CampaignEditForm } from "@/components/CampaignEditForm";
+import { campaignPercent, getAdminCampaignBySlug } from "@/lib/campaign-data";
 
 type CampaignAdminDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -7,14 +9,17 @@ type CampaignAdminDetailPageProps = {
 
 export default async function CampaignAdminDetailPage({ params }: CampaignAdminDetailPageProps) {
   const { slug } = await params;
-  const campaign = campaigns.find((item) => item.id === slug) ?? campaigns[0];
-  const percent = fundedPercent(campaign.raised, campaign.goal);
+  const campaign = await getAdminCampaignBySlug(slug);
+  if (!campaign) notFound();
+
+  const percent = campaignPercent(campaign);
   const adminCampaign = {
     slug: campaign.id,
     title: campaign.title,
+    type: campaign.type,
     summary: campaign.summary,
     goalAmount: campaign.goal,
-    status: "ACTIVE"
+    status: campaign.status
   };
 
   return (

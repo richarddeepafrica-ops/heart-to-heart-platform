@@ -1,7 +1,10 @@
-import { campaigns, formatKes, fundedPercent } from "@/lib/content";
+import { formatKes } from "@/lib/content";
 import { CampaignBuilderForm } from "@/components/CampaignBuilderForm";
+import { campaignPercent, getAdminCampaigns } from "@/lib/campaign-data";
 
-export default function CampaignsAdminPage() {
+export default async function CampaignsAdminPage() {
+  const campaigns = await getAdminCampaigns();
+
   return (
     <>
       <header className="adminTopbar">
@@ -14,7 +17,7 @@ export default function CampaignsAdminPage() {
           <div className="dataTable">
             <div className="tableHead"><span>Campaign</span><span>Raised</span><span>Goal</span><span>Funded</span><span>Status</span></div>
             {campaigns.map((campaign) => {
-              const percent = fundedPercent(campaign.raised, campaign.goal);
+              const percent = campaignPercent(campaign);
               return <a className="tableLine adminTableLink" href={`/admin/campaigns/${campaign.id}`} key={campaign.id}><span><strong>{campaign.title}</strong><small>{campaign.type}</small></span><span>{formatKes(campaign.raised)}</span><span>{formatKes(campaign.goal)}</span><span><b>{percent}%</b><i><em style={{ width: `${percent}%` }} /></i></span><span className="status success">Active</span></a>;
             })}
           </div>

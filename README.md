@@ -17,7 +17,10 @@ The existing static prototype remains one level up. This app is the beginning of
 ```powershell
 npm install
 copy .env.example .env
+npm run db:up
 npm run prisma:generate
+npm run prisma:migrate
+npm run prisma:seed
 npm run dev
 ```
 
@@ -34,20 +37,23 @@ Implemented:
 - Production app folder
 - Next.js homepage shell
 - Admin dashboard shell
+- Admin login with signed HTTP-only sessions
 - Shared brand header
 - Shared campaign/progress components
 - Typed content seed data
 - Prisma schema for donations, donors, campaigns, events, beneficiaries, partners, payments, communications, marketing campaigns, and audit logs
+- Docker Compose PostgreSQL setup for local development
+- Prisma migration and seed script for admin user, campaigns, events, and partners
 - Reusable Prisma client
 - Preview-safe API routes for campaigns, donations, and marketing campaigns
 - Preview-safe campaign creation from the admin campaign builder
+- Database-backed admin campaign listing, editing, and archiving when `DATABASE_URL` is connected
 - Architecture and implementation documentation
 
 Not implemented yet:
 
-- Authentication
-- Live database provisioning and migrations
-- Full CMS/admin CRUD screens
+- Production authentication provider / password reset
+- Full CMS/admin CRUD screens outside campaigns
 - M-Pesa STK Push
 - Card payments
 - Email/SMS integrations
@@ -61,6 +67,17 @@ Not implemented yet:
 - `POST /api/donations` validates a donation request and creates a pending gift when the database is connected. Without `DATABASE_URL`, it returns a preview donation response.
 - `POST /api/marketing-campaigns` creates a draft campaign for email, SMS, WhatsApp, social, or multi-channel outreach. Without `DATABASE_URL`, it returns a preview response.
 
+## Local Admin Login
+
+The seeded local admin user follows `.env`:
+
+```text
+Email: admin@hearttoheart.local
+Password: change-this-password
+```
+
+Change these values before deploying anywhere public.
+
 ## Current Verification
 
 The scaffold has passed:
@@ -68,14 +85,14 @@ The scaffold has passed:
 ```powershell
 npm run typecheck
 npm run build
-$env:DATABASE_URL='postgresql://user:password@localhost:5432/heart_to_heart'; npx prisma validate
+npm run db:up
+$env:DATABASE_URL='postgresql://heart_to-heart:heart_to-heart_dev@localhost:5433/heart_to_heart'; npx prisma validate
 ```
 
 ## Next Engineering Steps
 
-1. Connect PostgreSQL and run Prisma migration.
-2. Add authentication and role-based admin access.
-3. Convert donation checkout from prototype into real Next.js routes/actions.
-4. Implement M-Pesa STK Push and callback handling.
-5. Add email, SMS, and WhatsApp provider integrations.
-6. Build admin CRUD for campaigns, events, beneficiaries, donors, partners, marketing, and reports.
+1. Convert donation checkout from prototype into real persisted donation records.
+2. Implement M-Pesa STK Push and callback handling.
+3. Add email, SMS, and WhatsApp provider integrations.
+4. Build admin CRUD for events, beneficiaries, donors, partners, marketing, and reports.
+5. Add role-aware admin access and production password reset.

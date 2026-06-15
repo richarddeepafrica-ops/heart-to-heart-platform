@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { adminSessionCookie, createAdminSession, getAdminCredentials } from "@/lib/auth";
-import { apiError, readString } from "@/lib/api";
+import { adminSessionCookie, createAdminSession, getAdminCredentials, verifyPassword } from "@/lib/auth";
+import { apiError, hasDatabaseUrl, readString } from "@/lib/api";
+import { db } from "@/lib/db";
 
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
@@ -9,13 +10,28 @@ export async function POST(request: Request) {
   const email = readString(body.email).toLowerCase();
   const password = readString(body.password);
   const credentials = getAdminCredentials();
+  let authenticatedEmail = "";
 
-  if (email !== credentials.email.toLowerCase() || password !== credentials.password) {
-    return apiError("Invalid email or password.", 401);
+  if (hasDatabaseUrl()) {
+    try {
+      const user = await db.user.findUnique({ where: { email } });
+      if (user && verifyPassword(password, user.passwordHash)) {
+        authenticatedEmail = user.email;
+      }
+    } catch (error) {
+      return NextResponse.json(
+        { ok: false, message: "Admin login is temporarily unavailable." },
+        { status: 503 }
+      );
+    }
+  } else if (email === credentials.email.toLowerCase() && password === credentials.password) {
+    authenticatedEmail = credentials.email;
   }
 
+  if (!authenticatedEmail) return apiError("Invalid email or password.", 401);
+
   const response = NextResponse.json({ ok: true });
-  response.cookies.set(adminSessionCookie, createAdminSession(credentials.email), {
+  response.cookies.set(adminSessionCookie, createAdminSession(authenticatedEmail), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",

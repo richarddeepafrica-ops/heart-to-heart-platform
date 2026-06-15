@@ -42,9 +42,11 @@ export async function GET() {
           id: campaign.id,
           slug: campaign.slug,
           title: campaign.title,
+          type: campaign.type,
           summary: campaign.summary,
           goal: campaign.goalAmount,
           raised,
+          href: `/campaigns/${campaign.slug}`,
           status: campaign.status,
           percentFunded: fundedPercent(raised, campaign.goalAmount)
         };
@@ -63,6 +65,7 @@ export async function POST(request: Request) {
   if (!body) return apiError("Invalid campaign request.");
 
   const title = readString(body.title);
+  const type = readString(body.type) || "Fundraising appeal";
   const summary = readString(body.summary);
   const goalAmount = readPositiveInt(body.goalAmount);
   const status = readString(body.status).toUpperCase() || CampaignStatus.DRAFT;
@@ -83,6 +86,7 @@ export async function POST(request: Request) {
         id: `preview-${Date.now()}`,
         slug,
         title,
+        type,
         summary,
         goalAmount,
         raised: 0,
@@ -98,6 +102,7 @@ export async function POST(request: Request) {
       data: {
         slug,
         title,
+        type,
         summary,
         goalAmount,
         status: status as CampaignStatus
@@ -111,6 +116,7 @@ export async function POST(request: Request) {
         id: campaign.id,
         slug: campaign.slug,
         title: campaign.title,
+        type: campaign.type,
         summary: campaign.summary,
         goalAmount: campaign.goalAmount,
         raised: 0,

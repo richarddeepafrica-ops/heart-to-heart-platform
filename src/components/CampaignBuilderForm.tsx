@@ -19,6 +19,7 @@ function slugify(value: string) {
 
 export function CampaignBuilderForm() {
   const [title, setTitle] = useState("Fund 20 Heart Surgeries");
+  const [type, setType] = useState("Urgent surgery appeal");
   const [summary, setSummary] = useState("Support open heart surgeries for children from underprivileged backgrounds.");
   const [goalAmount, setGoalAmount] = useState("10000000");
   const [status, setStatus] = useState("DRAFT");
@@ -33,7 +34,7 @@ export function CampaignBuilderForm() {
     const response = await fetch("/api/campaigns", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title, summary, goalAmount, status, slug })
+      body: JSON.stringify({ title, type, summary, goalAmount, status, slug })
     });
     const payload = (await response.json().catch(() => null)) as {
       ok?: boolean;
@@ -60,6 +61,10 @@ export function CampaignBuilderForm() {
       <label>
         Title
         <input value={title} onChange={(event) => setTitle(event.target.value)} />
+      </label>
+      <label>
+        Type
+        <input value={type} onChange={(event) => setType(event.target.value)} />
       </label>
       <label>
         Summary

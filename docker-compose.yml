@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: heart-to-heart-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: heart_to_heart
+      POSTGRES_USER: heart_to-heart
+      POSTGRES_PASSWORD: heart_to-heart_dev
+    ports:
+      - "5433:5432"
+    volumes:
+      - heart_to_heart_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U heart_to-heart -d heart_to_heart"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  heart_to_heart_pgdata:
