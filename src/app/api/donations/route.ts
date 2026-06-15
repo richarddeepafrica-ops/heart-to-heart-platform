@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import type { Prisma } from "@prisma/client";
 import { apiError, hasDatabaseUrl, readPositiveInt, readString } from "@/lib/api";
 import { db } from "@/lib/db";
+import { initiateMpesaStkPush, normalizeMpesaPhone } from "@/lib/mpesa";
 
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
@@ -22,6 +24,9 @@ export async function POST(request: Request) {
   if (amount < 100) return apiError("Donation amount must be at least KES 100.");
   if (!["MPESA", "CARD", "BANK_TRANSFER", "CASH"].includes(method)) {
     return apiError("Unsupported payment method.");
+  }
+  if (method === "MPESA" && !normalizeMpesaPhone(phone)) {
+    return apiError("Enter a valid M-Pesa phone number.");
   }
 
   if (!hasDatabaseUrl()) {
@@ -100,13 +105,46 @@ export async function POST(request: Request) {
       });
     }
 
-    await db.paymentTransaction.create({
+    const transaction = await db.paymentTransaction.create({
       data: {
         donationId: donation.id,
         provider: method,
         amount
       }
     });
+
+    let nextAction = method === "MPESA" ? "Trigger STK push." : "Redirect to payment processor.";
+
+    if (method === "MPESA") {
+      const stk = await initiateMpesaStkPush({
+        donationId: donation.id,
+        amount,
+        phone,
+        accountReference: donation.receiptNumber || donation.id.slice(-12).toUpperCase(),
+        description: donation.destinationLabel || "Heart to Heart donation"
+      });
+
+      if (stk.ok) {
+        await db.paymentTransaction.update({
+          where: { id: transaction.id },
+          data: {
+            providerRef: stk.merchantRequestId || null,
+            checkoutRef: stk.checkoutRequestId || null,
+            rawPayload: stk.raw as Prisma.InputJsonValue
+          }
+        });
+        nextAction = stk.customerMessage || "M-Pesa STK Push sent. Enter your PIN to complete the donation.";
+      } else {
+        await db.paymentTransaction.update({
+          where: { id: transaction.id },
+          data: {
+            status: stk.raw ? "FAILED" : "INITIATED",
+            rawPayload: (stk.raw || { message: stk.message }) as Prisma.InputJsonValue
+          }
+        });
+        nextAction = stk.message;
+      }
+    }
 
     return NextResponse.json({
       ok: true,
@@ -120,7 +158,8 @@ export async function POST(request: Request) {
         destinationLabel: donation.destinationLabel,
         packageName: donation.packageName
       },
-      nextAction: method === "MPESA" ? "Trigger STK push." : "Redirect to payment processor."
+      statusUrl: `/donations/${donation.id}/status`,
+      nextAction
     });
   } catch (error) {
     return NextResponse.json(

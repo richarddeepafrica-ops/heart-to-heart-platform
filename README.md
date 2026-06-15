@@ -50,6 +50,8 @@ Implemented:
 - Database-backed admin campaign listing, editing, and archiving when `DATABASE_URL` is connected
 - Database-backed contextual donations for campaigns, child sponsorships, event gifts, and event registrations
 - Admin donations page backed by latest database donation records
+- Sandbox-ready M-Pesa STK Push initiation and callback status handling
+- Public donation status pages for pending, confirmed, and failed gifts
 - Architecture and implementation documentation
 
 Not implemented yet:
@@ -67,6 +69,7 @@ Not implemented yet:
 - `GET /api/campaigns` returns campaign progress. Without `DATABASE_URL`, it serves preview data.
 - `POST /api/campaigns` validates a campaign draft and creates it when the database is connected. Without `DATABASE_URL`, it returns a preview campaign response.
 - `POST /api/donations` validates a donation request and creates a pending gift when the database is connected. It records campaign, child, event, and package context when provided. Without `DATABASE_URL`, it returns a preview donation response.
+- `POST /api/payments/mpesa/callback` accepts Daraja STK callback payloads and updates payment/donation status.
 - `POST /api/marketing-campaigns` creates a draft campaign for email, SMS, WhatsApp, social, or multi-channel outreach. Without `DATABASE_URL`, it returns a preview response.
 
 ## Local Admin Login
@@ -93,8 +96,8 @@ $env:DATABASE_URL='postgresql://heart_to-heart:heart_to-heart_dev@localhost:5433
 
 ## Next Engineering Steps
 
-1. Implement M-Pesa STK Push and callback handling.
-2. Add donation detail/status pages and receipt generation.
+1. Add Daraja sandbox credentials and test a real STK Push with a public callback URL.
+2. Add receipt PDF/email generation after confirmed payments.
 3. Add email, SMS, and WhatsApp provider integrations.
 4. Build admin CRUD for events, beneficiaries, donors, partners, marketing, and reports.
 5. Add role-aware admin access and production password reset.

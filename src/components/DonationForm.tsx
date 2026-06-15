@@ -8,6 +8,7 @@ type DonationState = {
   status: "idle" | "submitting" | "success" | "error";
   message: string;
   reference?: string;
+  statusUrl?: string;
 };
 
 const amounts = [1000, 2500, 5000, 10000];
@@ -93,6 +94,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
       ok: boolean;
       message?: string;
       donation?: { id: string; status: string };
+      statusUrl?: string;
       nextAction?: string;
     };
 
@@ -107,7 +109,8 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
     setState({
       status: "success",
       message: result.nextAction ?? "Donation started successfully.",
-      reference: result.donation?.id
+      reference: result.donation?.id,
+      statusUrl: result.statusUrl
     });
   }
 
@@ -271,6 +274,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
             <strong>{state.status === "success" ? "Donation ready" : "Status"}</strong>
             <span>{state.message}</span>
             {state.reference ? <small>Reference: {state.reference}</small> : null}
+            {state.statusUrl ? <a className="button secondary" href={state.statusUrl}>View payment status</a> : null}
           </div>
         ) : null}
       </section>
