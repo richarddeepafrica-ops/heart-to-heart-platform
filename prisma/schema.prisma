@@ -118,6 +118,7 @@ model Campaign {
 
 model Beneficiary {
   id              String        @id @default(cuid())
+  slug            String        @unique
   publicName      String
   privateName     String?
   age             Int?
@@ -135,17 +136,24 @@ model Donation {
   donorId        String?
   campaignId     String?
   beneficiaryId  String?
+  eventId        String?
   amount         Int
   currency       String         @default("KES")
   method         PaymentMethod
   status         DonationStatus @default(PENDING)
+  frequency      String         @default("one-time")
+  destinationType String        @default("campaign")
+  destinationLabel String?
+  packageName    String?
   receiptNumber  String?
   source         String?
   providerRef    String?
   donor          Donor?         @relation(fields: [donorId], references: [id])
   campaign       Campaign?      @relation(fields: [campaignId], references: [id])
   beneficiary    Beneficiary?   @relation(fields: [beneficiaryId], references: [id])
+  event          Event?         @relation(fields: [eventId], references: [id])
   transactions   PaymentTransaction[]
+  registration   EventRegistration?
   createdAt      DateTime       @default(now())
   updatedAt      DateTime       @updatedAt
 }
@@ -173,6 +181,7 @@ model Event {
   startsAt       DateTime
   venue          String?
   registrations  EventRegistration[]
+  donations       Donation[]
   createdAt      DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
 }
@@ -181,6 +190,7 @@ model EventRegistration {
   id          String   @id @default(cuid())
   eventId     String
   donorId     String?
+  donationId  String?  @unique
   ticketType  String
   quantity    Int      @default(1)
   totalAmount Int
@@ -188,6 +198,7 @@ model EventRegistration {
   checkedInAt DateTime?
   event       Event    @relation(fields: [eventId], references: [id])
   donor       Donor?   @relation(fields: [donorId], references: [id])
+  donation    Donation? @relation(fields: [donationId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

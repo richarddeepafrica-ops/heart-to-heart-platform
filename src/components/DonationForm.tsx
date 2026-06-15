@@ -84,6 +84,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
         childSlug,
         eventSlug,
         packageName,
+        isAnonymous: formData.get("anonymous") === "on",
         source: contextualSource
       })
     });

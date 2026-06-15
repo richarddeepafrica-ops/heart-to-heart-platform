@@ -64,6 +64,39 @@ const partners = [
   ["Jubilee", "Insurance partner", 500000]
 ];
 
+const beneficiaries = [
+  {
+    slug: "joy-wambui",
+    publicName: "Joy Wambui",
+    privateName: "Joy Wambui",
+    age: 9,
+    diagnosis: "Surgery and follow-up support",
+    storySummary: "Sponsorship helps Joy's family stay connected to review, treatment, medication, and recovery support.",
+    fundingGoal: 180000,
+    consentStatus: "APPROVED"
+  },
+  {
+    slug: "jsean-kairu",
+    publicName: "J'sean Kairu",
+    privateName: "J'sean Kairu",
+    age: 7,
+    diagnosis: "Treatment and recovery care",
+    storySummary: "Your sponsorship helps cover practical treatment needs while the family follows the care plan.",
+    fundingGoal: 250000,
+    consentStatus: "APPROVED"
+  },
+  {
+    slug: "privacy-safe-profile",
+    publicName: "Privacy-safe profile",
+    privateName: null,
+    age: null,
+    diagnosis: "Pending approval",
+    storySummary: "This profile should only publish after guardian consent and medical review.",
+    fundingGoal: 100000,
+    consentStatus: "DRAFT"
+  }
+];
+
 function hashPassword(password) {
   const salt = crypto.randomBytes(16).toString("hex");
   const hash = crypto.scryptSync(password, salt, 64).toString("hex");
@@ -127,6 +160,14 @@ async function main() {
       where: { organization },
       update: { interest, estimatedValue, pipelineStage: "ACTIVE_PARTNER" },
       create: { organization, interest, estimatedValue, pipelineStage: "ACTIVE_PARTNER" }
+    });
+  }
+
+  for (const beneficiary of beneficiaries) {
+    await prisma.beneficiary.upsert({
+      where: { slug: beneficiary.slug },
+      update: beneficiary,
+      create: beneficiary
     });
   }
 }

@@ -1,11 +1,9 @@
-const donations = [
-  ["H2H-1042", "Mary A.", "KES 10,000", "M-Pesa", "Fund 20 Heart Surgeries", "Pending receipt"],
-  ["H2H-1041", "Corporate Team Alpha", "KES 250,000", "Bank transfer", "CSR Surgery Fund", "Review"],
-  ["H2H-1040", "Anonymous", "KES 5,000", "Card", "Where most needed", "Confirmed"],
-  ["H2H-1039", "Heart Run Family", "KES 5,000", "Card", "Event registration", "Confirmed"]
-];
+import { formatKes } from "@/lib/content";
+import { getDonationDashboard } from "@/lib/donation-data";
 
-export default function DonationsPage() {
+export default async function DonationsPage() {
+  const dashboard = await getDonationDashboard();
+
   return (
     <>
       <header className="adminTopbar">
@@ -13,18 +11,18 @@ export default function DonationsPage() {
         <div className="adminActions"><button type="button">Export CSV</button><button className="primaryAction" type="button">Record offline gift</button></div>
       </header>
       <section className="adminKpis">
-        {[
-          ["Today", "KES 842K", "21 gifts"],
-          ["Confirmed", "KES 721K", "86% reconciled"],
-          ["Pending", "7", "receipt queue"],
-          ["Failed", "3", "needs follow-up"]
+        {[ 
+          ["Today", formatKes(dashboard.todayTotal), "latest gifts"],
+          ["Confirmed", formatKes(dashboard.confirmedTotal), "paid or reconciled"],
+          ["Pending", String(dashboard.pendingCount), "receipt queue"],
+          ["Failed", String(dashboard.failedCount), "needs follow-up"]
         ].map(([label, value, meta]) => <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>)}
       </section>
       <article className="appPanel">
         <div className="panelHeader"><div><p className="eyebrow">Records</p><h2>Latest donations</h2></div><button type="button">Filter</button></div>
         <div className="simpleTable six">
-          {donations.map(([id, donor, amount, method, source, status]) => (
-            <div key={id}><strong>{id}</strong><span>{donor}</span><span>{amount}</span><span>{method}</span><span>{source}</span><em>{status}</em></div>
+          {dashboard.records.map((record) => (
+            <div key={record.id}><strong>{record.id}</strong><span>{record.donor}</span><span>{formatKes(record.amount)}</span><span>{record.method.replace("_", " ")}</span><span>{record.destination}</span><em>{record.status}</em></div>
           ))}
         </div>
       </article>
