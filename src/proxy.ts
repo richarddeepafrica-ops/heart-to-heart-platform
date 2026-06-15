@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const adminSessionCookie = "h2h_admin_session";
+const protectedApiPrefixes = ["/api/beneficiaries", "/api/marketing-campaigns"];
+const protectedApiMutationPrefixes = ["/api/campaigns"];
 
 function toHex(buffer: ArrayBuffer) {
   return Array.from(new Uint8Array(buffer))
@@ -35,13 +37,21 @@ async function hasValidSession(token?: string) {
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const isAdminPage = pathname.startsWith("/admin") && pathname !== "/admin/login";
+  const isProtectedApi =
+    protectedApiPrefixes.some((prefix) => pathname.startsWith(prefix)) ||
+    (request.method !== "GET" && protectedApiMutationPrefixes.some((prefix) => pathname.startsWith(prefix)));
 
-  if (!pathname.startsWith("/admin") || pathname === "/admin/login") {
+  if (!isAdminPage && !isProtectedApi) {
     return NextResponse.next();
   }
 
   const isAuthenticated = await hasValidSession(request.cookies.get(adminSessionCookie)?.value);
   if (isAuthenticated) return NextResponse.next();
+
+  if (isProtectedApi) {
+    return NextResponse.json({ ok: false, message: "Admin login required." }, { status: 401 });
+  }
 
   const loginUrl = request.nextUrl.clone();
   loginUrl.pathname = "/admin/login";
@@ -50,5 +60,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"]
+  matcher: ["/admin/:path*", "/api/beneficiaries/:path*", "/api/campaigns/:path*", "/api/marketing-campaigns/:path*"]
 };
