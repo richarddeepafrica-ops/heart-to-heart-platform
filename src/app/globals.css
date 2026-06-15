@@ -1853,6 +1853,15 @@ body:has(.adminApp) .siteHeader {
   background: var(--surface-soft);
 }
 
+.financeTable.financeReviewTable {
+  overflow-x: auto;
+}
+
+.financeTable.financeReviewTable > div {
+  grid-template-columns: minmax(180px, 1fr) 120px 130px 130px 180px minmax(260px, 1.2fr);
+  min-width: 1080px;
+}
+
 .financeTable small {
   display: block;
   color: var(--muted);
@@ -1966,6 +1975,16 @@ body:has(.adminApp) .siteHeader {
 
 .inlineAdminForm.compact {
   grid-template-columns: 1fr;
+}
+
+.financeActionForm {
+  grid-template-columns: 110px minmax(120px, 1fr) auto;
+}
+
+.financeActionForm input {
+  min-height: 38px;
+  margin: 0;
+  font-size: 14px;
 }
 
 .builderPreview {
