@@ -12,7 +12,7 @@ export default function GoatDerbyPage() {
           </p>
           <div className="actions">
             <a className="button primary" href="/partners">Sponsor the event</a>
-            <a className="button secondary" href="/donate">Donate to the mission</a>
+            <a className="button secondary" href="/donate?type=event-donation&eventSlug=goat-derby&eventName=Goat+Derby&amount=5000#give">Donate to Goat Derby</a>
           </div>
         </div>
         <aside className="detailDonateCard">
@@ -63,11 +63,11 @@ export default function GoatDerbyPage() {
         <aside className="givingMenu">
           <h3>Package ideas</h3>
           {[
-            ["Family ticket", "Entry package for families and general supporters."],
-            ["Activity sponsor", "Support a featured zone or community activation."],
-            ["Corporate sponsor", "Visibility package for companies and staff teams."]
-          ].map(([title, copy]) => (
-            <a href="/partners" key={title}>
+            ["Family ticket", "Entry package for families and general supporters.", 5000],
+            ["Activity sponsor", "Support a featured zone or community activation.", 50000],
+            ["Corporate sponsor", "Visibility package for companies and staff teams.", 150000]
+          ].map(([title, copy, amount]) => (
+            <a href={`/donate?type=event-registration&eventSlug=goat-derby&eventName=Goat+Derby&packageName=${encodeURIComponent(String(title))}&amount=${amount}#give`} key={title}>
               <strong>{title}</strong>
               <span>{copy}</span>
             </a>
@@ -82,7 +82,7 @@ export default function GoatDerbyPage() {
         </div>
         <div className="eventActionLinks">
           <a className="button primary" href="/partners">Become a partner</a>
-          <a className="button secondary" href="/donate">Give today</a>
+          <a className="button secondary" href="/donate?type=event-donation&eventSlug=goat-derby&eventName=Goat+Derby&amount=5000#give">Give today</a>
         </div>
       </section>
     </main>

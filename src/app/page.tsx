@@ -1,6 +1,7 @@
 import { ProgressBar } from "@/components/ProgressBar";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { campaigns, formatKes, fundedPercent, heroImages, impactMetrics } from "@/lib/content";
+import { sponsorshipProfiles } from "@/lib/sponsorships";
 
 export default function Home() {
   const primaryCampaign = campaigns[0];
@@ -185,19 +186,15 @@ export default function Home() {
           <a className="button secondary" href="/sponsor">View sponsorship</a>
         </div>
         <div className="childStack">
-          {[
-            ["JW", "Joy, age 9", "Needs surgery support and post-care follow-up.", "72% funded"],
-            ["JK", "J'sean, age 7", "Funding needed for treatment and recovery care.", "46% funded"],
-            ["LM", "Privacy-safe profile", "Visible only after consent and admin approval.", "Draft review"]
-          ].map(([initials, name, need, status]) => (
-            <article className="childCard" key={name}>
-              <div className="avatar">{initials}</div>
+          {sponsorshipProfiles.map((profile) => (
+            <a className="childCard" href={`/sponsor/${profile.slug}`} key={profile.slug}>
+              <div className="avatar">{profile.initials}</div>
               <div>
-                <h3>{name}</h3>
-                <p>{need}</p>
-                <small>{status}</small>
+                <h3>{profile.displayName}</h3>
+                <p>{profile.need}</p>
+                <small>{profile.raisedPercent}</small>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </section>
@@ -213,11 +210,11 @@ export default function Home() {
         </div>
         <div className="eventBoard">
           {[
-            ["Every March", "Heart Run", "Raising funds for children from underprivileged backgrounds."],
-            ["Every August", "Goat Derby", "A community fundraising tradition."],
-            ["Nov / Dec", "Gala Dinner", "A giving moment for partners and major supporters."]
-          ].map(([date, title, copy]) => (
-            <article key={title}>
+            ["Every March", "Heart Run", "Raising funds for children from underprivileged backgrounds.", "/events/heart-run"],
+            ["Every August", "Goat Derby", "A community fundraising tradition.", "/events/goat-derby"],
+            ["Nov / Dec", "Gala Dinner", "A giving moment for partners and major supporters.", "/events/gala-dinner"]
+          ].map(([date, title, copy, href]) => (
+            <a href={href} key={title}>
               <p className="date">{date}</p>
               <h3>{title}</h3>
               <p>{copy}</p>
@@ -226,7 +223,7 @@ export default function Home() {
                 <li>Schools and companies</li>
                 <li>Awareness and fundraising</li>
               </ul>
-            </article>
+            </a>
           ))}
         </div>
       </section>

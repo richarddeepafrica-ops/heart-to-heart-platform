@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { DonationForm } from "@/components/DonationForm";
 
 export default function DonatePage() {
@@ -50,7 +51,9 @@ export default function DonatePage() {
           <p className="eyebrow">Make your gift</p>
           <h2>Choose an amount and the cause you want to support.</h2>
         </div>
-        <DonationForm />
+        <Suspense fallback={<div className="notice">Loading payment details...</div>}>
+          <DonationForm />
+        </Suspense>
       </section>
 
       <section className="offlineGivingSection" id="offline-giving">

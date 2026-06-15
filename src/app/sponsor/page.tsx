@@ -1,23 +1,5 @@
-const children = [
-  {
-    name: "Joy",
-    age: "8 years",
-    need: "Post-surgery review and medication support",
-    goal: "KES 180,000"
-  },
-  {
-    name: "Brian",
-    age: "11 years",
-    need: "Diagnostic tests and travel support",
-    goal: "KES 95,000"
-  },
-  {
-    name: "Amina",
-    age: "6 years",
-    need: "Surgery fund and family accommodation",
-    goal: "KES 620,000"
-  }
-];
+import { formatKes } from "@/lib/content";
+import { sponsorDonateHref, sponsorshipProfiles } from "@/lib/sponsorships";
 
 export default function SponsorPage() {
   return (
@@ -47,13 +29,16 @@ export default function SponsorPage() {
       </section>
 
       <section className="cardGrid">
-        {children.map((child) => (
-          <article className="campaignCard" key={child.name}>
+        {sponsorshipProfiles.map((child) => (
+          <article className="campaignCard" key={child.slug}>
             <p className="eyebrow">{child.age}</p>
             <h2>{child.name}</h2>
             <p>{child.need}</p>
-            <strong className="price">{child.goal}</strong>
-            <a className="button primary" href={child.name === "Joy" ? "/sponsor/joy" : "/donate"}>
+            <strong className="price">{formatKes(child.goalAmount)}</strong>
+            <a className="button primary" href={`/sponsor/${child.slug}`}>
+              View profile
+            </a>
+            <a className="button secondary" href={sponsorDonateHref(child)}>
               Sponsor care
             </a>
           </article>

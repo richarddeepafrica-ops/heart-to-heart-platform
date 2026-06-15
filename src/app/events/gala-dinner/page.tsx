@@ -12,7 +12,7 @@ export default function GalaDinnerPage() {
           </p>
           <div className="actions">
             <a className="button primary" href="/corporate">Discuss sponsorship</a>
-            <a className="button secondary" href="/donate">Make a gift</a>
+            <a className="button secondary" href="/donate?type=event-donation&eventSlug=gala-dinner&eventName=Gala+Dinner&amount=25000#give">Make a gift</a>
           </div>
         </div>
         <aside className="detailDonateCard">
@@ -54,11 +54,11 @@ export default function GalaDinnerPage() {
         <aside className="givingMenu">
           <h3>Potential packages</h3>
           {[
-            ["Corporate table", "Host guests and receive recognition during the evening."],
-            ["Programme sponsor", "Support production, storytelling, and donor engagement."],
-            ["Surgery pledge", "Make a named contribution toward treatment support."]
-          ].map(([title, copy]) => (
-            <a href="/corporate" key={title}>
+            ["Corporate table", "Host guests and receive recognition during the evening.", 250000],
+            ["Programme sponsor", "Support production, storytelling, and donor engagement.", 500000],
+            ["Surgery pledge", "Make a named contribution toward treatment support.", 100000]
+          ].map(([title, copy, amount]) => (
+            <a href={`/donate?type=event-registration&eventSlug=gala-dinner&eventName=Gala+Dinner&packageName=${encodeURIComponent(String(title))}&amount=${amount}#give`} key={title}>
               <strong>{title}</strong>
               <span>{copy}</span>
             </a>
@@ -73,7 +73,7 @@ export default function GalaDinnerPage() {
         </div>
         <div className="eventActionLinks">
           <a className="button primary" href="/corporate">Become a sponsor</a>
-          <a className="button secondary" href="/campaigns/fund-20-heart-surgeries">Support campaign</a>
+          <a className="button secondary" href="/donate?type=event-donation&eventSlug=gala-dinner&eventName=Gala+Dinner&amount=25000#give">Support Gala</a>
         </div>
       </section>
     </main>

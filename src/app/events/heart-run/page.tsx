@@ -72,7 +72,7 @@ export default function HeartRunPage() {
             <span>Every registration helps fund care and raise public awareness.</span>
           </div>
           {eventProducts.map((ticket) => (
-            <a href="/events/heart-run/register" key={ticket.name} className={ticket.name === "Family" ? "featuredPackage" : ""}>
+            <a href={`/donate?type=event-registration&eventSlug=heart-run&eventName=Heart+Run+%2F+Walk&packageName=${encodeURIComponent(ticket.name)}&amount=${ticket.price}#give`} key={ticket.name} className={ticket.name === "Family" ? "featuredPackage" : ""}>
               <strong>{ticket.name}</strong>
               <em>{formatKes(ticket.price)}</em>
               <span>{ticket.description}</span>
@@ -81,7 +81,7 @@ export default function HeartRunPage() {
           <div className="packageFooter">
             <small>Schools and corporates can coordinate team registration with the foundation.</small>
             <a className="button primary wide" href="/events/heart-run/register">Register interest</a>
-            <a className="button secondary wide" href="/events/heart-run/donate">Donate to Heart Run</a>
+            <a className="button secondary wide" href="/donate?type=event-donation&eventSlug=heart-run&eventName=Heart+Run+%2F+Walk&campaignSlug=heart-run-walk#give">Donate to Heart Run</a>
           </div>
         </aside>
       </section>
@@ -117,7 +117,7 @@ export default function HeartRunPage() {
         </div>
         <div className="eventActionLinks">
           <a className="button primary" href="/events/heart-run/register">Register</a>
-          <a className="button secondary" href="/events/heart-run/donate">Donate to event</a>
+          <a className="button secondary" href="/donate?type=event-donation&eventSlug=heart-run&eventName=Heart+Run+%2F+Walk&campaignSlug=heart-run-walk#give">Donate to event</a>
           <a className="button secondary" href="/corporate">Sponsor</a>
         </div>
       </section>

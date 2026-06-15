@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { ProgressBar } from "@/components/ProgressBar";
 import { DonationForm } from "@/components/DonationForm";
 import { campaigns, formatKes, fundedPercent } from "@/lib/content";
@@ -17,7 +18,7 @@ export default function SurgeryCampaignPage() {
             meet the cost of treatment.
           </p>
           <div className="actions">
-            <a className="button primary" href="#campaign-gift">Donate now</a>
+            <a className="button primary" href="/donate?type=campaign&campaignSlug=fund-20-heart-surgeries&amount=5000#give">Donate now</a>
             <a className="button secondary" href="/corporate">Become a partner</a>
           </div>
         </div>
@@ -57,13 +58,13 @@ export default function SurgeryCampaignPage() {
         <aside className="givingMenu">
           <h3>What your gift can support</h3>
           {[
-            ["KES 1,000", "Medication, clinic supplies, or follow-up support"],
-            ["KES 5,000", "Transport and review support for a child and guardian"],
-            ["KES 10,000", "Diagnostic tests or specialist consultation"],
-            ["KES 50,000", "A meaningful contribution toward surgery costs"]
+            [1000, "Medication, clinic supplies, or follow-up support"],
+            [5000, "Transport and review support for a child and guardian"],
+            [10000, "Diagnostic tests or specialist consultation"],
+            [50000, "A meaningful contribution toward surgery costs"]
           ].map(([amount, copy]) => (
-            <a href="/donate" key={amount}>
-              <strong>{amount}</strong>
+            <a href={`/donate?type=campaign&campaignSlug=fund-20-heart-surgeries&amount=${amount}#give`} key={String(amount)}>
+              <strong>{formatKes(Number(amount))}</strong>
               <span>{copy}</span>
             </a>
           ))}
@@ -138,7 +139,9 @@ export default function SurgeryCampaignPage() {
             still switch to another campaign if needed.
           </p>
         </div>
-        <DonationForm defaultCampaignSlug="fund-20-heart-surgeries" source="surgery-campaign-page" />
+        <Suspense fallback={<div className="notice">Loading payment details...</div>}>
+          <DonationForm defaultCampaignSlug="fund-20-heart-surgeries" source="surgery-campaign-page" />
+        </Suspense>
       </section>
     </main>
   );

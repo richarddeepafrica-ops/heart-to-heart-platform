@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { campaigns, formatKes } from "@/lib/content";
 
 type DonationState = {
@@ -17,12 +18,49 @@ type DonationFormProps = {
 };
 
 export function DonationForm({ defaultCampaignSlug, source = "website-donation-page" }: DonationFormProps) {
-  const [amount, setAmount] = useState(2500);
+  const searchParams = useSearchParams();
+  const contextType = searchParams.get("type") ?? "campaign";
+  const queryAmount = Number(searchParams.get("amount"));
+  const queryCampaignSlug = searchParams.get("campaignSlug");
+  const childSlug = searchParams.get("childSlug");
+  const eventSlug = searchParams.get("eventSlug");
+  const eventName = searchParams.get("eventName");
+  const packageName = searchParams.get("packageName");
+  const addOn = Number(searchParams.get("addOn") ?? 0);
+  const label = searchParams.get("label");
+  const hasLockedDestination = ["child", "event-registration"].includes(contextType);
+  const contextualSource = [
+    source,
+    contextType,
+    childSlug,
+    eventSlug,
+    packageName
+  ].filter(Boolean).join(":");
+
+  const [amount, setAmount] = useState(Number.isFinite(queryAmount) && queryAmount > 0 ? queryAmount : 2500);
   const [frequency, setFrequency] = useState<"one-time" | "monthly">("one-time");
   const [method, setMethod] = useState<"MPESA" | "CARD" | "BANK_TRANSFER">("MPESA");
-  const [campaignSlug, setCampaignSlug] = useState(defaultCampaignSlug ?? campaigns[0].id);
+  const [campaignSlug, setCampaignSlug] = useState(queryCampaignSlug ?? defaultCampaignSlug ?? campaigns[0].id);
   const [state, setState] = useState<DonationState>({ status: "idle", message: "" });
   const selectedCampaign = campaigns.find((campaign) => campaign.id === campaignSlug) ?? campaigns[0];
+  const destinationTitle =
+    contextType === "child"
+      ? `Sponsor ${label ?? "a child"}`
+      : contextType === "event-registration"
+        ? `${eventName ?? "Event"} registration: ${packageName ?? "Selected package"}`
+        : contextType === "event-donation"
+          ? `${eventName ?? selectedCampaign.title} donation`
+          : selectedCampaign.title;
+  const destinationSummary =
+    contextType === "child"
+      ? "This gift is marked for the selected child's care journey."
+      : contextType === "event-registration"
+        ? addOn > 0
+          ? `Includes registration plus ${formatKes(addOn)} add-on gift.`
+          : "This payment is marked as an event registration."
+        : contextType === "event-donation"
+          ? "This gift is marked for the selected event fundraising effort."
+          : selectedCampaign.summary;
 
   async function submitDonation(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,7 +79,12 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
         campaignSlug,
         method,
         frequency,
-        source
+        destinationType: contextType,
+        destinationLabel: destinationTitle,
+        childSlug,
+        eventSlug,
+        packageName,
+        source: contextualSource
       })
     });
 
@@ -151,19 +194,21 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
             <strong>Destination</strong>
             <span>Choose where to give</span>
           </div>
-          <label>
-            Campaign
-            <select value={campaignSlug} onChange={(event) => setCampaignSlug(event.target.value)}>
-              {campaigns.map((campaign) => (
-                <option key={campaign.id} value={campaign.id}>
-                  {campaign.title}
-                </option>
-              ))}
-            </select>
-          </label>
+          {hasLockedDestination ? null : (
+            <label>
+              Campaign
+              <select value={campaignSlug} onChange={(event) => setCampaignSlug(event.target.value)}>
+                {campaigns.map((campaign) => (
+                  <option key={campaign.id} value={campaign.id}>
+                    {campaign.title}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
           <div className="campaignMini">
-            <strong>{selectedCampaign.title}</strong>
-            <span>{selectedCampaign.summary}</span>
+            <strong>{destinationTitle}</strong>
+            <span>{destinationSummary}</span>
           </div>
         </div>
 
@@ -236,7 +281,8 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
         </div>
         <div className="summaryRows">
           <span>Frequency</span><strong>{frequency === "monthly" ? "Monthly" : "One-time"}</strong>
-          <span>Destination</span><strong>{selectedCampaign.title}</strong>
+          <span>Destination</span><strong>{destinationTitle}</strong>
+          {packageName ? <><span>Package</span><strong>{packageName}</strong></> : null}
           <span>Payment</span><strong>{method.replace("_", " ")}</strong>
           <span>Receipt</span><strong>Prepared after payment</strong>
         </div>

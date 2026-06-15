@@ -11,12 +11,12 @@ const beneficiaries = [
   {
     name: "Joy Wambui",
     image: "/assets/impact/joy-wambui.jpeg",
-    href: "/sponsor/joy"
+    href: "/sponsor/joy-wambui"
   },
   {
     name: "J'sean Kairu",
     image: "/assets/impact/jsean-kairu.jpeg",
-    href: "/impact"
+    href: "/sponsor/jsean-kairu"
   },
   {
     name: "Jedidah Mukami",

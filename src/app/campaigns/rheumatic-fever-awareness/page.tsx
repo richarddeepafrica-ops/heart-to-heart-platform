@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { DonationForm } from "@/components/DonationForm";
 import { ProgressBar } from "@/components/ProgressBar";
 import { campaigns, formatKes, fundedPercent } from "@/lib/content";
@@ -17,7 +18,7 @@ export default function RheumaticFeverCampaignPage() {
             follow-up for children at risk of rheumatic heart disease.
           </p>
           <div className="actions">
-            <a className="button primary" href="#prevention-gift">Donate to prevention</a>
+            <a className="button primary" href="/donate?type=campaign&campaignSlug=rheumatic-fever-awareness&amount=5000#give">Donate to prevention</a>
             <a className="button secondary" href="/impact">See impact</a>
           </div>
         </div>
@@ -60,7 +61,9 @@ export default function RheumaticFeverCampaignPage() {
           <p className="eyebrow">Donate to prevention</p>
           <h2>Support rheumatic fever awareness and follow-up.</h2>
         </div>
-        <DonationForm defaultCampaignSlug="rheumatic-fever-awareness" source="prevention-campaign-page" />
+        <Suspense fallback={<div className="notice">Loading payment details...</div>}>
+          <DonationForm defaultCampaignSlug="rheumatic-fever-awareness" source="prevention-campaign-page" />
+        </Suspense>
       </section>
     </main>
   );

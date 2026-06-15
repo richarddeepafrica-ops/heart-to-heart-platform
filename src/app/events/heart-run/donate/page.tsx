@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { DonationForm } from "@/components/DonationForm";
 
 export default function HeartRunDonatePage() {
@@ -93,7 +94,9 @@ export default function HeartRunDonatePage() {
             change the destination if you decide to support another campaign.
           </p>
         </div>
-        <DonationForm defaultCampaignSlug="heart-run-walk" source="heart-run-donation-page" />
+        <Suspense fallback={<div className="notice">Loading payment details...</div>}>
+          <DonationForm defaultCampaignSlug="heart-run-walk" source="heart-run-donation-page" />
+        </Suspense>
       </section>
     </main>
   );
