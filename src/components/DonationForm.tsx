@@ -145,6 +145,11 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
           </div>
           <span className="checkoutBadge">KES</span>
         </div>
+        <div className="checkoutTrustStrip" aria-label="Donation safeguards">
+          <span><strong>Secure</strong> signed checkout</span>
+          <span><strong>Receipt</strong> after confirmation</span>
+          <span><strong>Impact</strong> updates available</span>
+        </div>
 
         <div className="checkoutBlock">
           <div className="blockTitle">
@@ -249,8 +254,8 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
           <div className="paymentMethods" role="group" aria-label="Payment method">
             {[
               ["MPESA", "M-Pesa", "STK push"],
-              ["CARD", "Card", "Visa / Mastercard"],
-              ["BANK_TRANSFER", "Bank", "Manual review"]
+              ["CARD", "Card", "Coming soon"],
+              ["BANK_TRANSFER", "Bank", "Finance review"]
             ].map(([value, label, copy]) => (
               <button
                 className={method === value ? "active" : ""}

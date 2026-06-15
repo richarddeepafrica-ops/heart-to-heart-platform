@@ -2348,8 +2348,8 @@ body:has(.adminApp) .siteHeader {
 
 .donationCheckout {
   display: grid;
-  grid-template-columns: 250px minmax(420px, 1fr) minmax(300px, 380px);
-  gap: 14px;
+  grid-template-columns: minmax(220px, 250px) minmax(420px, 1fr) minmax(300px, 370px);
+  gap: 16px;
   align-items: start;
 }
 
@@ -2379,7 +2379,8 @@ body:has(.adminApp) .siteHeader {
   gap: 3px;
   padding: 14px;
   border-radius: 8px;
-  background: var(--blue-dark);
+  background:
+    linear-gradient(135deg, rgba(15, 63, 115, 0.96), rgba(25, 94, 165, 0.94));
   color: white;
 }
 
@@ -2457,6 +2458,30 @@ body:has(.adminApp) .siteHeader {
   font-size: 30px;
 }
 
+.checkoutTrustStrip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.checkoutTrustStrip span {
+  display: grid;
+  gap: 3px;
+  min-height: 58px;
+  padding: 10px 12px;
+  border: 1px solid rgba(25, 94, 165, 0.12);
+  border-radius: 8px;
+  background: white;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.checkoutTrustStrip strong {
+  color: var(--blue-dark);
+  font-size: 13px;
+}
+
 .checkoutBadge {
   padding: 8px 10px;
   border-radius: 999px;
@@ -2513,6 +2538,13 @@ body:has(.adminApp) .siteHeader {
   color: var(--blue-dark);
   cursor: pointer;
   font-weight: 900;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.segmentedControl button:hover,
+.paymentMethods button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(25, 94, 165, 0.28);
 }
 
 .segmentedControl button.active,
@@ -2526,6 +2558,7 @@ body:has(.adminApp) .siteHeader {
   display: grid;
   gap: 4px;
   padding: 12px;
+  border: 1px solid rgba(25, 94, 165, 0.1);
   border-radius: 8px;
   background: white;
 }
@@ -2587,6 +2620,8 @@ body:has(.adminApp) .siteHeader {
   display: grid;
   gap: 16px;
   padding: 18px;
+  background:
+    linear-gradient(180deg, #ffffff, rgba(248, 251, 255, 0.96));
 }
 
 .summaryHeader {
@@ -4805,6 +4840,34 @@ body:has(.adminApp) .siteHeader {
   .adminSidebar {
     position: static;
     height: auto;
+    gap: 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .workspaceMark {
+    grid-template-columns: minmax(120px, 180px) 1fr;
+    align-items: center;
+  }
+
+  .workspaceMark img {
+    height: 54px;
+  }
+
+  .adminSidebar nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .adminSidebar nav a {
+    min-height: 38px;
+  }
+
+  .sidebarCard {
+    margin-top: 0;
+  }
+
+  .adminWorkspace {
+    padding: 16px;
   }
 
   .span4,
@@ -4831,7 +4894,59 @@ body:has(.adminApp) .siteHeader {
     position: static;
   }
 
+  .checkoutRail {
+    grid-template-columns: 1fr;
+  }
+
+  .checkoutTrustStrip,
+  .summaryRows {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryRows strong {
+    text-align: left;
+  }
+
   .financeWide {
     grid-column: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .siteHeader {
+    min-height: auto;
+    flex-wrap: wrap;
+  }
+
+  .brand {
+    width: 160px;
+  }
+
+  .brand img {
+    width: 160px;
+  }
+
+  .adminSidebar nav,
+  .workspaceMark,
+  .checkoutTrustStrip,
+  .paymentMethods,
+  .segmentedControl,
+  .financeActionForm {
+    grid-template-columns: 1fr;
+  }
+
+  .adminTopbar h1,
+  .checkoutHeader h2 {
+    font-size: 30px;
+  }
+
+  .checkoutMain,
+  .checkoutSummary,
+  .checkoutRail {
+    padding: 14px;
+  }
+
+  .summaryHeader strong {
+    font-size: 25px;
   }
 }
