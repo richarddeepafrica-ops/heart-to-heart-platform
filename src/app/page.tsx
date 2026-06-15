@@ -58,7 +58,7 @@ export default function Home() {
           </div>
           <div className="amountGrid">
             {[1000, 5000, 10000, 50000].map((amount) => (
-              <a className={amount === 5000 ? "amount recommended" : "amount"} href="/donate" key={amount}>
+              <a className={amount === 5000 ? "amount recommended" : "amount"} href={`/donate?amount=${amount}`} key={amount}>
                 {formatKes(amount)}
                 {amount === 5000 ? <small>Most chosen</small> : null}
               </a>

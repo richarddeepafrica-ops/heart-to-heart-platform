@@ -7,13 +7,13 @@ export default function AdminLayout({ children }: Readonly<{ children: React.Rea
       <aside className="adminSidebar">
         <a className="workspaceMark" href="/admin" aria-label="Heart to Heart Foundation admin home">
           <img src="/assets/heart-to-heart-logo.svg" alt="Heart to Heart Foundation" />
-          <span>Foundation OS</span>
+          <span>Foundation operations</span>
         </a>
         <AdminNav />
         <div className="sidebarCard">
           <span>Workspace</span>
-          <strong>Admin preview</strong>
-          <small>Each section now has its own dedicated route.</small>
+          <strong>Live admin</strong>
+          <small>Campaigns, gifts, events, finance, and reports are connected to the database.</small>
         </div>
         <AdminLogoutButton />
       </aside>
