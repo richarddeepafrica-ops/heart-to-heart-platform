@@ -3737,7 +3737,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .siteFooter nav,
-.siteFooter div:last-child {
+.siteFooter > div:last-child {
   display: grid;
   align-content: start;
   gap: 10px;
@@ -3748,7 +3748,7 @@ body:has(.adminApp) .siteHeader {
   font-weight: 800;
 }
 
-.footerSocials {
+.siteFooter .footerSocials {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
