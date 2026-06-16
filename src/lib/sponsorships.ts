@@ -21,7 +21,7 @@ export const sponsorshipProfiles: SponsorshipProfile[] = [
     need: "Needs surgery support and post-care follow-up.",
     goalAmount: 180000,
     raisedPercent: "72% funded",
-    story: "Sponsorship helps Joy's family stay connected to review, treatment, medication, and recovery support.",
+    story: "Just like her name, Joy is a joyful girl. Born deaf and unable to speak, she underwent open heart surgery and gave us another reason to be grateful for the work we do. Her journey reminds us to be thankful for the simple things we often take for granted.",
     portraitImage: "/assets/impact/joy-wambui.png"
   },
   {
