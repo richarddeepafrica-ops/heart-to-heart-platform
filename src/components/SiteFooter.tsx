@@ -1,5 +1,6 @@
 const footerLinks = [
   ["Donate", "/donate"],
+  ["Volunteer", "/volunteer"],
   ["Campaigns", "/campaigns"],
   ["Events", "/events"],
   ["Impact", "/impact"],

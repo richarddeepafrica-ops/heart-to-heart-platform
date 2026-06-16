@@ -1,6 +1,7 @@
 const navItems = [
   ["Donate", "/donate"],
   ["Sponsor", "/sponsor"],
+  ["Volunteer", "/volunteer"],
   ["Campaigns", "/campaigns"],
   ["Events", "/events"],
   ["Impact", "/impact"],
