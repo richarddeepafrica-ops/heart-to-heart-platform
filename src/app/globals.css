@@ -3346,18 +3346,24 @@ body:has(.adminApp) .siteHeader {
 }
 
 .beneficiaryCard {
+  display: grid;
+  justify-items: center;
   overflow: hidden;
+  padding-top: 24px;
   border: 1px solid var(--line);
   border-radius: 18px;
   background: white;
   box-shadow: var(--shadow);
+  text-align: center;
 }
 
 .beneficiaryCard img {
-  width: 100%;
-  aspect-ratio: 1.06;
+  width: min(180px, 62%);
+  aspect-ratio: 1;
   object-fit: cover;
-  border-bottom: 4px solid var(--card-accent, var(--orange));
+  border: 4px solid white;
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px var(--card-accent, var(--orange)), 0 18px 38px rgba(25, 94, 165, 0.16);
 }
 
 .beneficiaryCard span,
@@ -3378,7 +3384,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .beneficiaryCard span {
-  margin-top: 18px;
+  margin-top: 22px;
 }
 
 .beneficiaryCard h3 {
@@ -3392,6 +3398,71 @@ body:has(.adminApp) .siteHeader {
   margin-bottom: 20px;
   color: var(--muted);
   line-height: 1.5;
+}
+
+.impactStoryHero {
+  display: grid;
+  grid-template-columns: minmax(300px, 520px) minmax(0, 1fr);
+  gap: clamp(28px, 6vw, 78px);
+  align-items: center;
+  padding: clamp(56px, 8vw, 108px) clamp(18px, 4vw, 56px);
+  background:
+    radial-gradient(circle at 90% 16%, rgba(1, 166, 80, 0.14), transparent 26rem),
+    radial-gradient(circle at 12% 86%, rgba(245, 130, 32, 0.12), transparent 22rem),
+    linear-gradient(135deg, #ffffff 0%, #f5f9ff 58%, #eaf3ff 100%);
+}
+
+.impactStoryImage {
+  overflow: hidden;
+  border: 1px solid rgba(25, 94, 165, 0.14);
+  border-radius: 24px;
+  background: white;
+  box-shadow: var(--shadow);
+}
+
+.impactStoryImage img {
+  display: block;
+  width: 100%;
+  max-height: 680px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.impactStoryHero h1 {
+  color: var(--blue-dark);
+}
+
+.impactStoryHero p {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.62;
+}
+
+.impactStoryBody {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  background: white;
+}
+
+.impactStoryBody article {
+  padding: 28px;
+  border: 1px solid rgba(25, 94, 165, 0.14);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.94)),
+    radial-gradient(circle at 100% 0%, rgba(245, 130, 32, 0.08), transparent 11rem);
+  box-shadow: var(--shadow);
+}
+
+.impactStoryBody h2 {
+  color: var(--blue-dark);
+}
+
+.impactStoryBody p {
+  color: var(--muted);
+  line-height: 1.62;
 }
 
 .cardiacTeamSection {
@@ -5873,6 +5944,8 @@ body:not(:has(.adminApp)) :where(
   .corporatePartnerCta,
   .allocationGrid,
   .impactHero,
+  .impactStoryHero,
+  .impactStoryBody,
   .beneficiaryGrid,
   .cardiacTeamSection,
   .cardiacPeople,

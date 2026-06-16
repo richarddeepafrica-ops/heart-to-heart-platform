@@ -1,55 +1,11 @@
 import { impactMetrics } from "@/lib/content";
+import { impactStories } from "@/lib/impact-stories";
 
 const proofPoints = [
   "Open-heart surgeries supported for children whose families cannot afford care alone.",
   "Rheumatic fever awareness and prevention through school and community education.",
   "Heart Run / Walk participation that keeps the mission visible nationally.",
   "A committed cardiac team behind diagnosis, surgery, recovery, and follow-up."
-];
-
-const beneficiaries = [
-  {
-    name: "Joy Wambui",
-    image: "/assets/impact/joy-wambui.png",
-    href: "/sponsor/joy-wambui",
-    story: "Just like her name, Joy is a joyful girl. Born deaf and unable to speak, she underwent open heart surgery and reminds us to be thankful for the simple things we often take for granted."
-  },
-  {
-    name: "J'sean Kairu",
-    image: "/assets/impact/jsean-kairu.jpeg",
-    href: "/sponsor/jsean-kairu",
-    story: "J'sean is a daddy's boy. He underwent successful open heart surgery, and his father stayed with him through the entire hospital journey."
-  },
-  {
-    name: "Jedidah Mukami",
-    image: "/assets/impact/jedidah-story.jpg",
-    href: "/impact#beneficiary-stories",
-    story: "Schools are among H2HF's biggest sponsors. Jedidah was referred through school, and after surgery the entire school visited her. Her recovery brought relief to her family and school community."
-  },
-  {
-    name: "Leon Karanja",
-    image: "/assets/impact/leon-story.jpg",
-    href: "/impact#beneficiary-stories",
-    story: "Master Leon kept his beautiful smile even after surgery in the ICU. His joyful personality was contagious to everyone who met him."
-  },
-  {
-    name: "Anjema",
-    image: "/assets/impact/anjema.jpg",
-    href: "/impact#beneficiary-stories",
-    story: "Anjema is a very jolly girl born with Down syndrome. Her parents went out of their way to get help and make sure she received the right surgery for her heart condition through H2HF."
-  },
-  {
-    name: "Repha",
-    image: "/assets/impact/repha.jpg",
-    href: "/impact#beneficiary-stories",
-    story: "Repha was awaiting surgery in the same year she sat for her K.C.P.E. final exams. She passed and was able to pursue her secondary education."
-  },
-  {
-    name: "Lydia",
-    image: "/assets/impact/lydia.jpg",
-    href: "/impact#beneficiary-stories",
-    story: "Lydia was living in a children's home and estranged from her mother. After successful surgery, one sponsor helped restore the family by taking Lydia to boarding school and buying land for the family to build."
-  }
 ];
 
 const careTeam = [
@@ -129,8 +85,8 @@ export default function ImpactPage() {
           <h2>Put children and recovery stories at the centre of the impact page.</h2>
         </div>
         <div className="beneficiaryGrid">
-          {beneficiaries.map((child) => (
-            <a className="beneficiaryCard" href={child.href} key={child.name}>
+          {impactStories.map((child) => (
+            <a className="beneficiaryCard" href={`/impact/${child.slug}`} key={child.name}>
               <img src={child.image} alt={child.name} />
               <span>Beneficiary story</span>
               <h3>{child.name}</h3>
