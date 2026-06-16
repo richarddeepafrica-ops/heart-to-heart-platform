@@ -3553,41 +3553,42 @@ body:has(.adminApp) .siteHeader {
 .programmeCards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  gap: 22px;
 }
 
 .programmeCard {
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  border: 1px solid rgba(25, 94, 165, 0.14);
+  border-radius: 18px;
   background: white;
-  box-shadow: 0 14px 34px rgba(25, 94, 165, 0.08);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  box-shadow: 0 18px 46px rgba(25, 94, 165, 0.09);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
 }
 
 .programmeCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 22px 46px rgba(25, 94, 165, 0.12);
+  transform: translateY(-4px);
+  border-color: rgba(25, 94, 165, 0.22);
+  box-shadow: 0 26px 58px rgba(25, 94, 165, 0.15);
 }
 
 .programmeCard div {
-  min-height: 220px;
+  min-height: 238px;
   background-position: center;
   background-size: cover;
 }
 
 .programmeCard span {
   display: block;
-  padding: 18px 18px 0;
+  padding: 22px 22px 0;
   color: var(--blue-dark);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 900;
 }
 
 .programmeCard p {
   min-height: 92px;
   margin: 0;
-  padding: 10px 18px 20px;
+  padding: 10px 22px 24px;
   color: var(--muted);
   line-height: 1.55;
 }
