@@ -16,9 +16,9 @@ export default async function DonorsPage() {
           <div className="panelHeader"><div><p className="eyebrow">Segments</p><h2>Audience groups</h2></div></div>
           <div className="segmentList">
             {dashboard.segments.map((segment) => (
-              <button className={segment.name === "All donors" ? "active" : ""} key={segment.name} type="button">
+              <div className={segment.name === "All donors" ? "active" : ""} key={segment.name}>
                 <span><strong>{segment.name}</strong><small>{segment.note}</small></span><b>{segment.count}</b>
-              </button>
+              </div>
             ))}
           </div>
         </article>

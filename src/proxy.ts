@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const adminSessionCookie = "h2h_admin_session";
-const protectedApiPrefixes = ["/api/beneficiaries", "/api/event-registrations", "/api/finance", "/api/marketing-campaigns", "/api/reports"];
+const protectedApiPrefixes = ["/api/admin", "/api/beneficiaries", "/api/event-registrations", "/api/finance", "/api/marketing-campaigns", "/api/reports"];
 const protectedApiMutationPrefixes = ["/api/campaigns"];
 const developmentSessionSecret = "change-this-secret-before-production";
 
@@ -70,5 +70,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/beneficiaries/:path*", "/api/event-registrations/:path*", "/api/finance/:path*", "/api/campaigns/:path*", "/api/marketing-campaigns/:path*", "/api/reports/:path*"]
+  matcher: ["/admin/:path*", "/api/admin/:path*", "/api/beneficiaries/:path*", "/api/event-registrations/:path*", "/api/finance/:path*", "/api/campaigns/:path*", "/api/marketing-campaigns/:path*", "/api/reports/:path*"]
 };

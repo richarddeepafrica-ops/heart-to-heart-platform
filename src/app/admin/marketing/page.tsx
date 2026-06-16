@@ -1,3 +1,5 @@
+import { MarketingCampaignForm } from "@/components/MarketingCampaignForm";
+
 const workflows = [
   ["Donation thank-you", "Live", "Receipt, impact story, monthly giving invite"],
   ["Failed monthly payment", "Draft", "SMS reminder, retry link, call task"],
@@ -9,7 +11,7 @@ export default function MarketingPage() {
     <>
       <header className="adminTopbar">
         <div><p className="eyebrow">Marketing</p><h1>Broadcasts and donor journeys</h1></div>
-        <div className="adminActions"><button type="button">Preview audience</button><button className="primaryAction" type="button">Create broadcast</button></div>
+        <div className="adminActions"><a href="/admin/donors">Preview audience</a><a className="primaryAction" href="#create-broadcast">Create broadcast</a></div>
       </header>
       <section className="adminDashboardGrid">
         <article className="appPanel span7">
@@ -18,9 +20,9 @@ export default function MarketingPage() {
             {workflows.map(([name, state, copy]) => <div key={name}><span className={state === "Live" ? "status success" : "status"}>{state}</span><strong>{name}</strong><p>{copy}</p></div>)}
           </div>
         </article>
-        <article className="appPanel span5">
+        <article className="appPanel span5" id="create-broadcast">
           <div className="panelHeader"><div><p className="eyebrow">Broadcast draft</p><h2>Fund 20 Heart Surgeries</h2></div></div>
-          <div className="builderPreview"><label>Audience<select defaultValue="all"><option value="all">All donors</option></select></label><label>Channel<select defaultValue="multi"><option value="multi">Email, SMS, WhatsApp</option></select></label><button className="primaryAction" type="button">Prepare broadcast</button></div>
+          <MarketingCampaignForm />
         </article>
       </section>
     </>
