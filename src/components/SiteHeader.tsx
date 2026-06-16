@@ -5,7 +5,8 @@ const navItems = [
   ["Events", "/events"],
   ["Impact", "/impact"],
   ["Team", "/team"],
-  ["Partners", "/partners"]
+  ["Partners", "/partners"],
+  ["Contact", "/contact"]
 ];
 
 export function SiteHeader() {

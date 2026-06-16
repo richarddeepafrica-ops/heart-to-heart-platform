@@ -5,7 +5,8 @@ const footerLinks = [
   ["Impact", "/impact"],
   ["Team", "/team"],
   ["Partners", "/partners"],
-  ["Corporate Giving", "/corporate"]
+  ["Corporate Giving", "/corporate"],
+  ["Contact", "/contact"]
 ];
 
 const socialLinks = [
@@ -70,7 +71,14 @@ export function SiteFooter() {
         ))}
       </nav>
       <div>
-        <strong>Give offline</strong>
+        <strong>Contact us</strong>
+        <span>P.O. Box 66399 - 000800 Nairobi</span>
+        <span>Off Langa&apos;ta Road, next to Don Bosco Utume</span>
+        <a href="tel:+254738150092">+254 738 150 092</a>
+        <a href="mailto:hearttoheart@karenhospital.org">hearttoheart@karenhospital.org</a>
+        <span>Mon-Fri: 8 AM - 5 PM</span>
+        <span>Sat: 8 AM - 1 PM</span>
+        <strong className="footerGiveTitle">Give offline</strong>
         <span>M-Pesa Paybill 517800</span>
         <span>Equity Bank 0180 2919 43847</span>
       </div>
