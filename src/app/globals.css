@@ -2182,7 +2182,7 @@ body:has(.adminApp) .siteHeader {
   border-radius: 22px;
   background:
     linear-gradient(180deg, rgba(7, 55, 96, 0.02), rgba(7, 55, 96, 0.24)),
-    url("/assets/hero/CDB_6210-scaled.jpg") center 42% / cover;
+    url("/assets/hero/teachers-workshop1-600x400.jpg") center / cover;
   box-shadow: 0 28px 64px rgba(25, 94, 165, 0.18);
 }
 
