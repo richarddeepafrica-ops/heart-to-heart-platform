@@ -417,7 +417,6 @@ body:not(:has(.adminApp)) :where(
   .partnerLogoCard,
   .pathwayGrid article,
   .corporatePathwayCard,
-  .detailDonateCard,
   .carePath article,
   .heartRunSteps article,
   .givingRouteCard,
@@ -453,7 +452,6 @@ body:not(:has(.adminApp)) :where(
   .partnerLogoCard,
   .pathwayGrid article,
   .corporatePathwayCard,
-  .detailDonateCard,
   .carePath article,
   .heartRunSteps article,
   .givingRouteCard,
@@ -4840,6 +4838,10 @@ body:not(:has(.adminApp)) :where(
   height: 12px;
   margin: 18px 0 10px;
   background: rgba(255, 255, 255, 0.2);
+}
+
+.detailDonateCard .progress span {
+  background: var(--green);
 }
 
 .detailDonateCard .eyebrow {
