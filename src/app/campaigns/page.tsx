@@ -40,17 +40,18 @@ export default function CampaignsPage() {
               </div>
               <h2>{campaign.title}</h2>
               <p>{campaign.summary}</p>
-              <ProgressBar value={percent} />
-              <div className="splitMeta">
-                <strong>{formatKes(campaign.raised)} raised</strong>
-                <span>{percent}% funded</span>
+              <div className="campaignProgressPanel">
+                <div className="splitMeta">
+                  <strong>{formatKes(campaign.raised)}</strong>
+                  <span>{percent}% funded</span>
+                </div>
+                <ProgressBar value={percent} />
+                <small>Goal: {formatKes(campaign.goal)}</small>
               </div>
-              <div className="campaignJourney">
-                <span>Read the story</span>
-                <span>Opt in for updates</span>
-                <span>Donate to this cause</span>
+              <div className="campaignCardActions">
+                <strong className="campaignCardCta">View story and give</strong>
+                <span>Learn more</span>
               </div>
-              <strong className="campaignCardCta">View story and give</strong>
             </a>
           );
         })}
