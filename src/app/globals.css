@@ -122,23 +122,29 @@ select:focus-visible {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 18px;
+  gap: 10px;
   color: var(--muted);
   font-size: 14px;
   font-weight: 800;
 }
 
-.mainNav a {
+.mainNav > a,
+.navGroup > a {
   position: relative;
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  padding: 0 8px;
   transition: color 180ms ease;
 }
 
-.mainNav a::after {
+.mainNav > a::after,
+.navGroup > a::after {
   content: "";
   position: absolute;
-  right: 0;
-  bottom: -8px;
-  left: 0;
+  right: 8px;
+  bottom: 2px;
+  left: 8px;
   height: 3px;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--orange), var(--green));
@@ -147,13 +153,83 @@ select:focus-visible {
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
-.mainNav a:hover {
+.mainNav > a:hover,
+.navGroup:hover > a,
+.navGroup:focus-within > a {
   color: var(--blue-dark);
 }
 
-.mainNav a:hover::after {
+.mainNav > a:hover::after,
+.navGroup:hover > a::after,
+.navGroup:focus-within > a::after {
   opacity: 1;
   transform: scaleX(1);
+}
+
+.navGroup {
+  position: relative;
+}
+
+.navGroup > a::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-left: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  opacity: 0.72;
+  order: 2;
+}
+
+.navDropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  z-index: 30;
+  display: grid;
+  min-width: 210px;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid rgba(25, 94, 165, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 24px 58px rgba(15, 63, 115, 0.16);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 8px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.navDropdown::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 0;
+  left: 0;
+  height: 10px;
+}
+
+.navDropdown a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--blue-dark);
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.navDropdown a:hover,
+.navDropdown a:focus-visible {
+  background: linear-gradient(135deg, var(--surface-strong), var(--orange-soft));
+  color: var(--blue-dark);
+  transform: translateX(2px);
+}
+
+.navGroup:hover .navDropdown,
+.navGroup:focus-within .navDropdown {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
 }
 
 .headerCta,
@@ -4349,6 +4425,89 @@ body:has(.adminApp) .siteHeader {
   line-height: 1.55;
 }
 
+.newsHero {
+  display: grid;
+  min-height: 560px;
+  align-items: center;
+  padding: clamp(56px, 8vw, 108px) clamp(18px, 4vw, 56px);
+  background:
+    radial-gradient(circle at 18% 78%, rgba(245, 130, 32, 0.16), transparent 24rem),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 255, 0.88)),
+    url("/assets/hero/DSC_0634-scaled.jpg") center 36% / cover;
+}
+
+.newsHero > div {
+  max-width: 900px;
+}
+
+.newsHero h1 {
+  color: var(--blue-dark);
+}
+
+.newsHero p {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.58;
+}
+
+.newsIntroSection {
+  background: white;
+}
+
+.newsCards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.newsCards article {
+  position: relative;
+  min-height: 220px;
+  overflow: hidden;
+  padding: 24px;
+  border: 1px solid rgba(25, 94, 165, 0.14);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.94)),
+    radial-gradient(circle at 100% 0%, rgba(245, 130, 32, 0.08), transparent 11rem);
+  box-shadow: var(--shadow);
+}
+
+.newsCards article::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--card-accent, var(--blue)), var(--orange));
+}
+
+.newsCards > :nth-child(1) {
+  --card-accent: var(--blue);
+}
+
+.newsCards > :nth-child(2) {
+  --card-accent: var(--green);
+}
+
+.newsCards > :nth-child(3) {
+  --card-accent: var(--orange);
+}
+
+.newsCards span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--blue-dark);
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.newsCards p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
 body:not(:has(.adminApp)) :where(
   .metricBand article,
   .featurePanel,
@@ -5759,7 +5918,8 @@ body:not(:has(.adminApp)) :where(
   .contactHoursSection,
   .volunteerWorkspace,
   .volunteerPositionGrid,
-  .volunteerSteps {
+  .volunteerSteps,
+  .newsCards {
     grid-template-columns: 1fr;
   }
 

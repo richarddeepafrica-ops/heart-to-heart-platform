@@ -1,13 +1,31 @@
-const navItems = [
-  ["Donate", "/donate"],
-  ["Sponsor", "/sponsor"],
-  ["Volunteer", "/volunteer"],
-  ["Campaigns", "/campaigns"],
-  ["Events", "/events"],
-  ["Impact", "/impact"],
-  ["Team", "/team"],
-  ["Partners", "/partners"],
-  ["Contact", "/contact"]
+const navGroups = [
+  {
+    label: "About us",
+    href: "/team",
+    links: [
+      ["Team", "/team"],
+      ["Partners", "/partners"],
+      ["Impact", "/impact"]
+    ]
+  },
+  {
+    label: "Get Involved",
+    href: "/donate",
+    links: [
+      ["Donate", "/donate"],
+      ["Sponsor", "/sponsor"],
+      ["Volunteer", "/volunteer"],
+      ["Campaigns", "/campaigns"]
+    ]
+  },
+  {
+    label: "News & Events",
+    href: "/events",
+    links: [
+      ["Events", "/events"],
+      ["News & Blogs", "/news"]
+    ]
+  }
 ];
 
 export function SiteHeader() {
@@ -22,11 +40,22 @@ export function SiteHeader() {
           <img src="/assets/heart-to-heart-logo.svg" alt="Heart to Heart Foundation" />
         </a>
         <nav className="mainNav" aria-label="Main navigation">
-          {navItems.map(([label, href]) => (
-            <a key={href} href={href}>
-              {label}
-            </a>
+          <a href="/">Home</a>
+          {navGroups.map((group) => (
+            <div className="navGroup" key={group.label}>
+              <a aria-haspopup="true" href={group.href}>
+                {group.label}
+              </a>
+              <div className="navDropdown" role="menu">
+                {group.links.map(([label, href]) => (
+                  <a href={href} key={href} role="menuitem">
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </div>
           ))}
+          <a href="/contact">Contact Us</a>
         </nav>
         <a className="headerCta" href="/donate">
           Give Now
