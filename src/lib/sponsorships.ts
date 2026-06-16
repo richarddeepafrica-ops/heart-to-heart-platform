@@ -33,7 +33,7 @@ export const sponsorshipProfiles: SponsorshipProfile[] = [
     need: "Funding needed for treatment and recovery care.",
     goalAmount: 250000,
     raisedPercent: "46% funded",
-    story: "Your sponsorship helps cover practical treatment needs while the family follows the care plan.",
+    story: "J'sean is a daddy's boy. He underwent successful open heart surgery, and his father stayed with him through the entire hospital journey. Their story is a beautiful reminder of how family presence and donor support help children move through treatment with courage.",
     portraitImage: "/assets/impact/jsean-kairu.jpeg"
   },
   {
