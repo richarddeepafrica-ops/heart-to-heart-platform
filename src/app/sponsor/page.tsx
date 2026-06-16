@@ -4,7 +4,7 @@ import { sponsorDonateHref, sponsorshipProfiles } from "@/lib/sponsorships";
 export default function SponsorPage() {
   return (
     <main>
-      <section className="pageHero compact">
+      <section className="pageHero compact sponsorHero">
         <p className="eyebrow">Child sponsorship</p>
         <h1>Support a child&apos;s treatment journey.</h1>
         <p>

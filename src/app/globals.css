@@ -376,6 +376,11 @@ h2 {
   min-height: 420px;
 }
 
+.sponsorHero {
+  min-height: 500px;
+  background-position: center 14%;
+}
+
 .pageHero.eventHero {
   background:
     linear-gradient(90deg, rgba(15, 63, 115, 0.94), rgba(15, 63, 115, 0.52)),
@@ -4592,6 +4597,10 @@ body:has(.adminApp) .siteHeader {
 .campaignDetailHero,
 .storyImage {
   background-position: center 28%;
+}
+
+.sponsorHero {
+  background-position: center 14%;
 }
 
 .adminLoginPage,
