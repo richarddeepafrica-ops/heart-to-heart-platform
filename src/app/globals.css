@@ -4567,6 +4567,133 @@ body:has(.adminApp) .siteHeader {
   line-height: 1.55;
 }
 
+.partnerInquiryHero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
+  gap: clamp(28px, 6vw, 78px);
+  align-items: center;
+  padding: clamp(56px, 8vw, 108px) clamp(18px, 4vw, 56px);
+  background:
+    radial-gradient(circle at 90% 12%, rgba(1, 166, 80, 0.14), transparent 26rem),
+    radial-gradient(circle at 12% 86%, rgba(245, 130, 32, 0.12), transparent 22rem),
+    linear-gradient(135deg, #ffffff 0%, #f5f9ff 58%, #eaf3ff 100%);
+}
+
+.partnerInquiryHero h1 {
+  max-width: 920px;
+  color: var(--blue-dark);
+}
+
+.partnerInquiryHero p {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.58;
+}
+
+.partnerInquiryAside,
+.partnerInquiryForm {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(25, 94, 165, 0.14);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.94)),
+    radial-gradient(circle at 100% 0%, rgba(245, 130, 32, 0.08), transparent 11rem);
+  box-shadow: var(--shadow);
+}
+
+.partnerInquiryAside {
+  display: grid;
+  gap: 12px;
+  padding: 24px;
+}
+
+.partnerInquiryAside::before,
+.partnerInquiryForm::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue), var(--orange), var(--green));
+}
+
+.partnerInquiryAside span {
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(25, 94, 165, 0.08), var(--orange-soft));
+  color: var(--blue-dark);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.partnerInquiryAside strong {
+  color: var(--blue-dark);
+  font-size: 25px;
+  line-height: 1.18;
+}
+
+.partnerInquiryAside p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.partnerInquirySection {
+  background: white;
+}
+
+.partnerInquiryForm {
+  display: grid;
+  gap: 22px;
+  padding: clamp(22px, 4vw, 36px);
+}
+
+.partnerInquiryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.partnerInquiryGrid .span2 {
+  grid-column: 1 / -1;
+}
+
+.partnerInquiryForm input,
+.partnerInquiryForm select,
+.partnerInquiryForm textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #f3f7fb;
+  color: var(--text);
+  font: inherit;
+}
+
+.partnerInquiryForm textarea {
+  min-height: 132px;
+  padding-top: 14px;
+  resize: vertical;
+}
+
+.partnerInquiryForm input:focus,
+.partnerInquiryForm select:focus,
+.partnerInquiryForm textarea:focus {
+  border-color: var(--orange);
+  outline: 3px solid var(--orange-glow);
+}
+
+.partnerInquiryForm .button {
+  width: fit-content;
+  border: 0;
+  cursor: pointer;
+}
+
 body:not(:has(.adminApp)) :where(
   .metricBand article,
   .featurePanel,
@@ -4700,21 +4827,34 @@ body:not(:has(.adminApp)) :where(
   display: grid;
   gap: 10px;
   padding: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(9, 38, 70, 0.9), rgba(15, 63, 115, 0.72)),
+    radial-gradient(circle at 100% 0%, rgba(245, 130, 32, 0.22), transparent 12rem);
   backdrop-filter: blur(16px);
-  box-shadow: var(--shadow);
+  box-shadow: 0 28px 80px rgba(7, 35, 64, 0.32);
+}
+
+.detailDonateCard .progress {
+  height: 12px;
+  margin: 18px 0 10px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.detailDonateCard .eyebrow {
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .detailDonateCard strong {
   color: white;
-  font-size: 36px;
+  font-size: clamp(34px, 4vw, 46px);
+  line-height: 1;
 }
 
 .detailDonateCard span,
 .detailDonateCard small {
-  color: rgba(255, 255, 255, 0.76);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .detailLayout {
@@ -5980,7 +6120,9 @@ body:not(:has(.adminApp)) :where(
   .volunteerWorkspace,
   .volunteerPositionGrid,
   .volunteerSteps,
-  .newsCards {
+  .newsCards,
+  .partnerInquiryHero,
+  .partnerInquiryGrid {
     grid-template-columns: 1fr;
   }
 
@@ -6267,6 +6409,10 @@ body:not(:has(.adminApp)) :where(
 
   .summaryHeader strong {
     font-size: 25px;
+  }
+
+  .partnerInquiryGrid .span2 {
+    grid-column: auto;
   }
 
   .contactMapCard iframe {

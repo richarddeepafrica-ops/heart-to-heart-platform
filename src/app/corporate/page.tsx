@@ -47,7 +47,7 @@ export default function CorporatePage() {
             <span>{value}</span>
             <h2>{name}</h2>
             <p>{description}</p>
-            <a className="button primary" href="/partners">
+            <a className="button primary" href={`/partners/inquiry?interest=${encodeURIComponent(name)}`}>
               {action}
             </a>
           </article>
@@ -64,7 +64,7 @@ export default function CorporatePage() {
             event visibility, or funding support for children awaiting care.
           </p>
         </div>
-        <a className="button primary" href="/partners">Discuss partnership</a>
+        <a className="button primary" href="/partners/inquiry">Discuss partnership</a>
       </section>
     </main>
   );

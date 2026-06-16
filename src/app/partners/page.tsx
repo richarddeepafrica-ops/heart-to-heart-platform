@@ -71,14 +71,14 @@ export default function PartnersPage() {
             and families when specialist heart care is out of reach.
           </p>
           <div className="heroActions">
-            <a className="button primary" href="/corporate">Become a partner</a>
+            <a className="button primary" href="/partners/inquiry">Become a partner</a>
             <a className="button secondary" href="/impact">See impact</a>
           </div>
         </div>
         <aside className="partnerHeroCard">
           <span>Shared impact</span>
           <strong>Partners help fund care, support events, expand awareness, and give children a healthier future.</strong>
-          <a href="/corporate">Explore partnership options</a>
+          <a href="/partners/inquiry">Explore partnership options</a>
         </aside>
       </section>
 
@@ -139,7 +139,7 @@ export default function PartnersPage() {
                     <li key={benefit}>{benefit}</li>
                   ))}
                 </ul>
-                <a className="button secondary" href="/corporate">Discuss package</a>
+                <a className="button secondary" href={`/partners/inquiry?package=${encodeURIComponent(tier.name)}`}>Discuss package</a>
               </div>
             </article>
           ))}
@@ -156,7 +156,7 @@ export default function PartnersPage() {
             specialist heart care possible for more children.
           </p>
         </div>
-        <a className="button primary" href="/corporate">Partner with us</a>
+        <a className="button primary" href="/partners/inquiry">Partner with us</a>
       </section>
     </main>
   );
