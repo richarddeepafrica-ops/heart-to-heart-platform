@@ -3100,7 +3100,7 @@ body:has(.adminApp) .siteHeader {
   border-radius: 18px;
   background:
     linear-gradient(0deg, rgba(15, 63, 115, 0.08), rgba(15, 63, 115, 0.08)),
-    url("/assets/hero/Heart-to-Heart-Foundation-1.jpg") center / cover;
+    url("/assets/impact/CDB_6159-scaled.jpg") center 42% / cover;
   box-shadow: var(--shadow);
 }
 
