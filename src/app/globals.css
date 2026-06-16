@@ -4504,6 +4504,17 @@ body:has(.adminApp) .siteHeader {
   box-shadow: var(--shadow);
 }
 
+.linkedTeamCard {
+  color: inherit;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.linkedTeamCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(25, 94, 165, 0.28);
+  box-shadow: 0 26px 58px rgba(25, 94, 165, 0.14);
+}
+
 .founderCard img,
 .teamCard img {
   width: 100%;
@@ -4528,6 +4539,19 @@ body:has(.adminApp) .siteHeader {
   margin: 0;
   color: var(--muted);
   line-height: 1.58;
+}
+
+.founderCard small,
+.teamCard small {
+  display: inline-flex;
+  width: max-content;
+  margin-top: 16px;
+  padding: 8px 11px;
+  border-radius: 999px;
+  background: var(--surface-strong);
+  color: var(--blue-dark);
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .boardSection {
@@ -4591,6 +4615,168 @@ body:has(.adminApp) .siteHeader {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.teamProfileHero {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1fr);
+  gap: clamp(28px, 6vw, 78px);
+  align-items: center;
+  padding: clamp(42px, 7vw, 92px) clamp(18px, 4vw, 56px);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(1, 166, 80, 0.14), transparent 28%),
+    linear-gradient(135deg, #f8fbff, #ffffff);
+}
+
+.teamProfilePortrait {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: white;
+  box-shadow: var(--shadow);
+}
+
+.teamProfilePortrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 4.8;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.teamProfileIntro h1 {
+  max-width: 880px;
+  color: var(--blue-dark);
+  font-size: clamp(44px, 7vw, 86px);
+}
+
+.teamProfileIntro > p {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 21px;
+  line-height: 1.55;
+}
+
+.backLink {
+  display: inline-flex;
+  margin-bottom: 22px;
+  color: var(--blue);
+  font-weight: 900;
+}
+
+.teamProfileActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.teamProfileLayout {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 68px);
+  align-items: start;
+  padding: clamp(52px, 8vw, 104px) clamp(18px, 4vw, 56px);
+  background: white;
+}
+
+.teamProfileSummary {
+  position: sticky;
+  top: 102px;
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-soft);
+}
+
+.teamProfileSummary span {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.teamProfileSummary strong {
+  color: var(--blue-dark);
+  font-size: 24px;
+  line-height: 1.14;
+}
+
+.teamProfileSummary p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.teamProfileStory {
+  max-width: 920px;
+}
+
+.teamProfileStory h2 {
+  margin: 42px 0 12px;
+  color: var(--blue-dark);
+  font-size: clamp(26px, 3vw, 38px);
+}
+
+.teamProfileStory h2:first-child {
+  margin-top: 0;
+}
+
+.teamProfileStory p {
+  color: #433638;
+  font-size: 18px;
+  line-height: 1.82;
+}
+
+.relatedTeamSection {
+  background: #f8fbff;
+}
+
+.relatedTeamGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.relatedTeamCard {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 14px 34px rgba(25, 94, 165, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.relatedTeamCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 46px rgba(25, 94, 165, 0.12);
+}
+
+.relatedTeamCard img {
+  width: 100%;
+  aspect-ratio: 5 / 3.6;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.relatedTeamCard span {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.relatedTeamCard strong {
+  color: var(--blue-dark);
+  font-size: 22px;
+  line-height: 1.1;
 }
 
 .pageHero,
@@ -4714,6 +4900,9 @@ body:has(.adminApp) .siteHeader {
   .heartRunImpact,
   .addOnGift,
   .teamHero,
+  .teamProfileHero,
+  .teamProfileLayout,
+  .relatedTeamGrid,
   .founderGrid,
   .teamGrid,
   .teamCta {
@@ -4739,6 +4928,19 @@ body:has(.adminApp) .siteHeader {
 
   .founderCard {
     grid-template-columns: 1fr;
+  }
+
+  .teamProfileSummary {
+    position: static;
+  }
+
+  .teamProfileIntro,
+  .teamProfileHero {
+    text-align: center;
+  }
+
+  .teamProfileActions {
+    justify-content: center;
   }
 
   .teamHero {

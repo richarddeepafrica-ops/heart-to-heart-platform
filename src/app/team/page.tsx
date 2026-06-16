@@ -1,35 +1,4 @@
-const founders = [
-  {
-    name: "Dr. Dan K. Gikonyo",
-    role: "Founder and Trustee",
-    image: "/assets/team/dan-gikonyo.jpg",
-    note: "Co-founder of the foundation and part of the clinical leadership that shaped its mission for children's heart care."
-  },
-  {
-    name: "Dr. Betty M. Gikonyo",
-    role: "Founder and Trustee",
-    image: "/assets/team/betty-gikonyo.jpg",
-    note: "Co-founder and trustee helping steward a long-running Kenyan effort for prevention, treatment, and access."
-  }
-];
-
-const board = [
-  {
-    name: "Mr. Anthony M. Mathiga",
-    role: "Chairman",
-    image: "/assets/team/anthony-mathiga.png"
-  },
-  {
-    name: "Mr. Karimi Randall",
-    role: "Executive Director",
-    image: "/assets/team/karimi-randall.jpg"
-  },
-  {
-    name: "Ms. Carolyne Nandwa",
-    role: "Project Manager",
-    image: "/assets/team/carolyne-nandwa.png"
-  }
-];
+import { boardProfiles, founderProfiles } from "@/lib/team";
 
 const stewardship = [
   ["Founded", "1993"],
@@ -71,15 +40,16 @@ export default function TeamPage() {
           <h2>Clinical founders with a long view of children's heart care.</h2>
         </div>
         <div className="founderGrid">
-          {founders.map((person) => (
-            <article className="founderCard" key={person.name}>
+          {founderProfiles.map((person) => (
+            <a className="founderCard linkedTeamCard" href={`/team/${person.slug}`} key={person.name}>
               <img src={person.image} alt={person.name} />
               <div>
                 <span>{person.role}</span>
                 <h3>{person.name}</h3>
                 <p>{person.note}</p>
+                <small>Read story</small>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </section>
@@ -90,14 +60,15 @@ export default function TeamPage() {
           <h2>Leadership that connects care, fundraising, partnerships, and delivery.</h2>
         </div>
         <div className="teamGrid">
-          {board.map((person) => (
-            <article className="teamCard" key={person.name}>
+          {boardProfiles.map((person) => (
+            <a className="teamCard linkedTeamCard" href={`/team/${person.slug}`} key={person.name}>
               <img src={person.image} alt={person.name} />
               <div>
                 <span>{person.role}</span>
                 <h3>{person.name}</h3>
+                <small>Read story</small>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </section>
