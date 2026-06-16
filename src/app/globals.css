@@ -151,13 +151,13 @@ select:focus-visible {
   background-position: center;
   background-size: cover;
   opacity: 0;
-  transform: scale(1.03);
+  transform: scale(1.015);
   transition: opacity 900ms ease, transform 5200ms ease;
 }
 
 .heroSlide.active {
   opacity: 1;
-  transform: scale(1.08);
+  transform: scale(1.04);
 }
 
 .heroOverlay {
@@ -4586,6 +4586,39 @@ body:has(.adminApp) .siteHeader {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.pageHero,
+.campaignDetailHero,
+.storyImage {
+  background-position: center 28%;
+}
+
+.adminLoginPage,
+.eventsHero,
+.eventDetailHero,
+.eventFlowHero {
+  background-position: center 34%;
+}
+
+.galaDinnerHero {
+  background-position: center 30%;
+}
+
+.quickDonate,
+.impactHeroImage,
+.childDetailHero {
+  background-position: center 32%;
+}
+
+.goatDerbyHero,
+.donateEventHero {
+  background-position: center 34%;
+}
+
+.preventionDetailHero,
+.donateHeroImage {
+  background-position: center 26%;
 }
 
 @media (max-width: 900px) {
