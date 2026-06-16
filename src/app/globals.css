@@ -4518,7 +4518,8 @@ body:has(.adminApp) .siteHeader {
 .founderCard img,
 .teamCard img {
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center top;
   background: var(--surface-strong);
 }
 
@@ -4640,8 +4641,9 @@ body:has(.adminApp) .siteHeader {
   display: block;
   width: 100%;
   aspect-ratio: 4 / 4.8;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center top;
+  background: var(--surface-strong);
 }
 
 .teamProfileIntro h1 {
@@ -4761,8 +4763,9 @@ body:has(.adminApp) .siteHeader {
   width: 100%;
   aspect-ratio: 5 / 3.6;
   border-radius: 10px;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center top;
+  background: var(--surface-strong);
 }
 
 .relatedTeamCard span {
