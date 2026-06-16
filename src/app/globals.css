@@ -3308,20 +3308,30 @@ body:has(.adminApp) .siteHeader {
 }
 
 .tierCard {
+  display: grid;
+  grid-template-rows: auto 1fr;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 18px;
   background: white;
-  box-shadow: var(--shadow);
+  box-shadow: 0 18px 48px rgba(25, 94, 165, 0.1);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.tierCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(25, 94, 165, 0.24);
+  box-shadow: 0 26px 64px rgba(25, 94, 165, 0.14);
 }
 
 .tierCardTop {
   position: relative;
-  display: grid;
-  min-height: 240px;
-  align-content: end;
-  gap: 12px;
-  padding: 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: center;
+  min-height: 92px;
+  padding: 22px;
   overflow: hidden;
   color: white;
   isolation: isolate;
@@ -3330,25 +3340,13 @@ body:has(.adminApp) .siteHeader {
 .tierCardTop::before {
   content: "";
   position: absolute;
-  top: -80px;
-  left: 50%;
+  top: -70px;
+  right: -42px;
   z-index: -1;
-  width: 210px;
-  height: 210px;
+  width: 190px;
+  height: 190px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.14);
-  transform: translateX(-50%);
-}
-
-.tierCardTop::after {
-  content: "";
-  position: absolute;
-  inset: auto 22px -58px;
-  z-index: -1;
-  height: 160px;
-  border-radius: 50% 50% 0 0;
-  background: rgba(0, 0, 0, 0.1);
-  filter: blur(1px);
 }
 
 .tierBronze .tierCardTop {
@@ -3368,47 +3366,78 @@ body:has(.adminApp) .siteHeader {
 }
 
 .tierCardTop span {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 900;
-}
-
-.tierCardTop strong {
-  max-width: 260px;
-  font-size: clamp(38px, 4vw, 58px);
-  line-height: 0.96;
-  letter-spacing: -1px;
 }
 
 .tierCardTop small {
   color: rgba(255, 255, 255, 0.8);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 900;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .tierCardBody {
   display: grid;
-  gap: 14px;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
   padding: 24px;
+}
+
+.tierPriceRow {
+  display: grid;
+  gap: 8px;
+  min-height: 96px;
 }
 
 .tierCard h3 {
   margin: 0;
   color: var(--blue-dark);
-  font-size: 26px;
+  font-size: 24px;
+}
+
+.tierPriceRow strong {
+  color: var(--text);
+  font-size: clamp(32px, 3vw, 42px);
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
 
 .tierCard ul {
   display: grid;
-  gap: 8px;
+  align-content: start;
+  gap: 10px;
   margin: 0;
-  padding-left: 18px;
+  padding: 0;
   color: var(--muted);
-  line-height: 1.45;
+  line-height: 1.4;
+  list-style: none;
+}
+
+.tierCard li {
+  position: relative;
+  padding-left: 28px;
+}
+
+.tierCard li::before {
+  content: "";
+  position: absolute;
+  top: 0.38em;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 50% 50%, white 0 25%, transparent 26%),
+    var(--green);
 }
 
 .tierCard .button {
-  margin-top: 8px;
+  width: 100%;
+  margin-top: 4px;
+  border: 1px solid rgba(25, 94, 165, 0.18);
+  background: var(--surface-soft);
 }
 
 .partnerCta {

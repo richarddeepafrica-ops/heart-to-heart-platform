@@ -127,11 +127,13 @@ export default function PartnersPage() {
             <article className={`tierCard ${tier.className}`} key={tier.name}>
               <div className="tierCardTop">
                 <span>{tier.name}</span>
-                <strong>{tier.price}</strong>
                 <small>Annual package</small>
               </div>
               <div className="tierCardBody">
-                <h3>{tier.name}</h3>
+                <div className="tierPriceRow">
+                  <h3>{tier.name}</h3>
+                  <strong>{tier.price}</strong>
+                </div>
                 <ul>
                   {tier.benefits.map((benefit) => (
                     <li key={benefit}>{benefit}</li>
