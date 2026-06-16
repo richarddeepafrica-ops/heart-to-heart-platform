@@ -22,7 +22,7 @@ export const sponsorshipProfiles: SponsorshipProfile[] = [
     goalAmount: 180000,
     raisedPercent: "72% funded",
     story: "Sponsorship helps Joy's family stay connected to review, treatment, medication, and recovery support.",
-    portraitImage: "/assets/impact/joy-wambui.jpeg"
+    portraitImage: "/assets/impact/joy-wambui.png"
   },
   {
     slug: "jsean-kairu",

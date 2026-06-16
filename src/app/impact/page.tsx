@@ -10,7 +10,7 @@ const proofPoints = [
 const beneficiaries = [
   {
     name: "Joy Wambui",
-    image: "/assets/impact/joy-wambui.jpeg",
+    image: "/assets/impact/joy-wambui.png",
     href: "/sponsor/joy-wambui"
   },
   {
