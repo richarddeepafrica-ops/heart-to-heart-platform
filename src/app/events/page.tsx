@@ -2,7 +2,7 @@ const featuredEvents = [
   {
     title: "Teachers Workshop",
     type: "Prevention and awareness",
-    image: "/assets/hero/teachers-workshop1-600x400.jpg",
+    image: "/assets/hero/CDB_6210-scaled.jpg",
     copy: "Equipping teachers with practical knowledge around rheumatic fever, early warning signs, and prevention messaging for schools.",
     href: "/campaigns/rheumatic-fever-awareness"
   },
