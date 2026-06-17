@@ -48,9 +48,45 @@ type PublishingDb = {
 };
 
 const fallbackImage = "/assets/hero/DSC_0634-scaled.jpg";
+export const galleryAlbumNames = ["General", "Gala Dinner", "Teachers Workshop", "Heart Run"] as const;
+
+export function normalizeGalleryCategory(category: string) {
+  if (/gala/i.test(category)) return "Gala Dinner";
+  if (/teacher/i.test(category)) return "Teachers Workshop";
+  if (/heart run/i.test(category)) return "Heart Run";
+  return "General";
+}
+
+function isFilenameTitle(title: string) {
+  return /^(DSC|CDB|IMG|MG|SAM)\s*[-_\d]/i.test(title) || /^Heart To Heart Foundation\s+\d+$/i.test(title);
+}
+
+function publicGalleryTitle(title: string, category: string) {
+  if (!isFilenameTitle(title)) return title;
+  if (category === "General") return "Foundation moment";
+  return `${category} moment`;
+}
+
+function publicGalleryDescription(description: string, category: string) {
+  if (!description || /photo from the Heart to Heart Foundation gallery/i.test(description)) {
+    return `A captured moment from the ${category.toLowerCase()} album.`;
+  }
+  return description;
+}
+
+function prepareGalleryItem<T extends GalleryRecord>(item: T): T {
+  const category = normalizeGalleryCategory(item.category);
+  return {
+    ...item,
+    category,
+    title: publicGalleryTitle(item.title, category),
+    description: publicGalleryDescription(item.description, category)
+  };
+}
+
 export const previewBlogPosts: BlogPostRecord[] = importedBlogPosts;
 
-export const previewGalleryItems: GalleryRecord[] = importedGalleryItems;
+export const previewGalleryItems: GalleryRecord[] = importedGalleryItems.map(prepareGalleryItem);
 
 function publishingDb() {
   return db as unknown as PublishingDb;
@@ -80,12 +116,12 @@ function normalizeBlog(post: DbBlogPost): BlogPostRecord {
 }
 
 function normalizeGallery(item: DbGalleryItem): GalleryRecord {
-  return {
+  return prepareGalleryItem({
     ...item,
     location: item.location || "Heart to Heart Foundation",
     takenAt: item.takenAt || item.createdAt,
     publishedAt: item.publishedAt || item.createdAt
-  };
+  });
 }
 
 export function slugify(value: string) {

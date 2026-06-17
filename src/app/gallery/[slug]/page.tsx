@@ -12,19 +12,36 @@ export async function generateStaticParams() {
 
 export default async function GalleryDetailPage({ params }: GalleryPageContext) {
   const { slug } = await params;
-  const item = await getGalleryItem(slug);
+  const [item, items] = await Promise.all([
+    getGalleryItem(slug),
+    getGalleryItems()
+  ]);
   if (!item) notFound();
+
+  const albumItems = items.filter((entry) => entry.category === item.category);
+  const currentIndex = albumItems.findIndex((entry) => entry.slug === item.slug);
+  const safeIndex = currentIndex >= 0 ? currentIndex : 0;
+  const previousItem = albumItems[(safeIndex - 1 + albumItems.length) % albumItems.length];
+  const nextItem = albumItems[(safeIndex + 1) % albumItems.length];
 
   return (
     <main>
       <article className="galleryDetail">
-        <img src={item.imageUrl} alt="" />
-        <div>
-          <p className="eyebrow">{item.category}</p>
+        <div className="galleryDetailMedia">
+          <img src={item.imageUrl} alt="" />
+        </div>
+        <div className="galleryDetailPanel">
+          <p className="eyebrow">{item.category} album</p>
           <h1>{item.title}</h1>
           <p>{item.description}</p>
-          <small>{item.location} | {item.publishedAt.toLocaleDateString("en-KE", { dateStyle: "long" })}</small>
-          <a className="button secondary" href="/gallery">Back to gallery</a>
+          <small>
+            Photo {safeIndex + 1} of {albumItems.length} | {item.location}
+          </small>
+          <div className="galleryDetailActions">
+            <a className="button secondary" href="/gallery">Albums</a>
+            {previousItem && <a className="button secondary" href={`/gallery/${previousItem.slug}`}>Previous</a>}
+            {nextItem && <a className="button" href={`/gallery/${nextItem.slug}`}>Next photo</a>}
+          </div>
         </div>
       </article>
     </main>
