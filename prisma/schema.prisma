@@ -263,6 +263,42 @@ model GalleryItem {
   updatedAt   DateTime @updatedAt
 }
 
+model ChildCareApplication {
+  id              String   @id @default(cuid())
+  childName       String
+  childAge        Int?
+  guardianName    String
+  guardianPhone   String
+  guardianEmail   String?
+  county          String?
+  diagnosis       String
+  hospital        String?
+  estimatedNeed   Int?
+  story           String
+  status          String   @default("NEW")
+  adminNotes      String?
+  beneficiaryId   String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model PartnerInstitutionApplication {
+  id              String   @id @default(cuid())
+  organization    String
+  institutionType String
+  contactName     String
+  contactEmail    String
+  contactPhone    String?
+  county          String?
+  website         String?
+  proposal        String
+  status          String   @default("NEW")
+  adminNotes      String?
+  partnerId       String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
 model Communication {
   id                  String            @id @default(cuid())
   donorId             String?

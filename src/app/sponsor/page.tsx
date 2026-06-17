@@ -28,6 +28,15 @@ export default function SponsorPage() {
         </div>
       </section>
 
+      <section className="section applicationCtaBand">
+        <div>
+          <p className="eyebrow">Need support?</p>
+          <h2>Parents and guardians can apply online for review.</h2>
+          <p>Applications are kept private until the team contacts the family and completes consent and medical review.</p>
+        </div>
+        <a className="button primary" href="/apply">Apply for child support</a>
+      </section>
+
       <section className="cardGrid">
         {sponsorshipProfiles.map((child) => (
           <article className="campaignCard" key={child.slug}>

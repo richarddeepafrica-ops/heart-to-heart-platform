@@ -58,7 +58,10 @@ const pathways = [
   ["Mobilise teams", "Bring staff, customers, and networks into a shared cause through giving, volunteering, and advocacy."]
 ];
 
-export default function PartnersPage() {
+export default async function PartnersPage() {
+  const partnerDashboard = await getPartnerDashboard();
+  const approvedPartners = partnerDashboard.records.filter((partner) => partner.pipelineStage === "ACTIVE");
+
   return (
     <main>
       <section className="partnersHero">
@@ -72,13 +75,13 @@ export default function PartnersPage() {
           </p>
           <div className="heroActions">
             <a className="button primary" href="/partners/inquiry">Become a partner</a>
-            <a className="button secondary" href="/impact">See impact</a>
+            <a className="button secondary" href="/partners/apply">Institution application</a>
           </div>
         </div>
         <aside className="partnerHeroCard">
           <span>Shared impact</span>
           <strong>Partners help fund care, support events, expand awareness, and give children a healthier future.</strong>
-          <a href="/partners/inquiry">Explore partnership options</a>
+          <a href="/partners/apply">Apply as an institution</a>
         </aside>
       </section>
 
@@ -93,6 +96,22 @@ export default function PartnersPage() {
               <img src={image} alt={name} />
               <span>{name}</span>
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section approvedPartnerSection">
+        <div className="sectionHeading compactHeading">
+          <p className="eyebrow">Approved institutions</p>
+          <h2>Institutions approved through the partner application flow.</h2>
+        </div>
+        <div className="approvedPartnerGrid">
+          {approvedPartners.map((partner) => (
+            <article key={partner.id}>
+              <span>{partner.interest}</span>
+              <h3>{partner.organization}</h3>
+              <p>Contact: {partner.contactName}</p>
+            </article>
           ))}
         </div>
       </section>
@@ -156,8 +175,12 @@ export default function PartnersPage() {
             specialist heart care possible for more children.
           </p>
         </div>
-        <a className="button primary" href="/partners/inquiry">Partner with us</a>
+        <div className="heroActions">
+          <a className="button primary" href="/partners/inquiry">Partner with us</a>
+          <a className="button secondary" href="/partners/apply">Apply online</a>
+        </div>
       </section>
     </main>
   );
 }
+import { getPartnerDashboard } from "@/lib/partner-data";

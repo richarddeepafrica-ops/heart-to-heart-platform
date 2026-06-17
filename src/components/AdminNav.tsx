@@ -8,6 +8,7 @@ const navItems = [
   ["Donations", "/admin/donations"],
   ["Campaigns", "/admin/campaigns"],
   ["Beneficiaries", "/admin/beneficiaries"],
+  ["Applications", "/admin/applications"],
   ["Events", "/admin/events"],
   ["Finance", "/admin/finance"],
   ["Marketing", "/admin/marketing"],
