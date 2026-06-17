@@ -5102,18 +5102,6 @@ body:has(.adminApp) .siteHeader {
   transform: scale(1.03);
 }
 
-.galleryPhotoTile span {
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.92);
-  color: var(--blue-dark);
-  font-size: 13px;
-  font-weight: 900;
-}
-
 .galleryCard a {
   grid-template-columns: 1fr;
 }

@@ -31,9 +31,8 @@ export default async function GalleryAlbumPage({ params }: GalleryAlbumPageConte
       <section className="section publicContentSection">
         <div className="galleryPhotoGrid">
           {items.map((item, index) => (
-            <a className="galleryPhotoTile" href={`/gallery/${item.slug}`} key={item.id}>
+            <a className="galleryPhotoTile" href={`/gallery/${item.slug}`} aria-label={`Open photo ${index + 1} from ${albumName}`} key={item.id}>
               <img src={item.imageUrl} alt="" />
-              <span>Photo {index + 1}</span>
             </a>
           ))}
         </div>
