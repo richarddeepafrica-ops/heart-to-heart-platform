@@ -2720,6 +2720,57 @@ body:has(.adminApp) .siteHeader {
   grid-column: 1 / -1;
 }
 
+.collapsiblePanel {
+  align-content: start;
+}
+
+.collapsiblePanel > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0;
+}
+
+.collapsiblePanel > summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsiblePanel > summary::after {
+  content: "+";
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 999px;
+  background: rgba(245, 130, 32, 0.12);
+  color: var(--orange);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.collapsiblePanel[open] > summary::after {
+  content: "-";
+}
+
+.queueSummaryMeta {
+  margin-left: auto;
+  padding: 9px 13px;
+  border-radius: 999px;
+  background: #eef6ff;
+  color: var(--blue-dark);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.collapsiblePanelBody {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.collapsiblePanelBody > .panelLink {
+  justify-self: start;
+}
+
 .contentQueue {
   display: grid;
   gap: 10px;

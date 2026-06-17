@@ -37,9 +37,14 @@ export default async function AdminContentPage() {
           <div className="panelHeader"><div><p className="eyebrow">Gallery editor</p><h2>Create gallery card</h2></div></div>
           <GalleryItemForm />
         </article>
-        <article className="appPanel span6">
-          <div className="panelHeader"><div><p className="eyebrow">Blog queue</p><h2>Recent posts</h2></div><a className="panelLink" href="/news">Public list</a></div>
-          <div className="contentQueue">
+        <details className="appPanel span6 collapsiblePanel">
+          <summary className="panelHeader">
+            <div><p className="eyebrow">Blog queue</p><h2>Recent posts</h2></div>
+            <span className="queueSummaryMeta">{posts.length} items</span>
+          </summary>
+          <div className="collapsiblePanelBody">
+            <a className="panelLink" href="/news">Public list</a>
+            <div className="contentQueue">
             {posts.map((post) => (
               <a href={`/news/${post.slug}`} key={post.id}>
                 <span>{post.category}</span>
@@ -47,11 +52,17 @@ export default async function AdminContentPage() {
                 <small>{post.status}</small>
               </a>
             ))}
+            </div>
           </div>
-        </article>
-        <article className="appPanel span6">
-          <div className="panelHeader"><div><p className="eyebrow">Gallery queue</p><h2>Recent images</h2></div><a className="panelLink" href="/gallery">Public gallery</a></div>
-          <div className="contentQueue">
+        </details>
+        <details className="appPanel span6 collapsiblePanel">
+          <summary className="panelHeader">
+            <div><p className="eyebrow">Gallery queue</p><h2>Recent images</h2></div>
+            <span className="queueSummaryMeta">{galleries.length} items</span>
+          </summary>
+          <div className="collapsiblePanelBody">
+            <a className="panelLink" href="/gallery">Public gallery</a>
+            <div className="contentQueue">
             {galleries.map((item) => (
               <a href={`/gallery/${item.slug}`} key={item.id}>
                 <span>{item.category}</span>
@@ -59,8 +70,9 @@ export default async function AdminContentPage() {
                 <small>{item.status}</small>
               </a>
             ))}
+            </div>
           </div>
-        </article>
+        </details>
       </section>
     </>
   );
