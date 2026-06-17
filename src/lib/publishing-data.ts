@@ -1,5 +1,6 @@
 import { hasDatabaseUrl } from "@/lib/api";
 import { db } from "@/lib/db";
+import { importedBlogPosts } from "@/lib/imported-blogs";
 import { importedGalleryItems } from "@/lib/imported-gallery";
 
 export type BlogPostRecord = {
@@ -47,34 +48,7 @@ type PublishingDb = {
 };
 
 const fallbackImage = "/assets/hero/DSC_0634-scaled.jpg";
-export const previewBlogPosts: BlogPostRecord[] = [
-  {
-    id: "preview-heart-run-recap",
-    slug: "heart-run-community-recap",
-    title: "Heart Run brings families, schools, and partners together",
-    category: "Event recap",
-    excerpt: "A look at how the annual Heart Run continues to rally communities behind children awaiting heart care.",
-    body: "The Heart Run remains one of the foundation's most visible community moments. Families, schools, partners, and volunteers come together to raise awareness and resources for children who need treatment. Beyond the race day energy, the event keeps heart health prevention in public conversation and reminds every participant that small acts of giving can become life-saving care.",
-    imageUrl: fallbackImage,
-    authorName: "Heart to Heart Foundation",
-    status: "PUBLISHED",
-    publishedAt: new Date("2026-06-01"),
-    createdAt: new Date("2026-06-01")
-  },
-  {
-    id: "preview-prevention-schools",
-    slug: "school-prevention-outreach",
-    title: "Why prevention education starts in schools",
-    category: "Heart health notes",
-    excerpt: "Teachers and schools play a vital role in early awareness for rheumatic fever and childhood heart disease.",
-    body: "Prevention work is strongest when it reaches families early. Through school outreach, teacher workshops, and community education, the foundation helps children and caregivers understand symptoms, treatment pathways, and the importance of timely care. This education can reduce avoidable complications and create healthier futures.",
-    imageUrl: "/assets/hero/CDB_6210-scaled.jpg",
-    authorName: "Programme team",
-    status: "PUBLISHED",
-    publishedAt: new Date("2026-05-18"),
-    createdAt: new Date("2026-05-18")
-  }
-];
+export const previewBlogPosts: BlogPostRecord[] = importedBlogPosts;
 
 export const previewGalleryItems: GalleryRecord[] = importedGalleryItems;
 
@@ -130,8 +104,10 @@ export async function getBlogPosts({ admin = false } = {}) {
     const posts = await publishingDb().$queryRawUnsafe<DbBlogPost[]>(
       `SELECT * FROM "BlogPost" ${admin ? "" : `WHERE "status" = 'PUBLISHED'`} ORDER BY "publishedAt" DESC NULLS LAST, "createdAt" DESC`
     );
-    if (!posts.length) return admin ? previewBlogPosts : previewBlogPosts.filter((post) => post.status === "PUBLISHED");
-    return posts.map(normalizeBlog);
+    const databasePosts = posts.map(normalizeBlog);
+    const importedPosts = admin ? previewBlogPosts : previewBlogPosts.filter((post) => post.status === "PUBLISHED");
+    const databaseSlugs = new Set(databasePosts.map((post) => post.slug));
+    return [...databasePosts, ...importedPosts.filter((post) => !databaseSlugs.has(post.slug))];
   } catch (error) {
     return admin ? previewBlogPosts : previewBlogPosts.filter((post) => post.status === "PUBLISHED");
   }

@@ -1,0 +1,132 @@
+import type { BlogPostRecord } from "@/lib/publishing-data";
+
+type ImportedBlogPostRecord = BlogPostRecord & { sourceUrl: string };
+
+export const importedBlogPosts: ImportedBlogPostRecord[] = [
+  {
+    "id": "imported-blog-6970",
+    "slug": "heart-run-2026-a-resounding-success",
+    "title": "HEART RUN 2026 – A Resounding Success",
+    "category": "Event recap",
+    "excerpt": "The Heart Run 2026 stood as one of Kenya’s most impactful charity events, bringing together individuals, corporates, and schools in a shared mission to support life-saving heart surgeries for children. Organized by The Karen Hospi",
+    "body": "The Heart Run 2026 stood as one of Kenya’s most impactful charity events, bringing together individuals, corporates, and schools in a shared mission to support life-saving heart surgeries for children. Organized by The Karen Hospital in partnership with the Heart to Heart Foundation, the event continues to grow as a leading platform for heart health awareness and community engagement in Kenya.\n\nSet against the vibrant backdrop of The Waterfront Karen in Nairobi, participants gathered early, ready to run, walk, and stand in solidarity for a meaningful cause. The atmosphere was electric, filled with hope, determination, and a shared purpose to transform lives through accessible cardiac care.\n\nWe extend our sincere appreciation to all corporate sponsors and partners who supported this noble cause. Your investment in community health and corporate social responsibility continues to create a lasting impact. Because of you, more lives will be saved, and more families will find hope.\n\nTo everyone who showed up-runners, walkers, volunteers, and supporters; thank you. Your presence made Heart Run 2026 a resounding success. Every step taken during the run directly contributes to funding critical heart surgeries and improving healthcare outcomes for children in need.\n\nA special recognition goes to the schools and student groups who turned up in large numbers. Your enthusiasm, discipline, and unity added unmatched energy to the event. You are a powerful symbol of a future generation that cares deeply about health, community, and giving back.\n\nHeart Run 2026 was not just about fitness, it was a celebration. With vibrant entertainment and engaging performances, the event created a memorable and uplifting experience for all attendees.\n\nThanks to your support, Heart Run 2026 has made meaningful progress in advancing cardiac care in Kenya. Each contribution helps provide children with access to life-saving heart procedures, giving them a second chance at life and a brighter future.\n\nAs we celebrate this success, we are reminded that Heart Run is more than an event, it is a movement of hope, compassion, and action. From all of us at The Karen Hospital and the Heart to Heart Foundation, thank you for standing with us. We look forward to welcoming you again next year as we continue to run for a cause.\n\nHeart Run 2026 continues to inspire change, promote heart health awareness, and support life-saving surgeries for children across Kenya.\n\n",
+    "imageUrl": "/assets/blog-imported/DSC_0607-scaled.jpg",
+    "authorName": "Peter",
+    "status": "PUBLISHED",
+    "publishedAt": new Date("2026-03-21"),
+    "createdAt": new Date("2026-03-21"),
+    "sourceUrl": "https://hearttoheartfoundation.or.ke/heart-run-2026-a-resounding-success/"
+  },
+  {
+    "id": "imported-blog-6916",
+    "slug": "teachers-workshop-2026",
+    "title": "Teachers Workshop 2026",
+    "category": "Event recap",
+    "excerpt": "The Heart to Heart Foundation (H2H) successfully hosted its Annual Teachers Workshop 2026 on 30th January 2026 at The Karen Hospital , bringing together over 300 teachers in Kenya for a specialized health education forum focused o",
+    "body": "The Heart to Heart Foundation (H2H) successfully hosted its Annual Teachers Workshop 2026 on 30th January 2026 at The Karen Hospital , bringing together over 300 teachers in Kenya for a specialized health education forum focused on heart-related ailments in learners.\n\nHeld under the theme “Teachers as Frontline Educators in the Fight Against Heart-Related Ailments in Learners,” the workshop reinforced the critical role of teachers in early detection, prevention, and referral of pediatric heart conditions and other child health concerns affecting school-going children.\n\nThe Teachers Workshop 2026 focused on providing practical knowledge and early-intervention strategies that educators can apply directly within schools. Key sessions included:\n\nIntroduction to the Heart to Heart Program – Carolyne Nandwa\n\nIdentifying Paediatric Conditions – Sarah Ndegwa & Godfrey Ngeresa\n\nHeart Surgeries & Rheumatic Heart Disease (RHD) – Dr. Betty Gikonyo\n\nA Guide to Teachers’ Physical Health – Kennedy Irungu\n\nNutrition for Child Health – Dr. Josephine Mbuthi\n\nEarly warning signs of heart-related diseases in learners\n\nRheumatic Heart Disease awareness in schools\n\nReferral pathways for pediatric cardiac care\n\nNutrition support for vulnerable children\n\nPreventive healthcare practices in educational institutions\n\nThe strong attendance of over 300 educators reflects the growing commitment to improving child health in Kenyan schools . By empowering teachers with health literacy and awareness tools, the workshop strengthens school-based support systems and promotes early diagnosis of heart-related ailments.\n\nThe event further enhanced collaboration between the education and healthcare sectors, positioning teachers as key partners in safeguarding children’s hearts and overall well-being.\n\nHealth talks (career talks)\n\nFirst aid in sports day (Ambulance)\n\n",
+    "imageUrl": "/assets/blog-imported/1G9C0664-scaled.jpg",
+    "authorName": "Peter",
+    "status": "PUBLISHED",
+    "publishedAt": new Date("2026-02-23"),
+    "createdAt": new Date("2026-02-23"),
+    "sourceUrl": "https://hearttoheartfoundation.or.ke/teachers-workshop-2026/"
+  },
+  {
+    "id": "imported-blog-6718",
+    "slug": "the-rising-burden-of-heart-diseases-in-kenya",
+    "title": "The Rising Burden of Heart Diseases in Kenya",
+    "category": "News & Blogs",
+    "excerpt": "In recent years, heart diseases have quietly become one of Kenya’s biggest health challenges. Once considered a problem of older or wealthier nations, cardiovascular diseases (CVDs) are now among the leading causes of illness and ",
+    "body": "In recent years, heart diseases have quietly become one of Kenya’s biggest health challenges. Once considered a problem of older or wealthier nations, cardiovascular diseases (CVDs) are now among the leading causes of illness and death in Kenya.\n\nAccording to the Ministry of Health, cardiovascular diseases account for nearly 25% of hospital admissions and about 13% of deaths reported in health facilities. Behind these numbers are real lives; families losing loved ones too soon and communities struggling with preventable illness.\n\nHeart disease develops over time due to a mix of lifestyle, environmental, and genetic factors. In Kenya, several key trends are making it worse:\n\nHypertension: About one in four Kenyan adults has high blood pressure, often without knowing it.\n\nUnhealthy diets: Processed foods rich in salt, sugar, and fats are replacing traditional healthy meals.\n\nPhysical inactivity: Urbanization has reduced daily physical activity for many Kenyans.\n\nTobacco and alcohol use: Smoking and excessive drinking continue to damage heart health.\n\nStress: High-stress lifestyles increase blood pressure and weaken the heart.\n\nHeart diseases are often silent killers . Many people only find out they are sick after a major episode like a stroke or heart attack. Limited diagnostic services and specialists make early detection difficult, especially in rural areas.\n\nThe economic burden is significant; chronic cardiovascular conditions drain family finances and reduce national productivity.\n\nEarly detection through routine blood pressure and cholesterol checks can prevent severe complications.\n\nChoose fruits, vegetables, whole grains, and lean proteins while reducing processed foods and excess salt.\n\nThirty minutes of daily physical activity — walking, dancing, or cycling — strengthens the heart.\n\n4. Quit Smoking and Limit Alcohol\n\nAvoiding tobacco and alcohol lowers risk significantly.\n\nMindfulness, adequate sleep, and social support all contribute to a healthier heart.\n\nHeart to Heart Foundation’s Role in Kenya\n\nAt Heart to Heart Foundation , we believe awareness is the first step toward prevention. Our programs focus on:\n\nCommunity heart health screenings in schools and workplaces.\n\nEducational campaigns on hypertension and early detection.\n\nPartnerships with hospitals to improve access to cardiac care.\n\nYouth outreach to promote healthy lifestyle choices.\n\nKey Facts About Heart Disease in Kenya\n\n25% of hospital admissions are due to cardiovascular diseases.\n\n13% of facility deaths are heart-related.\n\n1 in 4 adults has high blood pressure.\n\nOnly 45.6% of adults have “ideal cardiovascular health.”\n\n“I had no idea my blood pressure was high until a free screening by Heart to Heart Foundation. I’ve since changed my diet and started walking daily. I feel healthier and more energetic.”\n\n",
+    "imageUrl": "/assets/blog-imported/LOGO-300x290-1.jpg",
+    "authorName": "Peter",
+    "status": "PUBLISHED",
+    "publishedAt": new Date("2025-11-14"),
+    "createdAt": new Date("2025-11-14"),
+    "sourceUrl": "https://hearttoheartfoundation.or.ke/teachers-workshop-2025-2/"
+  },
+  {
+    "id": "imported-blog-6618",
+    "slug": "teachers-workshop-2025",
+    "title": "Teachers Workshop 2025",
+    "category": "Event recap",
+    "excerpt": "On March 21st, 2025 , the Heart to Heart Foundation hosted its impactful Annual Teachers’ Workshop at The Karen Hospital , bringing together over 500 passionate and committed educators . Themed “Transforming Teachers to Transform ",
+    "body": "On March 21st, 2025 , the Heart to Heart Foundation hosted its impactful Annual Teachers’ Workshop at The Karen Hospital , bringing together over 500 passionate and committed educators . Themed “Transforming Teachers to Transform the Next Generation,” the event aimed to empower teachers with essential knowledge to better understand and support children with heart conditions and developmental needs.\n\nThis full-day workshop was a vibrant convergence of healthcare professionals , educational leaders , and teachers , each with a shared mission: to make schools safer, more inclusive, and more supportive for every child.\n\nThe day began with warm welcomes, registration, and opening prayers led by COO Wangare Demesi . This was followed by inspirational remarks from Mr. Joseph who represented the Executive Director Karimi Randall and Programme Manager Carolyne Nandwa , setting the tone for a day of learning and empowerment.\n\nKey morning presentations included:\n\nIdentifying Pediatric Conditions by Sarah Ndegwa (Audiologist) and Godfrey Ngeresa (Occupational Therapist)\n\nHeart Surgeries and Rheumatic Heart Disease by Dr. Premanand Ponoth , Chief Cardiothoracic Vascular Surgeon\n\nA mid-morning tea break offered attendees time to network and reflect before diving into the second half of the program.\n\nPost-lunch sessions focused on practical ways educators can make a difference:\n\nTeacher’s Physical Health Guide led by Kennedy Irungu Kangángí (Physiotherapist)\n\nNutrition for Educators and Children by Dr. Josephine Mbuthi (Clinical Nutritionist/Dietician)\n\nSpeech & Language Therapy in Schools presented by Catherine Katheke Nzau (Speech therapist )\n\nThe workshop closed with heartfelt reflections from Dr. Betty Gikonyo , Trustee and Founder of the Heart to Heart Foundation, reminding all in attendance of the critical role teachers play in early intervention and holistic child development.\n\nHealth talks (career talks)\n\nFirst aid in sports day (Ambulance)\n\nMoments to Remember The day ended with group photos, led by Gladwell Malema , and a lunch break filled with warm conversations and renewed commitment. From the interactive sessions to the exchange of ideas and lived experiences, this year’s workshop truly left a mark on every participant’s heart. Thank You to Our Partners and Supporters We extend our deepest gratitude to all speakers , field officers , partners , and most of all, the teachers who continue to shape the lives of children with love and dedication. Special thanks to our sponsors including KCB , PIXI , Nova Pioneer , and All Saints Cathedral for making this day possible.\n\nTogether, we are building a future where every child’s heart beats stronger - because of you.\n\n",
+    "imageUrl": "/assets/blog-imported/WhatsApp-Image-2024-04-29-at-15.39.53.jpeg",
+    "authorName": "webmaster",
+    "status": "PUBLISHED",
+    "publishedAt": new Date("2025-03-21"),
+    "createdAt": new Date("2025-03-21"),
+    "sourceUrl": "https://hearttoheartfoundation.or.ke/teachers-workshop-2025/"
+  },
+  {
+    "id": "imported-blog-3713",
+    "slug": "heart-to-heart-gala-dinner-2024",
+    "title": "Heart to Heart Gala Dinner - 2024",
+    "category": "Event recap",
+    "excerpt": "The 2024 Heart-to-Heart Foundation Gala Dinner was a spectacular and heartwarming evening, bringing together distinguished guests, corporate partners, and generous supporters, all united by a common cause—giving children with hear",
+    "body": "The 2024 Heart-to-Heart Foundation Gala Dinner was a spectacular and heartwarming evening, bringing together distinguished guests, corporate partners, and generous supporters, all united by a common cause—giving children with heart conditions a second chance at life.\n\nThe event was a resounding success, marked by elegant dining, inspiring speeches, and incredible performances. Key highlights included:\n\n✨ Impactful stories from beneficiaries whose lives have been transformed\n\n✨ Recognitions and awards for outstanding partners and sponsors\n\n✨ A highly successful fundraising effort, furthering the foundation’s mission\n\nThe overwhelming generosity and commitment of our guests made the evening truly memorable. As we look ahead, the Heart-to-Heart Foundation remains dedicated to expanding its impact and ensuring that no child is left behind in the fight against heart disease.\n\nThank you to all who made this night possible!\n\n",
+    "imageUrl": "/assets/blog-imported/DSC_8349-scaled.jpg",
+    "authorName": "webmaster",
+    "status": "PUBLISHED",
+    "publishedAt": new Date("2024-11-29"),
+    "createdAt": new Date("2024-11-29"),
+    "sourceUrl": "https://hearttoheartfoundation.or.ke/heart-to-heart-gala-dinner-2018/"
+  },
+  {
+    "id": "imported-blog-6511",
+    "slug": "the-karen-hospital-heart-to-heart-run-walk-2024",
+    "title": "The Karen Hospital Heart To Heart Run/Walk 2024",
+    "category": "Event recap",
+    "excerpt": "On September 21, 2024, the Heart Run brought together over 8,000 participants in Nairobi to support underprivileged children battling heart conditions. The event was graced by Hon. Raphael Tuju and Dr. Betty Gikonyo, the Chairman ",
+    "body": "Over 8,000 Participants Unite for Children with Heart Conditions\n\nOn September 21, 2024, the Heart Run brought together over 8,000 participants in Nairobi to support underprivileged children battling heart conditions. The event was graced by Hon. Raphael Tuju and Dr. Betty Gikonyo, the Chairman of the Board at The Karen Hospital and the Founder & Trustee of the Foundation. It featured 5km and 10km runs, corporate showcases, and electrifying performances from top artists.\n\nTop Fundraising Schools: Good Testimony, Nova Pioneer\n\nKey Sponsors: KCB Bank, Premier Credit Ltd., Krishna Chemists Ltd., and more\n\nDespite challenges such as economic conditions and logistical hurdles, the overwhelming community support and partnerships fueled the event’s success.\n\nLooking ahead, the Heart-to-Heart Foundation is committed to: 🔹 Strengthening school and corporate collaborations 🔹 Expanding outreach initiatives 🔹 Elevating future Heart Run events to reach even more children in need\n\n",
+    "imageUrl": "/assets/blog-imported/DSC_5966-scaled.jpg",
+    "authorName": "webmaster",
+    "status": "PUBLISHED",
+    "publishedAt": new Date("2024-09-21"),
+    "createdAt": new Date("2024-09-21"),
+    "sourceUrl": "https://hearttoheartfoundation.or.ke/the-karen-hospital-heart-to-heart-run-walk-2024/"
+  },
+  {
+    "id": "imported-blog-3697",
+    "slug": "teachers-workshop-2024",
+    "title": "Teachers Workshop 2024",
+    "category": "Event recap",
+    "excerpt": "Our Annual Teachers’ Workshop was held on 15th March. Over 600 teachers participated and that translates to over 600 schools reached through creating awareness for heart disease. The main theme of our workshop was education and ca",
+    "body": "Our Annual Teachers’ Workshop was held on 15th March. Over 600 teachers participated and that translates to over 600 schools reached through creating awareness for heart disease. The main theme of our workshop was education and cancer awareness.\n\nFor the last four years we have consistently given back to over 300 schools through participating in their schools activities. This has given us a leeway to the schools management and parents at large.\n\nHealth talks (career talks)\n\nFirst aid in sports day (Ambulance)\n\nWe have conducted 11 surgeries with 19 surgeries on the waiting list.\n\nWe have performed around 600 surgeries\n\nWe have witnessed growth in the number of schools and sponsors\n\nWe have over 7 years partnership between Royal Media Services and Heart to Heart Foundation.\n\nRheumatic Heart disease awareness has been created in over 1000 schools\n\nThe Heart Run this year had over 25 thousand participants.\n\n",
+    "imageUrl": "/assets/blog-imported/WhatsApp-Image-2024-04-29-at-15.39.53.jpeg",
+    "authorName": "webmaster",
+    "status": "PUBLISHED",
+    "publishedAt": new Date("2024-03-15"),
+    "createdAt": new Date("2024-03-15"),
+    "sourceUrl": "https://hearttoheartfoundation.or.ke/teachers-workshop-2024/"
+  },
+  {
+    "id": "imported-blog-3245",
+    "slug": "the-karen-hospital-heart-to-heart-run-walk-2023",
+    "title": "The Karen Hospital Heart To Heart Run/Walk 2023",
+    "category": "Event recap",
+    "excerpt": "On Saturday, 17th June, 2023, thousands of children gathered at the Carnivore Grounds in support of children suffering from heart diseases and from needy backgrounds through the Heart to Heart Foundation.",
+    "body": "On Saturday, 17th June, 2023, thousands of children gathered at the Carnivore Grounds in support of children suffering from heart diseases and from needy backgrounds through the Heart to Heart Foundation.\n\nThe Heart-to-Heart Foundation, a medical charity was established in 1993 by Drs. Betty and Dan Gikonyo, Physician/Cardiologist and Paediatrician/Cardiologist respectively. This was out of the need to provide a solution through prevention and management of heart diseases in children from economically disadvantaged backgrounds.\n\nThis year’s run was flagged off by The Deputy President of Kenya HE Rigathi Gachagua, who hailed the foundation for stepping up and assisting children get much need surgery.\n\nHe appreciated the noble initiative by the Karen Hospital that goes a long way in supporting the government agenda in offering quality healthcare.” It is also incredible that children through the Heart to Heart Foundation are raising funds for sick children,” he said.\n\nThe Extend of our Support\n\nFor the past 30 years that the Heart to Heart Foundation has been in existence, over 600 children from underprivileged backgrounds have benefitted from this program and some are now adults with families and pursing their careers and become prosperous members of this society. It is not only their lives that have changed but also the lives of their families who no longer have the burden of disease in their home. There is no greater joy than that of seeing the foundation come full circle.\n\n“All this has been made possible by the sponsors, who heed the call every year to participate in the Annual Heart Run and our other fundraising activities namely, The Annual Gala Dinner and the Goat Derby, said Dr. Daniel Gikonyo. They include Equity Bank, KCB Bank, Tuskys, Coca-Cola, Pacific, ICEA Lion Group, Kids Festival-Churchill, Citizen TV, KIREC Pharmaceuticals and over 600 schools who sent their pupils and students to participate in this noble cause.“\n\nThe government through the National Hospital and Insurance Fund (NHIF) has also supported these surgeries easing the burden and therefore enabling the foundation to help more children,” he added.\n\nLast year alone, 12 children received surgery; this year we hope to raise Kshs. 20M which will enable 20 children receive lifesaving surgeries.\n\nThe foundation has also trained over 10,000 TOTs (Trainers of Trainers) in Rheumatic Fever Prevention Program (RFPP) in partnership with healthcare centres where we provided basic diagnostic tools for rheumatic fever diagnosis and stationery to enable the healthcare givers maintain accurate records.\n\nWe appreciate the support of Kenyans at large for their continued trust and seeking services at The Karen Hospital over the years.\n\nTo all the supporters for the Heart Run especially our teachers who have been our greatest partners we say ASANTE SANA.\n\nFor more information please call on 0706442558 or email\n\n",
+    "imageUrl": "/assets/blog-imported/heart-run-2023.jpg",
+    "authorName": "webmaster",
+    "status": "PUBLISHED",
+    "publishedAt": new Date("2023-06-17"),
+    "createdAt": new Date("2023-06-17"),
+    "sourceUrl": "https://hearttoheartfoundation.or.ke/the-karen-hospital-heart-run-2023/"
+  },
+  {
+    "id": "imported-blog-369",
+    "slug": "the-heart-to-heart-foundation-gala-dinner-2023",
+    "title": "The Heart to Heart Foundation Gala Dinner 2023",
+    "category": "Event recap",
+    "excerpt": "Join us for a hearty meal on Friday 1st December 2023 @VillaRosaKempiski for The Heart to Heart Foundation Gala Dinner.",
+    "body": "Join us for a hearty meal on Friday 1st December 2023 @VillaRosaKempiski for The Heart to Heart Foundation Gala Dinner.\n\nYour generous contribution will help children with heart conditions as well as support our mission to ensure that no child lacks access to cardiac medical treatment because of poverty. @_KarenHospital\n\n",
+    "imageUrl": "/assets/blog-imported/WhatsApp-Image-2024-04-26-at-12.35.54.jpeg",
+    "authorName": "webmaster",
+    "status": "PUBLISHED",
+    "publishedAt": new Date("0201-12-01"),
+    "createdAt": new Date("0201-12-01"),
+    "sourceUrl": "https://hearttoheartfoundation.or.ke/the-heart-to-heart-foundation-gala-dinner-2023/"
+  }
+] ;
