@@ -1,5 +1,6 @@
 import { hasDatabaseUrl } from "@/lib/api";
 import { db } from "@/lib/db";
+import { importedGalleryItems } from "@/lib/imported-gallery";
 
 export type BlogPostRecord = {
   id: string;
@@ -46,8 +47,6 @@ type PublishingDb = {
 };
 
 const fallbackImage = "/assets/hero/DSC_0634-scaled.jpg";
-const fallbackGalleryImage = "/assets/impact/CDB_6159-scaled.jpg";
-
 export const previewBlogPosts: BlogPostRecord[] = [
   {
     id: "preview-heart-run-recap",
@@ -77,34 +76,7 @@ export const previewBlogPosts: BlogPostRecord[] = [
   }
 ];
 
-export const previewGalleryItems: GalleryRecord[] = [
-  {
-    id: "preview-heart-run-gallery",
-    slug: "heart-run-opening-moment",
-    title: "Heart Run opening moment",
-    category: "Heart Run",
-    description: "Participants and foundation supporters gather before the run, carrying the mission into a public celebration of care.",
-    imageUrl: "/assets/hero/DSC_0634-scaled.jpg",
-    location: "Nairobi",
-    status: "PUBLISHED",
-    takenAt: new Date("2026-06-01"),
-    publishedAt: new Date("2026-06-01"),
-    createdAt: new Date("2026-06-01")
-  },
-  {
-    id: "preview-impact-gallery",
-    slug: "family-impact-testimony",
-    title: "A family shares their journey",
-    category: "Impact",
-    description: "A parent and child share their story during a foundation gathering, reminding supporters why follow-up care matters.",
-    imageUrl: fallbackGalleryImage,
-    location: "Karen Hospital",
-    status: "PUBLISHED",
-    takenAt: new Date("2026-05-12"),
-    publishedAt: new Date("2026-05-14"),
-    createdAt: new Date("2026-05-14")
-  }
-];
+export const previewGalleryItems: GalleryRecord[] = importedGalleryItems;
 
 function publishingDb() {
   return db as unknown as PublishingDb;
@@ -191,8 +163,10 @@ export async function getGalleryItems({ admin = false } = {}) {
     const items = await publishingDb().$queryRawUnsafe<DbGalleryItem[]>(
       `SELECT * FROM "GalleryItem" ${admin ? "" : `WHERE "status" = 'PUBLISHED'`} ORDER BY "publishedAt" DESC NULLS LAST, "createdAt" DESC`
     );
-    if (!items.length) return admin ? previewGalleryItems : previewGalleryItems.filter((item) => item.status === "PUBLISHED");
-    return items.map(normalizeGallery);
+    const databaseItems = items.map(normalizeGallery);
+    const importedItems = admin ? previewGalleryItems : previewGalleryItems.filter((item) => item.status === "PUBLISHED");
+    const databaseSlugs = new Set(databaseItems.map((item) => item.slug));
+    return [...databaseItems, ...importedItems.filter((item) => !databaseSlugs.has(item.slug))];
   } catch (error) {
     return admin ? previewGalleryItems : previewGalleryItems.filter((item) => item.status === "PUBLISHED");
   }
