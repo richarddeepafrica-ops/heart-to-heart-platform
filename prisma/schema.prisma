@@ -233,6 +233,36 @@ model MarketingCampaign {
   updatedAt      DateTime                @updatedAt
 }
 
+model BlogPost {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  category    String   @default("Foundation updates")
+  excerpt     String
+  body        String
+  imageUrl    String?
+  authorName  String?
+  status      String   @default("DRAFT")
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GalleryItem {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  category    String   @default("Foundation gallery")
+  description String
+  imageUrl    String
+  location    String?
+  status      String   @default("DRAFT")
+  takenAt     DateTime?
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model Communication {
   id                  String            @id @default(cuid())
   donorId             String?

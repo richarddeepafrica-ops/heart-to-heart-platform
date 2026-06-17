@@ -12,6 +12,7 @@ const navItems = [
   ["Finance", "/admin/finance"],
   ["Marketing", "/admin/marketing"],
   ["Partners", "/admin/partners"],
+  ["Content", "/admin/content"],
   ["Reports", "/admin/reports"]
 ];
 
