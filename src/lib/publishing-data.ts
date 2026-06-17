@@ -50,7 +50,29 @@ type PublishingDb = {
 const fallbackImage = "/assets/hero/DSC_0634-scaled.jpg";
 export const galleryAlbumNames = ["General", "Gala Dinner", "Teachers Workshop", "Heart Run"] as const;
 
-export function normalizeGalleryCategory(category: string) {
+const heartRunGalaSlugs = new Set([
+  "gala-dinner-dsc-5697-9",
+  "gala-dinner-dsc-5705-10",
+  "gala-dinner-dsc-5966-11",
+  "gala-dinner-dsc-6054-12",
+  "gala-dinner-dsc-6066-13",
+  "gala-dinner-dsc-6692-14",
+  "gala-dinner-dsc-6704-15"
+]);
+
+export function galleryAlbumSlug(category: string) {
+  return normalizeGalleryCategory(category)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+export function galleryAlbumFromSlug(slug: string) {
+  return galleryAlbumNames.find((name) => galleryAlbumSlug(name) === slug) || null;
+}
+
+export function normalizeGalleryCategory(category: string, slug = "") {
+  if (heartRunGalaSlugs.has(slug)) return "Heart Run";
   if (/gala/i.test(category)) return "Gala Dinner";
   if (/teacher/i.test(category)) return "Teachers Workshop";
   if (/heart run/i.test(category)) return "Heart Run";
@@ -74,10 +96,18 @@ function publicGalleryDescription(description: string, category: string) {
   return description;
 }
 
+function publicGallerySlug(slug: string, category: string) {
+  if (category === "Heart Run" && heartRunGalaSlugs.has(slug)) {
+    return slug.replace(/^gala-dinner-/, "heart-run-");
+  }
+  return slug;
+}
+
 function prepareGalleryItem<T extends GalleryRecord>(item: T): T {
-  const category = normalizeGalleryCategory(item.category);
+  const category = normalizeGalleryCategory(item.category, item.slug);
   return {
     ...item,
+    slug: publicGallerySlug(item.slug, category),
     category,
     title: publicGalleryTitle(item.title, category),
     description: publicGalleryDescription(item.description, category)

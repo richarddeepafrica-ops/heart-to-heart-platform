@@ -5043,6 +5043,77 @@ body:has(.adminApp) .siteHeader {
   font-weight: 800;
 }
 
+.galleryAlbumHero {
+  display: flex;
+  gap: 24px;
+  align-items: end;
+  justify-content: space-between;
+  padding: clamp(52px, 7vw, 92px) clamp(18px, 5vw, 72px) clamp(28px, 5vw, 56px);
+  background:
+    radial-gradient(circle at 84% 18%, rgba(245, 130, 32, 0.15), transparent 20rem),
+    radial-gradient(circle at 12% 88%, rgba(1, 166, 80, 0.12), transparent 18rem),
+    linear-gradient(135deg, #ffffff 0%, #f6fbff 58%, #eaf4ff 100%);
+}
+
+.galleryAlbumHero > div {
+  max-width: 820px;
+}
+
+.galleryAlbumHero h1 {
+  color: var(--blue-dark);
+}
+
+.galleryAlbumHero p {
+  max-width: 720px;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.galleryPhotoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.galleryPhotoTile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--blue-dark);
+  box-shadow: 0 18px 42px rgba(25, 94, 165, 0.12);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.galleryPhotoTile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 54px rgba(25, 94, 165, 0.17);
+}
+
+.galleryPhotoTile img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.galleryPhotoTile:hover img {
+  opacity: 0.82;
+  transform: scale(1.03);
+}
+
+.galleryPhotoTile span {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--blue-dark);
+  font-size: 13px;
+  font-weight: 900;
+}
+
 .galleryCard a {
   grid-template-columns: 1fr;
 }
@@ -5166,6 +5237,13 @@ body:has(.adminApp) .siteHeader {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 10px;
+}
+
+.galleryControlHint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px !important;
+  font-weight: 800;
 }
 
 .partnerInquiryHero {
@@ -6733,6 +6811,8 @@ body:not(:has(.adminApp)) :where(
   .publicCardGrid,
   .publicContentCard a,
   .galleryAlbumGrid,
+  .galleryAlbumHero,
+  .galleryPhotoGrid,
   .galleryPreviewStrip,
   .storyArticleHero,
   .galleryDetail,

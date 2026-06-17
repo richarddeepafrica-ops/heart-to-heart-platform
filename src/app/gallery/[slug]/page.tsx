@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
-import { getGalleryItem, getGalleryItems } from "@/lib/publishing-data";
+import { GalleryPhotoControls } from "@/components/GalleryPhotoControls";
+import { galleryAlbumSlug, getGalleryItem, getGalleryItems } from "@/lib/publishing-data";
 
 type GalleryPageContext = {
   params: Promise<{ slug: string }>;
@@ -23,9 +24,13 @@ export default async function GalleryDetailPage({ params }: GalleryPageContext) 
   const safeIndex = currentIndex >= 0 ? currentIndex : 0;
   const previousItem = albumItems[(safeIndex - 1 + albumItems.length) % albumItems.length];
   const nextItem = albumItems[(safeIndex + 1) % albumItems.length];
+  const previousHref = `/gallery/${previousItem.slug}`;
+  const nextHref = `/gallery/${nextItem.slug}`;
+  const albumHref = `/gallery/albums/${galleryAlbumSlug(item.category)}`;
 
   return (
     <main>
+      <GalleryPhotoControls previousHref={previousHref} nextHref={nextHref} />
       <article className="galleryDetail">
         <div className="galleryDetailMedia">
           <img src={item.imageUrl} alt="" />
@@ -38,10 +43,12 @@ export default async function GalleryDetailPage({ params }: GalleryPageContext) 
             Photo {safeIndex + 1} of {albumItems.length} | {item.location}
           </small>
           <div className="galleryDetailActions">
-            <a className="button secondary" href="/gallery">Albums</a>
-            {previousItem && <a className="button secondary" href={`/gallery/${previousItem.slug}`}>Previous</a>}
-            {nextItem && <a className="button" href={`/gallery/${nextItem.slug}`}>Next photo</a>}
+            <a className="button secondary" href={albumHref}>Album</a>
+            <a className="button secondary" href="/gallery">All albums</a>
+            <a className="button secondary" href={previousHref}>Previous</a>
+            <a className="button" href={nextHref}>Next photo</a>
           </div>
+          <p className="galleryControlHint">Use arrow keys or swipe left/right to browse.</p>
         </div>
       </article>
     </main>

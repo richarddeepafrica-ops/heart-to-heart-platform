@@ -1,4 +1,4 @@
-import { galleryAlbumNames, getGalleryItems } from "@/lib/publishing-data";
+import { galleryAlbumNames, galleryAlbumSlug, getGalleryItems } from "@/lib/publishing-data";
 
 export default async function GalleryPage() {
   const items = await getGalleryItems();
@@ -34,7 +34,7 @@ export default async function GalleryPage() {
         <div className="galleryAlbumGrid">
           {albums.map((album) => album && (
             <article className="galleryAlbumCard" key={album.name}>
-              <a href={`/gallery/${album.cover.slug}`} aria-label={`Open ${album.name} album`}>
+              <a href={`/gallery/albums/${galleryAlbumSlug(album.name)}`} aria-label={`Open ${album.name} album`}>
                 <span className="galleryAlbumMedia">
                   {album.previewItems.map((item) => (
                     <img src={item.imageUrl} alt="" key={item.id} />
