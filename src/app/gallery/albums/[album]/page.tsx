@@ -23,7 +23,6 @@ export default async function GalleryAlbumPage({ params }: GalleryAlbumPageConte
         <div>
           <p className="eyebrow">Gallery album</p>
           <h1>{albumName}</h1>
-          <p>{items.length} photos from the Heart to Heart Foundation archive. Select any image to view it larger, then continue through the album.</p>
         </div>
         <a className="button secondary" href="/gallery">All albums</a>
       </section>
