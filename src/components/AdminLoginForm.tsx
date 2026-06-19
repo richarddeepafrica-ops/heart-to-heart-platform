@@ -18,6 +18,8 @@ export function AdminLoginForm() {
     const response = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      cache: "no-store",
       body: JSON.stringify({
         email: form.get("email"),
         password: form.get("password")
@@ -30,7 +32,21 @@ export function AdminLoginForm() {
       return;
     }
 
-    window.location.href = "/admin";
+    const sessionResponse = await fetch("/api/auth/session", {
+      credentials: "same-origin",
+      cache: "no-store"
+    });
+
+    if (!sessionResponse.ok) {
+      setState({
+        status: "error",
+        message: "Sign in worked, but the browser did not save the admin session. Please clear site cookies and try again."
+      });
+      return;
+    }
+
+    const nextUrl = new URLSearchParams(window.location.search).get("next") || "/admin";
+    window.location.replace(nextUrl.startsWith("/") ? nextUrl : "/admin");
   }
 
   return (

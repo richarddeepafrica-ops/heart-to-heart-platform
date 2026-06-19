@@ -35,7 +35,15 @@ async function hasValidSession(token?: string) {
     return false;
   }
 
-  const parts = token.split(":");
+  const trimmedToken = token.trim().replace(/^"|"$/g, "");
+  let normalizedToken = trimmedToken;
+  try {
+    normalizedToken = decodeURIComponent(trimmedToken);
+  } catch {
+    normalizedToken = trimmedToken;
+  }
+
+  const parts = normalizedToken.split(":");
   if (parts.length !== 3) return false;
 
   const [email, expiresAtRaw, signature] = parts;

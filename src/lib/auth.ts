@@ -65,11 +65,21 @@ export function createAdminSession(email: string) {
   return `${payload}:${sign(payload)}`;
 }
 
+function normalizeSessionToken(token: string) {
+  const trimmed = token.trim().replace(/^"|"$/g, "");
+
+  try {
+    return decodeURIComponent(trimmed);
+  } catch {
+    return trimmed;
+  }
+}
+
 export function verifyAdminSession(token?: string) {
   if (!token) return null;
   if (getAdminConfigIssue()) return null;
 
-  const parts = token.split(":");
+  const parts = normalizeSessionToken(token).split(":");
   if (parts.length !== 3) return null;
 
   const [email, expiresAtRaw, signature] = parts;
