@@ -70,11 +70,11 @@ export default function ImpactPage() {
           </ul>
         </article>
         <article className="featurePanel blue">
-          <p className="eyebrow">Donor promise</p>
-          <h2>Every gift should be connected to a clear programme path.</h2>
+          <p className="eyebrow">For supporters</p>
+          <h2>Your support helps children receive care and families keep hope.</h2>
           <p>
-            The redesigned platform should let supporters see the campaign,
-            beneficiary, event, and follow-up story connected to their giving.
+            Donations support treatment, prevention, events, and follow-up work
+            so more children can move from diagnosis to recovery.
           </p>
         </article>
       </section>
@@ -82,7 +82,7 @@ export default function ImpactPage() {
       <section className="section beneficiarySection" id="beneficiary-stories">
         <div className="sectionHeading">
           <p className="eyebrow">Beneficiaries</p>
-          <h2>Put children and recovery stories at the centre of the impact page.</h2>
+          <h2>Children and recovery stories are at the heart of this work.</h2>
         </div>
         <div className="beneficiaryGrid">
           {impactStories.map((child) => (
