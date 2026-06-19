@@ -51,7 +51,6 @@ export default async function GalleryDetailPage({ params }: GalleryPageContext) 
         <div className="galleryViewerMeta">
           <span>{item.category}</span>
           <strong>{item.title}</strong>
-          <small>Use arrow keys, swipe, or the thumbnails to browse.</small>
         </div>
         <nav className="galleryThumbnailRail" aria-label="Next photos in this album">
           {previewItems.map((preview) => (
