@@ -1,6 +1,7 @@
 import { DonationStatus, PaymentMethod, PaymentProviderStatus } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { apiError, hasDatabaseUrl, readPositiveInt, readString } from "@/lib/api";
+import { writeAuditLog } from "@/lib/admin-system";
 import { db } from "@/lib/db";
 
 const allowedMethods = new Set<string>([PaymentMethod.BANK_TRANSFER, PaymentMethod.CASH]);
@@ -72,6 +73,14 @@ export async function POST(request: Request) {
         amount,
         status: status === DonationStatus.PENDING ? PaymentProviderStatus.INITIATED : PaymentProviderStatus.VERIFIED
       }
+    });
+
+    await writeAuditLog({
+      actorEmail: "Admin",
+      action: "Recorded offline donation",
+      entityType: "Donation",
+      entityId: donation.id,
+      metadata: { amount, method, status, destinationLabel, donorName: name }
     });
 
     return NextResponse.json({

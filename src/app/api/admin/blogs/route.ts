@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import { NextResponse } from "next/server";
 import { apiError, hasDatabaseUrl, readString } from "@/lib/api";
+import { writeAuditLog } from "@/lib/admin-system";
 import { db } from "@/lib/db";
 import { slugify } from "@/lib/publishing-data";
 
@@ -53,7 +54,15 @@ export async function POST(request: Request) {
       status,
       status === "PUBLISHED" ? new Date() : null
     );
-    const post = rows[0];
+    const post = rows[0] as { id?: string } | undefined;
+
+    await writeAuditLog({
+      actorEmail: "Admin",
+      action: status === "PUBLISHED" ? "Published blog post" : "Saved blog draft",
+      entityType: "BlogPost",
+      entityId: post?.id || id,
+      metadata: { slug, title, status }
+    });
 
     return NextResponse.json({
       ok: true,

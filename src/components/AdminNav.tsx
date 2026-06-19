@@ -14,7 +14,8 @@ const navItems = [
   ["Marketing", "/admin/marketing"],
   ["Partners", "/admin/partners"],
   ["Content", "/admin/content"],
-  ["Reports", "/admin/reports"]
+  ["Reports", "/admin/reports"],
+  ["System", "/admin/system"]
 ];
 
 export function AdminNav() {
