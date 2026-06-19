@@ -3,6 +3,7 @@ import { CampaignStatus } from "@prisma/client";
 import { campaigns, fundedPercent } from "@/lib/content";
 import { db } from "@/lib/db";
 import { apiError, hasDatabaseUrl, readPositiveInt, readString } from "@/lib/api";
+import { writeAuditLog } from "@/lib/admin-system";
 
 const campaignStatuses = new Set<string>(Object.values(CampaignStatus));
 
@@ -107,6 +108,12 @@ export async function POST(request: Request) {
         goalAmount,
         status: status as CampaignStatus
       }
+    });
+    await writeAuditLog({
+      action: "CREATE_CAMPAIGN",
+      entityType: "Campaign",
+      entityId: campaign.id,
+      metadata: { slug: campaign.slug, status: campaign.status, goalAmount: campaign.goalAmount }
     });
 
     return NextResponse.json({

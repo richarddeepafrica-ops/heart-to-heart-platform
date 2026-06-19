@@ -2,6 +2,7 @@ import crypto from "crypto";
 import { NextResponse } from "next/server";
 import { apiError, hasDatabaseUrl, readString } from "@/lib/api";
 import { db } from "@/lib/db";
+import { writeAuditLog } from "@/lib/admin-system";
 
 type RouteContext = { params: Promise<{ id: string }> };
 type RawDb = { $queryRawUnsafe: <T = unknown>(query: string, ...values: unknown[]) => Promise<T> };
@@ -53,6 +54,12 @@ export async function PATCH(request: Request, context: RouteContext) {
       partnerId || null,
       id
     );
+    await writeAuditLog({
+      action: "UPDATE_PARTNER_APPLICATION",
+      entityType: "PartnerInstitutionApplication",
+      entityId: id,
+      metadata: { status, partnerId: partnerId || null, hasAdminNotes: Boolean(adminNotes) }
+    });
 
     return NextResponse.json({
       ok: true,

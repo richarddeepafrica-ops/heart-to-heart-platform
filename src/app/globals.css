@@ -2159,6 +2159,207 @@ body:has(.adminApp) .siteHeader {
   font-weight: 900;
 }
 
+.taskBoard,
+.quickActionGrid,
+.readinessList,
+.roleMatrix,
+.auditCompactList,
+.contentOpsGrid,
+.albumManagerGrid,
+.adminFilterBar,
+.applicationChecklist {
+  display: grid;
+  gap: 10px;
+}
+
+.taskBoard {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.taskCard,
+.quickActionGrid a,
+.readinessList div,
+.roleMatrix div,
+.auditCompactList div,
+.contentOpsGrid span,
+.albumManagerGrid a {
+  position: relative;
+  overflow: hidden;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(135deg, white, rgba(247, 251, 255, 0.92));
+  color: inherit;
+}
+
+.taskCard {
+  display: grid;
+  gap: 7px;
+  min-height: 168px;
+}
+
+.taskCard::before,
+.quickActionGrid a::before,
+.albumManagerGrid a::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--orange);
+  content: "";
+}
+
+.taskCard.priorityHigh::before {
+  background: #e5484d;
+}
+
+.taskCard.priorityMedium::before {
+  background: var(--orange);
+}
+
+.taskCard.priorityLow::before {
+  background: var(--green);
+}
+
+.taskCard span,
+.taskCard em,
+.quickActionGrid span,
+.readinessList small,
+.roleMatrix span,
+.roleMatrix small,
+.auditCompactList span,
+.auditCompactList small,
+.contentOpsGrid span,
+.albumManagerGrid span,
+.albumManagerGrid small,
+.adminFilterBar span,
+.applicationChecklist {
+  color: var(--muted);
+}
+
+.taskCard > span {
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.taskCard strong,
+.quickActionGrid strong,
+.readinessList strong,
+.roleMatrix strong,
+.auditCompactList strong,
+.contentOpsGrid strong,
+.albumManagerGrid strong {
+  color: var(--blue-dark);
+}
+
+.taskCard small,
+.quickActionGrid span,
+.readinessList small,
+.roleMatrix small,
+.auditCompactList small,
+.contentOpsGrid span,
+.albumManagerGrid small {
+  line-height: 1.45;
+}
+
+.taskCard em {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(245, 130, 32, 0.12);
+  color: var(--blue-dark);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.taskCard b {
+  align-self: end;
+  color: var(--blue);
+  font-size: 14px;
+}
+
+.quickActionGrid {
+  grid-template-columns: 1fr;
+}
+
+.quickActionGrid a,
+.albumManagerGrid a {
+  display: grid;
+  gap: 5px;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.quickActionGrid a:hover,
+.albumManagerGrid a:hover,
+.taskCard:hover {
+  border-color: rgba(245, 130, 32, 0.32);
+  box-shadow: 0 16px 34px rgba(25, 94, 165, 0.12);
+  transform: translateY(-2px);
+}
+
+.readinessList div {
+  display: grid;
+  grid-template-columns: auto minmax(140px, 0.6fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.roleMatrix div,
+.auditCompactList div {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.4fr) minmax(140px, 0.5fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.auditCompactList div {
+  grid-template-columns: minmax(180px, 0.7fr) minmax(220px, 0.7fr) minmax(0, 1fr);
+}
+
+.adminFilterBar {
+  grid-template-columns: auto repeat(8, auto);
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 12px;
+  overflow-x: auto;
+}
+
+.adminFilterBar a {
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: white;
+  color: var(--blue-dark);
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.donationOpsGrid {
+  margin-top: 18px;
+}
+
+.applicationChecklist {
+  margin: 12px 0 0;
+  padding-left: 18px;
+  line-height: 1.55;
+}
+
+.contentOpsGrid,
+.albumManagerGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.contentOpsGrid span,
+.albumManagerGrid a {
+  min-height: 112px;
+}
+
 .eventOps {
   display: grid;
   gap: 8px;
@@ -6956,7 +7157,13 @@ body:not(:has(.adminApp)) :where(
   .storyArticleHero,
   .galleryDetail,
   .partnerInquiryHero,
-  .partnerInquiryGrid {
+  .partnerInquiryGrid,
+  .taskBoard,
+  .readinessList div,
+  .roleMatrix div,
+  .auditCompactList div,
+  .contentOpsGrid,
+  .albumManagerGrid {
     grid-template-columns: 1fr;
   }
 

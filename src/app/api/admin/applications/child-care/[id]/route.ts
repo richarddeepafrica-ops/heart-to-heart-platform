@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { apiError, hasDatabaseUrl, readString } from "@/lib/api";
 import { db } from "@/lib/db";
 import { slugify } from "@/lib/publishing-data";
+import { writeAuditLog } from "@/lib/admin-system";
 
 type RouteContext = { params: Promise<{ id: string }> };
 type RawDb = { $queryRawUnsafe: <T = unknown>(query: string, ...values: unknown[]) => Promise<T> };
@@ -58,6 +59,12 @@ export async function PATCH(request: Request, context: RouteContext) {
       beneficiaryId || null,
       id
     );
+    await writeAuditLog({
+      action: "UPDATE_CHILD_APPLICATION",
+      entityType: "ChildCareApplication",
+      entityId: id,
+      metadata: { status, beneficiaryId: beneficiaryId || null, hasAdminNotes: Boolean(adminNotes) }
+    });
 
     return NextResponse.json({
       ok: true,

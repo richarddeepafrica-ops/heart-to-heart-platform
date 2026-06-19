@@ -24,6 +24,14 @@ export default async function EventsAdminPage() {
         ].map(([label, value, meta]) => <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>)}
       </section>
       <section className="adminDashboardGrid">
+        <article className="appPanel span12">
+          <div className="panelHeader"><div><p className="eyebrow">Event workflow</p><h2>Registration to check-in</h2></div></div>
+          <div className="eventPackageRules">
+            <span><strong>Package setup</strong>Confirm ticket names, benefits, pricing, and public checkout copy before launch.</span>
+            <span><strong>Registration review</strong>Track payment status and export attendee records before the event day.</span>
+            <span><strong>Check-in</strong>Use the latest registration queue to mark arrivals and clear mistakes quickly.</span>
+          </div>
+        </article>
         <article className="appPanel span8">
           <div className="panelHeader"><div><p className="eyebrow">Calendar</p><h2>Fundraising events</h2></div></div>
           <div className="simpleTable eventsAdminTable">

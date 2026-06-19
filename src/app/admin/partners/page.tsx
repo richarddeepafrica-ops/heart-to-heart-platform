@@ -35,9 +35,17 @@ export default async function PartnersPage() {
         <article className="appPanel span4">
           <div className="panelHeader"><div><p className="eyebrow">Next actions</p><h2>This week</h2></div></div>
           <div className="reviewStack">
-            <div><strong>Send proposal</strong><span>School Network Heart Run package</span><em>Today</em></div>
-            <div><strong>Prepare report</strong><span>Kingdom Bank event visibility report</span><em>2 days</em></div>
-            <div><strong>Follow up</strong><span>Corporate Team Alpha board approval</span><em>Friday</em></div>
+            <div><strong>New inquiry triage</strong><span>Review open institution and corporate requests before proposal work.</span><em>Today</em></div>
+            <div><strong>Prepare value note</strong><span>Attach estimated contribution, event category, and follow-up owner.</span><em>2 days</em></div>
+            <div><strong>Approval path</strong><span>Approved institution applications can become public partners.</span><em>Next</em></div>
+          </div>
+        </article>
+        <article className="appPanel span12">
+          <div className="panelHeader"><div><p className="eyebrow">Partner workflow</p><h2>Inquiry to approved partner</h2></div></div>
+          <div className="eventPackageRules">
+            <span><strong>Apply online</strong>Partner institutions submit contacts, county, type, and proposal through the public form.</span>
+            <span><strong>Review</strong>Admin moves the application through new, review, approved, or declined with internal notes.</span>
+            <span><strong>Convert</strong>Approved institutions become partner records and can be listed publicly after confirmation.</span>
           </div>
         </article>
         <article className="appPanel span12">

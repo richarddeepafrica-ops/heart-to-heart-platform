@@ -9,6 +9,12 @@ export default async function AdminContentPage() {
   ]);
   const publishedPosts = posts.filter((post) => post.status === "PUBLISHED").length;
   const publishedGalleries = galleries.filter((item) => item.status === "PUBLISHED").length;
+  const draftPosts = posts.length - publishedPosts;
+  const draftGalleries = galleries.length - publishedGalleries;
+  const albumCounts = ["General", "Gala Dinner", "Teachers Workshop", "Heart Run"].map((album) => ({
+    album,
+    count: galleries.filter((item) => item.category === album).length
+  }));
 
   return (
     <>
@@ -21,7 +27,7 @@ export default async function AdminContentPage() {
         {[
           ["Blog posts", String(posts.length), `${publishedPosts} published`],
           ["Gallery items", String(galleries.length), `${publishedGalleries} published`],
-          ["Drafts", String(posts.length + galleries.length - publishedPosts - publishedGalleries), "waiting review"],
+          ["Drafts", String(draftPosts + draftGalleries), "waiting review"],
           ["Public content", String(publishedPosts + publishedGalleries), "live cards"]
         ].map(([label, value, meta]) => (
           <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>
@@ -29,6 +35,15 @@ export default async function AdminContentPage() {
       </section>
 
       <section className="adminDashboardGrid">
+        <article className="appPanel span12">
+          <div className="panelHeader"><div><p className="eyebrow">Moderation</p><h2>Publishing flow</h2></div></div>
+          <div className="contentOpsGrid">
+            <span><strong>Draft</strong>Saved by admin but hidden from public pages.</span>
+            <span><strong>Pending review</strong>Ready for approval, image checks, and story consent review.</span>
+            <span><strong>Published</strong>Visible as public cards that open dedicated pages.</span>
+            <span><strong>Archived</strong>Kept for records but removed from the public experience.</span>
+          </div>
+        </article>
         <article className="appPanel span6" id="new-blog">
           <div className="panelHeader"><div><p className="eyebrow">Blog editor</p><h2>Create news or blog post</h2></div></div>
           <BlogPostForm />
@@ -73,6 +88,18 @@ export default async function AdminContentPage() {
             </div>
           </div>
         </details>
+        <article className="appPanel span12">
+          <div className="panelHeader"><div><p className="eyebrow">Album manager</p><h2>Gallery coverage</h2></div><a className="panelLink" href="#new-gallery">Add image</a></div>
+          <div className="albumManagerGrid">
+            {albumCounts.map((album) => (
+              <a href={`/gallery/${album.album.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}`} key={album.album}>
+                <strong>{album.album}</strong>
+                <span>{album.count} images</span>
+                <small>Open public album</small>
+              </a>
+            ))}
+          </div>
+        </article>
       </section>
     </>
   );

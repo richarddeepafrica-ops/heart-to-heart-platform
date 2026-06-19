@@ -25,6 +25,16 @@ export default async function AdminApplicationsPage() {
 
       <section className="adminDashboardGrid">
         <article className="appPanel span12">
+          <div className="panelHeader">
+            <div><p className="eyebrow">Review pathway</p><h2>From application to public profile</h2></div>
+          </div>
+          <div className="eventPackageRules">
+            <span><strong>Received</strong>Confirm guardian contact details, diagnosis, hospital, and estimated need.</span>
+            <span><strong>Under review</strong>Request documents, add internal notes, and confirm consent status.</span>
+            <span><strong>Approved</strong>Create a private beneficiary record first, then publish only after consent is tracked.</span>
+          </div>
+        </article>
+        <article className="appPanel span12">
           <div className="panelHeader"><div><p className="eyebrow">Child care</p><h2>Parent and guardian applications</h2></div></div>
           <div className="applicationReviewList">
             {dashboard.childApplications.map((application) => (
@@ -35,6 +45,11 @@ export default async function AdminApplicationsPage() {
                   <p>{application.diagnosis}</p>
                   <small>{application.guardianName} | {application.guardianPhone} | {application.county || "Location not provided"}</small>
                   <em>{application.estimatedNeed ? formatKes(application.estimatedNeed) : "Need not estimated"}</em>
+                  <ul className="applicationChecklist">
+                    <li>Guardian contact captured</li>
+                    <li>Clinical diagnosis captured</li>
+                    <li>{application.beneficiaryId ? "Beneficiary profile created" : "No beneficiary profile yet"}</li>
+                  </ul>
                 </div>
                 <ApplicationStatusForm id={application.id} kind="child-care" initialStatus={application.status} />
               </article>
@@ -53,6 +68,11 @@ export default async function AdminApplicationsPage() {
                   <p>{application.proposal}</p>
                   <small>{application.institutionType} | {application.contactName} | {application.contactEmail}</small>
                   <em>{application.county || "Location not provided"}</em>
+                  <ul className="applicationChecklist">
+                    <li>Contact person captured</li>
+                    <li>Partnership proposal captured</li>
+                    <li>{application.partnerId ? "Partner record created" : "No partner record yet"}</li>
+                  </ul>
                 </div>
                 <ApplicationStatusForm id={application.id} kind="partner-institutions" initialStatus={application.status} />
               </article>

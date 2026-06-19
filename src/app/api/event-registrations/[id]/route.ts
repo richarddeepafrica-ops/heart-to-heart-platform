@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { apiError, hasDatabaseUrl, readString } from "@/lib/api";
+import { writeAuditLog } from "@/lib/admin-system";
 import { db } from "@/lib/db";
 
 type EventRegistrationRouteContext = {
@@ -36,6 +37,12 @@ export async function PATCH(request: NextRequest, context: EventRegistrationRout
     const registration = await db.eventRegistration.update({
       where: { id },
       data: { checkedInAt: body.checkedIn ? new Date() : null }
+    });
+    await writeAuditLog({
+      action: body.checkedIn ? "CHECK_IN_EVENT_REGISTRATION" : "CLEAR_EVENT_CHECK_IN",
+      entityType: "EventRegistration",
+      entityId: id,
+      metadata: { checkedIn: body.checkedIn }
     });
 
     return NextResponse.json({

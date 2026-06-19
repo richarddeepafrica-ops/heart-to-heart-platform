@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { apiError, hasDatabaseUrl, readString } from "@/lib/api";
+import { writeAuditLog } from "@/lib/admin-system";
 import {
   markDonationConfirmed,
   markDonationFailed,
@@ -52,6 +53,12 @@ export async function PATCH(request: NextRequest, context: FinanceDonationRouteC
       action === "RECONCILE" ? await markDonationReconciled(id, providerRef || undefined) :
       action === "REFUND" ? await markDonationRefunded(id) :
       await markDonationFailed(id);
+    await writeAuditLog({
+      action: `FINANCE_${action}`,
+      entityType: "Donation",
+      entityId: id,
+      metadata: { providerRef: providerRef || null, status: donation.status }
+    });
 
     return NextResponse.json({
       ok: true,
