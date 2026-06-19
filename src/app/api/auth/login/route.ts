@@ -16,20 +16,29 @@ export async function POST(request: Request) {
 
   const credentials = getAdminCredentials();
   let authenticatedEmail = "";
+  const matchesFallbackAdmin =
+    email === credentials.email.toLowerCase() &&
+    password === credentials.password;
 
   if (hasDatabaseUrl()) {
     try {
       const user = await db.user.findUnique({ where: { email } });
       if (user && verifyPassword(password, user.passwordHash)) {
         authenticatedEmail = user.email;
+      } else if (process.env.NODE_ENV !== "production" && matchesFallbackAdmin) {
+        authenticatedEmail = credentials.email;
       }
     } catch (error) {
+      if (process.env.NODE_ENV !== "production" && matchesFallbackAdmin) {
+        authenticatedEmail = credentials.email;
+      } else {
       return NextResponse.json(
         { ok: false, message: "Admin login is temporarily unavailable." },
         { status: 503 }
       );
+      }
     }
-  } else if (email === credentials.email.toLowerCase() && password === credentials.password) {
+  } else if (matchesFallbackAdmin) {
     authenticatedEmail = credentials.email;
   }
 
