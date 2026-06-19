@@ -10,9 +10,6 @@
   --green: #01a650;
   --blue: #195ea5;
   --blue-dark: #0f3f73;
-  --orange: #f58220;
-  --orange-soft: #fff2e5;
-  --orange-glow: rgba(245, 130, 32, 0.22);
   --shadow: 0 20px 60px rgba(25, 94, 165, 0.14);
 }
 
@@ -50,7 +47,7 @@ button {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 8% 6%, rgba(245, 130, 32, 0.06), transparent 22rem),
+    radial-gradient(circle at 8% 6%, rgba(25, 94, 165, 0.06), transparent 22rem),
     var(--bg);
   color: var(--text);
   font-family: Manrope, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -66,7 +63,7 @@ a:focus-visible,
 button:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 3px solid var(--orange-glow);
+  outline: 3px solid rgba(25, 94, 165, 0.22);
   outline-offset: 3px;
 }
 
@@ -147,7 +144,7 @@ select:focus-visible {
   left: 8px;
   height: 3px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--orange), var(--green));
+  background: linear-gradient(90deg, var(--blue), var(--green));
   opacity: 0;
   transform: scaleX(0.5);
   transition: opacity 180ms ease, transform 180ms ease;
@@ -208,7 +205,7 @@ select:focus-visible {
 
 .navDropdown a:hover,
 .navDropdown a:focus-visible {
-  background: linear-gradient(135deg, var(--surface-strong), var(--orange-soft));
+  background: linear-gradient(135deg, var(--surface-strong), var(--surface-strong));
   color: var(--blue-dark);
   transform: translateX(2px);
 }
@@ -242,7 +239,7 @@ select:focus-visible {
 
 .button.secondary {
   background: white;
-  border-color: rgba(245, 130, 32, 0.2);
+  border-color: rgba(25, 94, 165, 0.2);
   color: var(--blue);
 }
 
@@ -253,7 +250,7 @@ select:focus-visible {
 
 .headerCta:hover,
 .button.primary:hover {
-  box-shadow: 0 16px 34px rgba(245, 130, 32, 0.2), 0 10px 24px rgba(1, 166, 80, 0.18);
+  box-shadow: 0 16px 34px rgba(25, 94, 165, 0.2), 0 10px 24px rgba(1, 166, 80, 0.18);
 }
 
 .hero {
@@ -290,7 +287,7 @@ select:focus-visible {
 
 .heroOverlay {
   background:
-    radial-gradient(circle at 18% 78%, rgba(245, 130, 32, 0.3), transparent 26rem),
+    radial-gradient(circle at 18% 78%, rgba(25, 94, 165, 0.3), transparent 26rem),
     linear-gradient(90deg, rgba(9, 38, 70, 0.92), rgba(9, 38, 70, 0.58), rgba(9, 38, 70, 0.18)),
     linear-gradient(0deg, rgba(9, 38, 70, 0.78), transparent);
 }
@@ -433,7 +430,7 @@ body:not(:has(.adminApp)) :where(
   border-color: rgba(25, 94, 165, 0.14);
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.94)),
-    radial-gradient(circle at 100% 0%, rgba(245, 130, 32, 0.08), transparent 11rem);
+    radial-gradient(circle at 100% 0%, rgba(25, 94, 165, 0.08), transparent 11rem);
 }
 
 body:not(:has(.adminApp)) :where(
@@ -467,7 +464,7 @@ body:not(:has(.adminApp)) :where(
   position: absolute;
   inset: 0 0 auto;
   height: 4px;
-  background: linear-gradient(90deg, var(--card-accent, var(--blue)), var(--orange));
+  background: linear-gradient(90deg, var(--card-accent, var(--blue)), var(--blue));
 }
 
 body:not(:has(.adminApp)) :where(
@@ -533,7 +530,7 @@ body:not(:has(.adminApp)) :where(
   .founderGrid,
   .teamGrid
 ) > :nth-child(3n) {
-  --card-accent: var(--orange);
+  --card-accent: var(--blue);
 }
 
 .featurePanel.blue {
@@ -558,7 +555,7 @@ body:not(:has(.adminApp)) :where(
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--blue), var(--orange), var(--green));
+  background: linear-gradient(90deg, var(--blue), var(--blue), var(--green));
 }
 
 .splitMeta,
@@ -782,9 +779,9 @@ body:not(:has(.adminApp)) :where(
 }
 
 .amount.active {
-  border-color: var(--orange);
-  background: var(--orange-soft);
-  box-shadow: inset 0 0 0 2px rgba(245, 130, 32, 0.14);
+  border-color: var(--blue);
+  background: var(--surface-strong);
+  box-shadow: inset 0 0 0 2px rgba(25, 94, 165, 0.14);
 }
 
 label {
@@ -809,8 +806,8 @@ select {
 
 input:focus,
 select:focus {
-  border-color: var(--orange);
-  outline: 3px solid var(--orange-glow);
+  border-color: var(--blue);
+  outline: 3px solid rgba(25, 94, 165, 0.22);
 }
 
 .srOnly {
@@ -892,7 +889,7 @@ select:focus {
 
 .campaignListingGrid {
   background:
-    radial-gradient(circle at 92% 10%, rgba(245, 130, 32, 0.12), transparent 20rem),
+    radial-gradient(circle at 92% 10%, rgba(25, 94, 165, 0.12), transparent 20rem),
     radial-gradient(circle at 12% 0%, rgba(25, 94, 165, 0.08), transparent 24%),
     #eef5fc;
 }
@@ -913,7 +910,7 @@ select:focus {
   position: absolute;
   inset: 0 0 auto;
   height: 7px;
-  background: linear-gradient(90deg, var(--blue), var(--orange), var(--green));
+  background: linear-gradient(90deg, var(--blue), var(--blue), var(--green));
 }
 
 .campaignListingCard:hover {
@@ -937,7 +934,7 @@ select:focus {
 .campaignCardHeader span {
   padding: 7px 10px;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--surface-strong), var(--orange-soft));
+  background: linear-gradient(135deg, var(--surface-strong), var(--surface-strong));
   color: var(--blue-dark);
   font-size: 12px;
   font-weight: 900;
@@ -955,7 +952,7 @@ select:focus {
   width: fit-content;
   padding: 7px 10px;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(25, 94, 165, 0.08), var(--orange-soft));
+  background: linear-gradient(135deg, rgba(25, 94, 165, 0.08), var(--surface-strong));
   color: var(--blue-dark);
 }
 
@@ -1301,7 +1298,7 @@ select:focus {
 
 .routeStrip a:hover {
   transform: translateY(-2px);
-  border-color: rgba(245, 130, 32, 0.48);
+  border-color: rgba(25, 94, 165, 0.48);
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -1324,7 +1321,7 @@ select:focus {
   height: 3px;
   margin: 10px auto 0;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--orange), var(--green));
+  background: linear-gradient(90deg, var(--blue), var(--green));
 }
 
 .splitStory {
@@ -1355,8 +1352,8 @@ select:focus {
 
 .childCard:hover {
   transform: translateY(-2px);
-  border-color: rgba(245, 130, 32, 0.32);
-  box-shadow: 0 20px 42px rgba(25, 94, 165, 0.12), 0 0 0 4px rgba(245, 130, 32, 0.06);
+  border-color: rgba(25, 94, 165, 0.32);
+  box-shadow: 0 20px 42px rgba(25, 94, 165, 0.12), 0 0 0 4px rgba(25, 94, 165, 0.06);
 }
 
 .avatar {
@@ -1404,12 +1401,12 @@ select:focus {
 
 .eventBoard a:hover {
   transform: translateY(-2px);
-  border-color: rgba(245, 130, 32, 0.32);
-  box-shadow: 0 20px 42px rgba(25, 94, 165, 0.1), 0 0 0 4px rgba(245, 130, 32, 0.06);
+  border-color: rgba(25, 94, 165, 0.32);
+  box-shadow: 0 20px 42px rgba(25, 94, 165, 0.1), 0 0 0 4px rgba(25, 94, 165, 0.06);
 }
 
 .date {
-  color: var(--orange);
+  color: var(--blue);
   font-weight: 900;
 }
 
@@ -1654,7 +1651,7 @@ body:has(.adminApp) .siteHeader {
 .adminNavGroup h2 {
   margin: 0 0 2px;
   padding: 0 10px;
-  color: var(--orange);
+  color: var(--blue);
   font-size: 11px;
   font-weight: 900;
   letter-spacing: 0.13em;
@@ -2068,8 +2065,8 @@ body:has(.adminApp) .siteHeader {
 }
 
 .status.warning {
-  background: rgba(243, 180, 63, 0.18);
-  color: #8a5a00;
+  background: rgba(25, 94, 165, 0.12);
+  color: var(--blue-dark);
 }
 
 .segmentList {
@@ -2223,7 +2220,7 @@ body:has(.adminApp) .siteHeader {
   position: absolute;
   inset: 0 auto 0 0;
   width: 4px;
-  background: var(--orange);
+  background: var(--blue);
   content: "";
 }
 
@@ -2232,7 +2229,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .taskCard.priorityMedium::before {
-  background: var(--orange);
+  background: var(--blue);
 }
 
 .taskCard.priorityLow::before {
@@ -2256,7 +2253,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .taskCard > span {
-  color: var(--orange);
+  color: var(--blue);
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.12em;
@@ -2289,7 +2286,7 @@ body:has(.adminApp) .siteHeader {
   right: 12px;
   padding: 5px 8px;
   border-radius: 999px;
-  background: rgba(245, 130, 32, 0.12);
+  background: rgba(25, 94, 165, 0.12);
   color: var(--blue-dark);
   font-size: 11px;
   font-style: normal;
@@ -2316,7 +2313,7 @@ body:has(.adminApp) .siteHeader {
 .quickActionGrid a:hover,
 .albumManagerGrid a:hover,
 .taskCard:hover {
-  border-color: rgba(245, 130, 32, 0.32);
+  border-color: rgba(25, 94, 165, 0.32);
   box-shadow: 0 16px 34px rgba(25, 94, 165, 0.12);
   transform: translateY(-2px);
 }
@@ -2667,7 +2664,7 @@ body:has(.adminApp) .siteHeader {
   margin: 14px 0 0;
   padding: 12px;
   border-radius: 10px;
-  background: rgba(245, 130, 32, 0.1);
+  background: rgba(25, 94, 165, 0.1);
   color: var(--blue-dark);
   font-weight: 800;
   line-height: 1.45;
@@ -2777,7 +2774,7 @@ body:has(.adminApp) .siteHeader {
   align-items: center;
   padding: clamp(56px, 8vw, 108px) clamp(18px, 5vw, 72px);
   background:
-    radial-gradient(circle at 16% 80%, rgba(245, 130, 32, 0.16), transparent 22rem),
+    radial-gradient(circle at 16% 80%, rgba(25, 94, 165, 0.16), transparent 22rem),
     linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(247, 251, 255, 0.9));
 }
 
@@ -2803,7 +2800,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .applicationHero aside span {
-  color: var(--orange);
+  color: var(--blue);
   font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -2865,7 +2862,7 @@ body:has(.adminApp) .siteHeader {
   gap: 24px;
   align-items: center;
   background:
-    radial-gradient(circle at 8% 20%, rgba(245, 130, 32, 0.12), transparent 18rem),
+    radial-gradient(circle at 8% 20%, rgba(25, 94, 165, 0.12), transparent 18rem),
     #f7fbff;
 }
 
@@ -2982,7 +2979,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .staffRoleGrid span {
-  color: var(--orange);
+  color: var(--blue);
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.12em;
@@ -3019,7 +3016,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .approvedPartnerGrid span {
-  color: var(--orange);
+  color: var(--blue);
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.12em;
@@ -3082,8 +3079,8 @@ body:has(.adminApp) .siteHeader {
   height: 36px;
   place-items: center;
   border-radius: 999px;
-  background: rgba(245, 130, 32, 0.12);
-  color: var(--orange);
+  background: rgba(25, 94, 165, 0.12);
+  color: var(--blue);
   font-size: 22px;
   font-weight: 900;
 }
@@ -3128,7 +3125,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .contentQueue span {
-  color: var(--orange);
+  color: var(--blue);
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.12em;
@@ -3174,8 +3171,8 @@ body:has(.adminApp) .siteHeader {
 }
 
 .systemCheck.warning span {
-  background: rgba(245, 130, 32, 0.13);
-  color: var(--orange);
+  background: rgba(25, 94, 165, 0.13);
+  color: var(--blue);
 }
 
 .systemCheck.blocked span {
@@ -3696,14 +3693,14 @@ body:has(.adminApp) .siteHeader {
 .segmentedControl button:hover,
 .paymentMethods button:hover {
   transform: translateY(-1px);
-  border-color: rgba(245, 130, 32, 0.34);
+  border-color: rgba(25, 94, 165, 0.34);
 }
 
 .segmentedControl button.active,
 .paymentMethods button.active {
-  border-color: var(--orange);
-  background: var(--orange-soft);
-  box-shadow: inset 0 0 0 2px rgba(245, 130, 32, 0.12);
+  border-color: var(--blue);
+  background: var(--surface-strong);
+  box-shadow: inset 0 0 0 2px rgba(25, 94, 165, 0.12);
 }
 
 .campaignMini {
@@ -3994,7 +3991,7 @@ body:has(.adminApp) .siteHeader {
 
 .eventCardsSection {
   background:
-    radial-gradient(circle at 92% 12%, rgba(245, 130, 32, 0.1), transparent 22rem),
+    radial-gradient(circle at 92% 12%, rgba(25, 94, 165, 0.1), transparent 22rem),
     radial-gradient(circle at 8% 0%, rgba(25, 94, 165, 0.1), transparent 24%),
     #f8fbff;
 }
@@ -4017,8 +4014,8 @@ body:has(.adminApp) .siteHeader {
 
 .eventShowcaseCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(245, 130, 32, 0.34);
-  box-shadow: 0 26px 64px rgba(25, 94, 165, 0.16), 0 0 0 4px rgba(245, 130, 32, 0.06);
+  border-color: rgba(25, 94, 165, 0.34);
+  box-shadow: 0 26px 64px rgba(25, 94, 165, 0.16), 0 0 0 4px rgba(25, 94, 165, 0.06);
 }
 
 .signatureEventCard {
@@ -4074,7 +4071,7 @@ body:has(.adminApp) .siteHeader {
 
 .eventShowcaseCard strong {
   margin-top: 8px;
-  color: var(--orange);
+  color: var(--blue);
 }
 
 .eventPackageSection {
@@ -4180,7 +4177,7 @@ body:has(.adminApp) .siteHeader {
   object-fit: cover;
   border: 4px solid white;
   border-radius: 999px;
-  box-shadow: 0 0 0 4px var(--card-accent, var(--orange)), 0 18px 38px rgba(25, 94, 165, 0.16);
+  box-shadow: 0 0 0 4px var(--card-accent, var(--blue)), 0 18px 38px rgba(25, 94, 165, 0.16);
 }
 
 .beneficiaryCard span,
@@ -4225,7 +4222,7 @@ body:has(.adminApp) .siteHeader {
   padding: clamp(56px, 8vw, 108px) clamp(18px, 4vw, 56px);
   background:
     radial-gradient(circle at 90% 16%, rgba(1, 166, 80, 0.14), transparent 26rem),
-    radial-gradient(circle at 12% 86%, rgba(245, 130, 32, 0.12), transparent 22rem),
+    radial-gradient(circle at 12% 86%, rgba(25, 94, 165, 0.12), transparent 22rem),
     linear-gradient(135deg, #ffffff 0%, #f5f9ff 58%, #eaf3ff 100%);
 }
 
@@ -4269,7 +4266,7 @@ body:has(.adminApp) .siteHeader {
   border-radius: 18px;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.94)),
-    radial-gradient(circle at 100% 0%, rgba(245, 130, 32, 0.08), transparent 11rem);
+    radial-gradient(circle at 100% 0%, rgba(25, 94, 165, 0.08), transparent 11rem);
   box-shadow: var(--shadow);
 }
 
@@ -4376,7 +4373,7 @@ body:has(.adminApp) .siteHeader {
   align-items: center;
   padding: clamp(56px, 8vw, 108px) clamp(18px, 4vw, 56px);
   background:
-    radial-gradient(circle at 10% 82%, rgba(245, 130, 32, 0.1), transparent 22rem),
+    radial-gradient(circle at 10% 82%, rgba(25, 94, 165, 0.1), transparent 22rem),
     radial-gradient(circle at 90% 12%, rgba(1, 166, 80, 0.16), transparent 30%),
     linear-gradient(135deg, #ffffff 0%, #f5f9ff 62%, #eaf3ff 100%);
 }
@@ -4420,7 +4417,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .partnerHeroCard a {
-  color: var(--orange);
+  color: var(--blue);
   font-weight: 900;
 }
 
@@ -4457,7 +4454,7 @@ body:has(.adminApp) .siteHeader {
 
 .partnerLogoCard:hover {
   transform: translateY(-2px);
-  border-color: rgba(245, 130, 32, 0.28);
+  border-color: rgba(25, 94, 165, 0.28);
   box-shadow: 0 18px 40px rgba(25, 94, 165, 0.1);
 }
 
@@ -4483,7 +4480,7 @@ body:has(.adminApp) .siteHeader {
 
 .partnerPathways {
   background:
-    radial-gradient(circle at 90% 0%, rgba(245, 130, 32, 0.1), transparent 22rem),
+    radial-gradient(circle at 90% 0%, rgba(25, 94, 165, 0.1), transparent 22rem),
     radial-gradient(circle at 8% 12%, rgba(25, 94, 165, 0.1), transparent 26%),
     #f5f9ff;
 }
@@ -4521,8 +4518,8 @@ body:has(.adminApp) .siteHeader {
 
 .tierCard:hover {
   transform: translateY(-3px);
-  border-color: rgba(245, 130, 32, 0.3);
-  box-shadow: 0 26px 64px rgba(25, 94, 165, 0.14), 0 0 0 4px rgba(245, 130, 32, 0.06);
+  border-color: rgba(25, 94, 165, 0.3);
+  box-shadow: 0 26px 64px rgba(25, 94, 165, 0.14), 0 0 0 4px rgba(25, 94, 165, 0.06);
 }
 
 .tierCardTop {
@@ -4551,7 +4548,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .tierBronze .tierCardTop {
-  background: linear-gradient(135deg, #ed1b24, var(--orange));
+  background: linear-gradient(135deg, #ed1b24, var(--blue));
 }
 
 .tierSilver .tierCardTop {
@@ -4669,7 +4666,7 @@ body:has(.adminApp) .siteHeader {
 .corporatePathwaySection {
   padding: clamp(52px, 7vw, 92px) clamp(18px, 4vw, 56px);
   background:
-    radial-gradient(circle at 92% 6%, rgba(245, 130, 32, 0.1), transparent 22rem),
+    radial-gradient(circle at 92% 6%, rgba(25, 94, 165, 0.1), transparent 22rem),
     radial-gradient(circle at 10% 0%, rgba(1, 166, 80, 0.1), transparent 24%),
     #f8fbff;
 }
@@ -4696,7 +4693,7 @@ body:has(.adminApp) .siteHeader {
   width: fit-content;
   padding: 8px 11px;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--surface-strong), var(--orange-soft));
+  background: linear-gradient(135deg, var(--surface-strong), var(--surface-strong));
   color: var(--blue-dark);
   font-size: 12px;
   font-weight: 900;
@@ -4769,8 +4766,8 @@ body:has(.adminApp) .siteHeader {
 
 .programmeCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(245, 130, 32, 0.32);
-  box-shadow: 0 26px 58px rgba(25, 94, 165, 0.15), 0 0 0 4px rgba(245, 130, 32, 0.06);
+  border-color: rgba(25, 94, 165, 0.32);
+  box-shadow: 0 26px 58px rgba(25, 94, 165, 0.15), 0 0 0 4px rgba(25, 94, 165, 0.06);
 }
 
 .programmeCard div {
@@ -4887,8 +4884,8 @@ body:has(.adminApp) .siteHeader {
 
 .footerSocials a:hover {
   transform: translateY(-2px);
-  border-color: rgba(245, 130, 32, 0.56);
-  background: rgba(245, 130, 32, 0.16);
+  border-color: rgba(25, 94, 165, 0.56);
+  background: rgba(25, 94, 165, 0.16);
 }
 
 .footerSocials svg {
@@ -4910,7 +4907,7 @@ body:has(.adminApp) .siteHeader {
   padding: clamp(56px, 8vw, 108px) clamp(18px, 4vw, 56px);
   background:
     radial-gradient(circle at 88% 16%, rgba(1, 166, 80, 0.14), transparent 26rem),
-    radial-gradient(circle at 12% 86%, rgba(245, 130, 32, 0.12), transparent 22rem),
+    radial-gradient(circle at 12% 86%, rgba(25, 94, 165, 0.12), transparent 22rem),
     linear-gradient(135deg, #ffffff 0%, #f5f9ff 58%, #eaf3ff 100%);
 }
 
@@ -4952,7 +4949,7 @@ body:has(.adminApp) .siteHeader {
   width: fit-content;
   padding: 7px 10px;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(25, 94, 165, 0.08), var(--orange-soft));
+  background: linear-gradient(135deg, rgba(25, 94, 165, 0.08), var(--surface-strong));
   color: var(--blue-dark);
   font-size: 12px;
   font-weight: 900;
@@ -4974,7 +4971,7 @@ body:has(.adminApp) .siteHeader {
 
 .contactMapCard a {
   width: fit-content;
-  color: var(--orange);
+  color: var(--blue);
   font-weight: 900;
 }
 
@@ -5000,7 +4997,7 @@ body:has(.adminApp) .siteHeader {
   border-radius: 18px;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.94)),
-    radial-gradient(circle at 100% 0%, rgba(245, 130, 32, 0.08), transparent 11rem);
+    radial-gradient(circle at 100% 0%, rgba(25, 94, 165, 0.08), transparent 11rem);
   box-shadow: var(--shadow);
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
@@ -5010,13 +5007,13 @@ body:has(.adminApp) .siteHeader {
   position: absolute;
   inset: 0 0 auto;
   height: 4px;
-  background: linear-gradient(90deg, var(--card-accent, var(--blue)), var(--orange));
+  background: linear-gradient(90deg, var(--card-accent, var(--blue)), var(--blue));
 }
 
 .contactCard:hover {
   transform: translateY(-3px);
-  border-color: rgba(245, 130, 32, 0.32);
-  box-shadow: 0 26px 58px rgba(25, 94, 165, 0.14), 0 0 0 4px rgba(245, 130, 32, 0.06);
+  border-color: rgba(25, 94, 165, 0.32);
+  box-shadow: 0 26px 58px rgba(25, 94, 165, 0.14), 0 0 0 4px rgba(25, 94, 165, 0.06);
 }
 
 .contactCards > :nth-child(1) {
@@ -5028,7 +5025,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .contactCards > :nth-child(3) {
-  --card-accent: var(--orange);
+  --card-accent: var(--blue);
 }
 
 .contactCard strong {
@@ -5049,7 +5046,7 @@ body:has(.adminApp) .siteHeader {
   gap: clamp(28px, 6vw, 78px);
   align-items: center;
   background:
-    radial-gradient(circle at 90% 8%, rgba(245, 130, 32, 0.1), transparent 22rem),
+    radial-gradient(circle at 90% 8%, rgba(25, 94, 165, 0.1), transparent 22rem),
     #f7fbff;
 }
 
@@ -5102,7 +5099,7 @@ body:has(.adminApp) .siteHeader {
   padding: clamp(56px, 8vw, 108px) clamp(18px, 4vw, 56px);
   overflow: hidden;
   background:
-    radial-gradient(circle at 18% 78%, rgba(245, 130, 32, 0.26), transparent 25rem),
+    radial-gradient(circle at 18% 78%, rgba(25, 94, 165, 0.26), transparent 25rem),
     linear-gradient(90deg, rgba(9, 38, 70, 0.94), rgba(9, 38, 70, 0.62), rgba(9, 38, 70, 0.28)),
     url("/assets/hero/Heart-to-Heart-Foundation-6.jpg") center 42% / cover;
   color: white;
@@ -5167,7 +5164,7 @@ body:has(.adminApp) .siteHeader {
   border-radius: 18px;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.94)),
-    radial-gradient(circle at 100% 0%, rgba(245, 130, 32, 0.08), transparent 11rem);
+    radial-gradient(circle at 100% 0%, rgba(25, 94, 165, 0.08), transparent 11rem);
   box-shadow: var(--shadow);
 }
 
@@ -5183,7 +5180,7 @@ body:has(.adminApp) .siteHeader {
   position: absolute;
   inset: 0 0 auto;
   height: 4px;
-  background: linear-gradient(90deg, var(--card-accent, var(--blue)), var(--orange));
+  background: linear-gradient(90deg, var(--card-accent, var(--blue)), var(--blue));
 }
 
 .volunteerPositionGrid > :nth-child(1),
@@ -5198,7 +5195,7 @@ body:has(.adminApp) .siteHeader {
 
 .volunteerPositionGrid > :nth-child(3),
 .volunteerSteps > :nth-child(3) {
-  --card-accent: var(--orange);
+  --card-accent: var(--blue);
 }
 
 .volunteerPositionGrid > :nth-child(4) {
@@ -5248,8 +5245,8 @@ body:has(.adminApp) .siteHeader {
 
 .volunteerForm input:focus,
 .volunteerForm textarea:focus {
-  border-color: var(--orange);
-  outline: 3px solid var(--orange-glow);
+  border-color: var(--blue);
+  outline: 3px solid rgba(25, 94, 165, 0.22);
 }
 
 .volunteerForm .button {
@@ -5285,7 +5282,7 @@ body:has(.adminApp) .siteHeader {
   height: 44px;
   place-items: center;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--card-accent, var(--blue)), var(--orange));
+  background: linear-gradient(135deg, var(--card-accent, var(--blue)), var(--blue));
   color: white;
   font-weight: 900;
 }
@@ -5307,7 +5304,7 @@ body:has(.adminApp) .siteHeader {
   align-items: center;
   padding: clamp(56px, 8vw, 108px) clamp(18px, 4vw, 56px);
   background:
-    radial-gradient(circle at 18% 78%, rgba(245, 130, 32, 0.16), transparent 24rem),
+    radial-gradient(circle at 18% 78%, rgba(25, 94, 165, 0.16), transparent 24rem),
     linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 255, 0.88)),
     url("/assets/hero/DSC_0634-scaled.jpg") center 36% / cover;
 }
@@ -5348,7 +5345,7 @@ body:has(.adminApp) .siteHeader {
 
 .publicContentCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(245, 130, 32, 0.35);
+  border-color: rgba(25, 94, 165, 0.35);
   box-shadow: 0 24px 56px rgba(25, 94, 165, 0.14);
 }
 
@@ -5376,7 +5373,7 @@ body:has(.adminApp) .siteHeader {
 
 .publicContentCard span,
 .galleryPreviewStrip span {
-  color: var(--orange);
+  color: var(--blue);
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.14em;
@@ -5477,7 +5474,7 @@ body:has(.adminApp) .siteHeader {
 
 .galleryAlbumCard:hover {
   transform: translateY(-5px);
-  border-color: rgba(245, 130, 32, 0.42);
+  border-color: rgba(25, 94, 165, 0.42);
   box-shadow: 0 28px 70px rgba(25, 94, 165, 0.16);
 }
 
@@ -5494,7 +5491,7 @@ body:has(.adminApp) .siteHeader {
   gap: 5px;
   padding: 8px;
   background:
-    radial-gradient(circle at 18% 12%, rgba(245, 130, 32, 0.18), transparent 18rem),
+    radial-gradient(circle at 18% 12%, rgba(25, 94, 165, 0.18), transparent 18rem),
     linear-gradient(135deg, rgba(25, 94, 165, 0.08), rgba(1, 166, 80, 0.08));
 }
 
@@ -5517,7 +5514,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .galleryAlbumBody span {
-  color: var(--orange);
+  color: var(--blue);
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.1em;
@@ -5542,7 +5539,7 @@ body:has(.adminApp) .siteHeader {
   justify-content: space-between;
   padding: clamp(52px, 7vw, 92px) clamp(18px, 5vw, 72px) clamp(28px, 5vw, 56px);
   background:
-    radial-gradient(circle at 84% 18%, rgba(245, 130, 32, 0.15), transparent 20rem),
+    radial-gradient(circle at 84% 18%, rgba(25, 94, 165, 0.15), transparent 20rem),
     radial-gradient(circle at 12% 88%, rgba(1, 166, 80, 0.12), transparent 18rem),
     linear-gradient(135deg, #ffffff 0%, #f6fbff 58%, #eaf4ff 100%);
 }
@@ -5677,7 +5674,7 @@ body:has(.adminApp) .siteHeader {
   z-index: 0;
   border-radius: 28px;
   background:
-    radial-gradient(circle at 8% 10%, rgba(245, 130, 32, 0.24), transparent 14rem),
+    radial-gradient(circle at 8% 10%, rgba(25, 94, 165, 0.24), transparent 14rem),
     radial-gradient(circle at 92% 90%, rgba(1, 166, 80, 0.18), transparent 16rem);
 }
 
@@ -5734,7 +5731,7 @@ body:has(.adminApp) .siteHeader {
   padding: clamp(56px, 8vw, 108px) clamp(18px, 4vw, 56px);
   background:
     radial-gradient(circle at 90% 12%, rgba(1, 166, 80, 0.14), transparent 26rem),
-    radial-gradient(circle at 12% 86%, rgba(245, 130, 32, 0.12), transparent 22rem),
+    radial-gradient(circle at 12% 86%, rgba(25, 94, 165, 0.12), transparent 22rem),
     linear-gradient(135deg, #ffffff 0%, #f5f9ff 58%, #eaf3ff 100%);
 }
 
@@ -5758,7 +5755,7 @@ body:has(.adminApp) .siteHeader {
   border-radius: 18px;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.94)),
-    radial-gradient(circle at 100% 0%, rgba(245, 130, 32, 0.08), transparent 11rem);
+    radial-gradient(circle at 100% 0%, rgba(25, 94, 165, 0.08), transparent 11rem);
   box-shadow: var(--shadow);
 }
 
@@ -5774,14 +5771,14 @@ body:has(.adminApp) .siteHeader {
   position: absolute;
   inset: 0 0 auto;
   height: 4px;
-  background: linear-gradient(90deg, var(--blue), var(--orange), var(--green));
+  background: linear-gradient(90deg, var(--blue), var(--blue), var(--green));
 }
 
 .partnerInquiryAside span {
   width: fit-content;
   padding: 7px 10px;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(25, 94, 165, 0.08), var(--orange-soft));
+  background: linear-gradient(135deg, rgba(25, 94, 165, 0.08), var(--surface-strong));
   color: var(--blue-dark);
   font-size: 12px;
   font-weight: 900;
@@ -5843,8 +5840,8 @@ body:has(.adminApp) .siteHeader {
 .partnerInquiryForm input:focus,
 .partnerInquiryForm select:focus,
 .partnerInquiryForm textarea:focus {
-  border-color: var(--orange);
-  outline: 3px solid var(--orange-glow);
+  border-color: var(--blue);
+  outline: 3px solid rgba(25, 94, 165, 0.22);
 }
 
 .partnerInquiryForm .button {
@@ -5990,7 +5987,7 @@ body:not(:has(.adminApp)) :where(
   border-radius: 18px;
   background:
     linear-gradient(145deg, rgba(9, 38, 70, 0.9), rgba(15, 63, 115, 0.72)),
-    radial-gradient(circle at 100% 0%, rgba(245, 130, 32, 0.22), transparent 12rem);
+    radial-gradient(circle at 100% 0%, rgba(25, 94, 165, 0.22), transparent 12rem);
   backdrop-filter: blur(16px);
   box-shadow: 0 28px 80px rgba(7, 35, 64, 0.32);
 }
@@ -6180,10 +6177,10 @@ body:not(:has(.adminApp)) :where(
 
 .eventLandingTrust article {
   padding: 18px;
-  border: 1px solid rgba(245, 130, 32, 0.24);
+  border: 1px solid rgba(25, 94, 165, 0.24);
   border-radius: 14px;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(245, 130, 32, 0.08));
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(25, 94, 165, 0.08));
 }
 
 .eventLandingTrust strong {
@@ -6534,8 +6531,8 @@ body:not(:has(.adminApp)) :where(
 }
 
 .eventPackageChoices label.selected {
-  border-color: rgba(245, 130, 32, 0.38);
-  background: var(--orange-soft);
+  border-color: rgba(25, 94, 165, 0.38);
+  background: var(--surface-strong);
 }
 
 .eventPackageChoices input {
@@ -6566,8 +6563,8 @@ body:not(:has(.adminApp)) :where(
 }
 
 .addOnGift button.active {
-  border-color: var(--orange);
-  background: var(--orange-soft);
+  border-color: var(--blue);
+  background: var(--surface-strong);
 }
 
 .eventFlowSummary {
@@ -6645,7 +6642,7 @@ body:not(:has(.adminApp)) :where(
 
 .eventGivingStats span:hover {
   transform: translateY(-2px);
-  border-color: rgba(245, 130, 32, 0.28);
+  border-color: rgba(25, 94, 165, 0.28);
   box-shadow: 0 18px 44px rgba(25, 94, 165, 0.12);
 }
 
@@ -6659,7 +6656,7 @@ body:not(:has(.adminApp)) :where(
 .givingRouteSection {
   padding: clamp(52px, 7vw, 92px) clamp(18px, 4vw, 56px);
   background:
-    radial-gradient(circle at 88% 0%, rgba(245, 130, 32, 0.1), transparent 22rem),
+    radial-gradient(circle at 88% 0%, rgba(25, 94, 165, 0.1), transparent 22rem),
     radial-gradient(circle at 12% 0%, rgba(25, 94, 165, 0.11), transparent 26%),
     #f7fbff;
 }
@@ -6784,7 +6781,7 @@ body:not(:has(.adminApp)) :where(
   min-height: 620px;
   padding: clamp(56px, 8vw, 108px) clamp(18px, 4vw, 56px);
   background:
-    radial-gradient(circle at 14% 82%, rgba(245, 130, 32, 0.1), transparent 22rem),
+    radial-gradient(circle at 14% 82%, rgba(25, 94, 165, 0.1), transparent 22rem),
     radial-gradient(circle at 85% 18%, rgba(1, 166, 80, 0.15), transparent 28%),
     linear-gradient(135deg, #ffffff 0%, #f5f9ff 58%, #eaf3ff 100%);
 }
@@ -6876,8 +6873,8 @@ body:not(:has(.adminApp)) :where(
 
 .linkedTeamCard:hover {
   transform: translateY(-3px);
-  border-color: rgba(245, 130, 32, 0.32);
-  box-shadow: 0 26px 58px rgba(25, 94, 165, 0.14), 0 0 0 4px rgba(245, 130, 32, 0.06);
+  border-color: rgba(25, 94, 165, 0.32);
+  box-shadow: 0 26px 58px rgba(25, 94, 165, 0.14), 0 0 0 4px rgba(25, 94, 165, 0.06);
 }
 
 .founderCard img,
@@ -6914,7 +6911,7 @@ body:not(:has(.adminApp)) :where(
   margin-top: 16px;
   padding: 8px 11px;
   border-radius: 999px;
-  background: linear-gradient(135deg, var(--surface-strong), var(--orange-soft));
+  background: linear-gradient(135deg, var(--surface-strong), var(--surface-strong));
   color: var(--blue-dark);
   font-size: 12px;
   font-weight: 900;
@@ -6922,7 +6919,7 @@ body:not(:has(.adminApp)) :where(
 
 .boardSection {
   background:
-    radial-gradient(circle at 90% 8%, rgba(245, 130, 32, 0.1), transparent 22rem),
+    radial-gradient(circle at 90% 8%, rgba(25, 94, 165, 0.1), transparent 22rem),
     radial-gradient(circle at 12% 5%, rgba(25, 94, 165, 0.12), transparent 26%),
     #f5f9ff;
 }
@@ -7633,3 +7630,5 @@ body:not(:has(.adminApp)) :where(
     transition-duration: 0.01ms !important;
   }
 }
+
+
