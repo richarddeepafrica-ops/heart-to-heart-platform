@@ -1828,6 +1828,7 @@ body:has(.adminApp) .siteHeader {
 }
 
 .adminKpis article,
+.adminKpiCard,
 .appPanel {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -1835,10 +1836,20 @@ body:has(.adminApp) .siteHeader {
   box-shadow: 0 12px 34px rgba(25, 94, 165, 0.08);
 }
 
-.adminKpis article {
+.adminKpis article,
+.adminKpiCard {
   display: grid;
   gap: 5px;
   padding: 16px;
+  color: inherit;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.adminKpiCard:hover,
+.adminKpiCard:focus-visible {
+  border-color: rgba(25, 94, 165, 0.34);
+  box-shadow: 0 18px 42px rgba(25, 94, 165, 0.13);
+  transform: translateY(-2px);
 }
 
 .adminKpis span,

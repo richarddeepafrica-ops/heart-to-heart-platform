@@ -18,12 +18,12 @@ export default async function AdminPage() {
       </header>
 
       <section className="adminKpis" aria-label="Key metrics">
-        {dashboard.kpis.map(({ label, value, meta }) => (
-          <article key={label}>
+        {dashboard.kpis.map(({ label, value, meta, href }) => (
+          <a className="adminKpiCard" href={href} key={label}>
             <span>{label}</span>
             <strong>{value}</strong>
             <small>{meta}</small>
-          </article>
+          </a>
         ))}
       </section>
 

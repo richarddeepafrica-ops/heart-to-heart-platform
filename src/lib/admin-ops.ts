@@ -148,12 +148,12 @@ export async function getAdminOperationsDashboard() {
 
   return {
     kpis: [
-      { label: "Confirmed raised", value: formatKes(report.confirmedRaised), meta: "board-ready total" },
-      { label: "Pending finance", value: String(finance.queue.filter((record) => record.donationStatus === "PENDING").length), meta: "payments to clear" },
-      { label: "New applications", value: String(applications.newCount), meta: "parents and institutions" },
-      { label: "Event registrations", value: String(events.totalRegistrations), meta: formatKes(events.totalRevenue) },
-      { label: "CRM donors", value: String(donors.donors.length), meta: "relationship records" },
-      { label: "Published content", value: String(posts.filter((post) => post.status === "PUBLISHED").length + galleries.filter((item) => item.status === "PUBLISHED").length), meta: "blogs and photos" }
+      { label: "Confirmed raised", value: formatKes(report.confirmedRaised), meta: "board-ready total", href: "/admin/reports" },
+      { label: "Pending finance", value: String(finance.queue.filter((record) => record.donationStatus === "PENDING").length), meta: "payments to clear", href: "/admin/finance" },
+      { label: "New applications", value: String(applications.newCount), meta: "parents and institutions", href: "/admin/applications" },
+      { label: "Event registrations", value: String(events.totalRegistrations), meta: formatKes(events.totalRevenue), href: "/admin/events" },
+      { label: "CRM donors", value: String(donors.donors.length), meta: "relationship records", href: "/admin/donors" },
+      { label: "Published content", value: String(posts.filter((post) => post.status === "PUBLISHED").length + galleries.filter((item) => item.status === "PUBLISHED").length), meta: "blogs and photos", href: "/admin/content" }
     ],
     tasks,
     quickActions,
