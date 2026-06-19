@@ -161,16 +161,16 @@ export default function Home() {
         </div>
         <div className="programmeCards">
           {[
-            ["Treatment", "Open heart surgery and management of heart disease.", "/assets/programmes/treatment-care.png"],
-            ["Prevention", "Rheumatic fever and rheumatic heart disease awareness.", "/assets/programmes/prevention-education.png"],
-            ["Fundraising", "Heart Run, Goat Derby, Gala Dinner, and community giving.", "/assets/programmes/heart-run-family.png"],
-            ["Research", "Learning that strengthens prevention, care, and education.", "/assets/programmes/research-lab.png"]
-          ].map(([title, copy, image]) => (
-            <article className="programmeCard" key={title}>
+            ["Treatment", "Open heart surgery and management of heart disease.", "/assets/programmes/treatment-care.png", "/programmes/treatment"],
+            ["Prevention", "Rheumatic fever and rheumatic heart disease awareness.", "/assets/programmes/prevention-education.png", "/programmes/prevention"],
+            ["Fundraising", "Heart Run, Goat Derby, Gala Dinner, and community giving.", "/assets/programmes/heart-run-family.png", "/programmes/fundraising"],
+            ["Research", "Learning that strengthens prevention, care, and education.", "/assets/programmes/research-lab.png", "/programmes/research"]
+          ].map(([title, copy, image, href]) => (
+            <a className="programmeCard" href={href} key={title}>
               <div style={{ backgroundImage: `url(${image})` }} />
               <span>{title}</span>
               <p>{copy}</p>
-            </article>
+            </a>
           ))}
         </div>
       </section>
