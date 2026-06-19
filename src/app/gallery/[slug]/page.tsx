@@ -27,29 +27,39 @@ export default async function GalleryDetailPage({ params }: GalleryPageContext) 
   const previousHref = `/gallery/${previousItem.slug}`;
   const nextHref = `/gallery/${nextItem.slug}`;
   const albumHref = `/gallery/albums/${galleryAlbumSlug(item.category)}`;
+  const thumbnailItems = albumItems.slice(safeIndex + 1, safeIndex + 9);
+  const fallbackThumbnailItems = albumItems.slice(0, Math.max(0, 8 - thumbnailItems.length));
+  const previewItems = [...thumbnailItems, ...fallbackThumbnailItems];
 
   return (
     <main>
       <GalleryPhotoControls previousHref={previousHref} nextHref={nextHref} />
-      <article className="galleryDetail">
-        <div className="galleryDetailMedia">
+      <article className="galleryViewer">
+        <div className="galleryViewerTopbar">
+          <a href={albumHref}>Back to {item.category}</a>
+          <a href="/gallery">All albums</a>
+        </div>
+        <div className="galleryViewerStage">
+          <a className="galleryViewerArrow previous" href={previousHref} aria-label="Previous photo">
+            &larr;
+          </a>
           <img src={item.imageUrl} alt="" />
+          <a className="galleryViewerArrow next" href={nextHref} aria-label="Next photo">
+            &rarr;
+          </a>
         </div>
-        <div className="galleryDetailPanel">
-          <p className="eyebrow">{item.category} album</p>
-          <h1>{item.title}</h1>
-          <p>{item.description}</p>
-          <small>
-            Photo {safeIndex + 1} of {albumItems.length} | {item.location}
-          </small>
-          <div className="galleryDetailActions">
-            <a className="button secondary" href={albumHref}>Album</a>
-            <a className="button secondary" href="/gallery">All albums</a>
-            <a className="button secondary" href={previousHref}>Previous</a>
-            <a className="button" href={nextHref}>Next photo</a>
-          </div>
-          <p className="galleryControlHint">Use arrow keys or swipe left/right to browse.</p>
+        <div className="galleryViewerMeta">
+          <span>{item.category}</span>
+          <strong>{item.title}</strong>
+          <small>Use arrow keys, swipe, or the thumbnails to browse.</small>
         </div>
+        <nav className="galleryThumbnailRail" aria-label="Next photos in this album">
+          {previewItems.map((preview) => (
+            <a href={`/gallery/${preview.slug}`} key={preview.id} aria-label={`Open ${preview.title}`}>
+              <img src={preview.imageUrl} alt="" />
+            </a>
+          ))}
+        </nav>
       </article>
     </main>
   );
