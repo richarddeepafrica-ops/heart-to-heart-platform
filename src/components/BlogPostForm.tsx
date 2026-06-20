@@ -48,14 +48,14 @@ export function BlogPostForm() {
 
   return (
     <form className="contentAdminForm" onSubmit={handleSubmit}>
-      <label>Title<input name="title" placeholder="Foundation update title" required /></label>
-      <label>Slug<input name="slug" placeholder="Optional, generated from title" /></label>
-      <label>Category<input name="category" defaultValue="Foundation updates" /></label>
-      <label>Author<input name="authorName" defaultValue="Heart to Heart Foundation" /></label>
-      <label className="wide">Hero image path or URL<input name="imageUrl" placeholder="/assets/hero/DSC_0634-scaled.jpg" /></label>
-      <label className="wide">Excerpt<textarea name="excerpt" placeholder="Short card summary" required rows={3} /></label>
-      <label className="wide">Body<textarea name="body" placeholder="Full blog story" required rows={8} /></label>
-      <label>Status<select name="status" defaultValue="DRAFT"><option value="DRAFT">Save draft</option><option value="PUBLISHED">Publish now</option></select></label>
+      <label><span>Title</span><input name="title" placeholder="Foundation update title" required /></label>
+      <label><span>Slug</span><input name="slug" placeholder="Optional, generated from title" /></label>
+      <label><span>Category</span><input name="category" defaultValue="Foundation updates" /></label>
+      <label><span>Author</span><input name="authorName" defaultValue="Heart to Heart Foundation" /></label>
+      <label className="wide"><span>Hero image</span><input name="imageUrl" placeholder="/assets/hero/DSC_0634-scaled.jpg" /></label>
+      <label className="wide"><span>Excerpt</span><textarea name="excerpt" placeholder="Short card summary" required rows={3} /></label>
+      <label className="wide"><span>Body</span><textarea name="body" placeholder="Full blog story" required rows={8} /></label>
+      <label><span>Status</span><select name="status" defaultValue="DRAFT"><option value="DRAFT">Save draft</option><option value="PUBLISHED">Publish now</option></select></label>
       <div className="wide formSubmitRow">
         <button className="primaryAction" disabled={isSubmitting} type="submit">{isSubmitting ? "Saving..." : "Create blog post"}</button>
         {result.message || result.nextAction ? <small className={result.ok ? "formSuccess" : "formError"}>{result.nextAction || result.message}</small> : null}

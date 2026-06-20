@@ -47,13 +47,13 @@ export function GalleryItemForm() {
 
   return (
     <form className="contentAdminForm" onSubmit={handleSubmit}>
-      <label>Title<input name="title" placeholder="Gallery moment title" required /></label>
-      <label>Slug<input name="slug" placeholder="Optional, generated from title" /></label>
-      <label>Category<input name="category" defaultValue="Heart Run" /></label>
-      <label>Location<input name="location" placeholder="Nairobi, Karen Hospital..." /></label>
-      <label className="wide">Image path or URL<input name="imageUrl" placeholder="/assets/impact/CDB_6159-scaled.jpg" required /></label>
-      <label className="wide">Description<textarea name="description" placeholder="Tell visitors what is happening in this image." required rows={5} /></label>
-      <label>Status<select name="status" defaultValue="DRAFT"><option value="DRAFT">Save draft</option><option value="PUBLISHED">Publish now</option></select></label>
+      <label><span>Title</span><input name="title" placeholder="Gallery moment title" required /></label>
+      <label><span>Slug</span><input name="slug" placeholder="Optional, generated from title" /></label>
+      <label><span>Category</span><input name="category" defaultValue="Heart Run" /></label>
+      <label><span>Location</span><input name="location" placeholder="Nairobi, Karen Hospital..." /></label>
+      <label className="wide"><span>Image</span><input name="imageUrl" placeholder="/assets/impact/CDB_6159-scaled.jpg" required /></label>
+      <label className="wide"><span>Description</span><textarea name="description" placeholder="Tell visitors what is happening in this image." required rows={5} /></label>
+      <label><span>Status</span><select name="status" defaultValue="DRAFT"><option value="DRAFT">Save draft</option><option value="PUBLISHED">Publish now</option></select></label>
       <div className="wide formSubmitRow">
         <button className="primaryAction" disabled={isSubmitting} type="submit">{isSubmitting ? "Saving..." : "Create gallery item"}</button>
         {result.message || result.nextAction ? <small className={result.ok ? "formSuccess" : "formError"}>{result.nextAction || result.message}</small> : null}

@@ -44,12 +44,24 @@ export default async function AdminContentPage() {
             <span><strong>Archived</strong>Kept for records but removed from the public experience.</span>
           </div>
         </article>
-        <article className="appPanel span6" id="new-blog">
-          <div className="panelHeader"><div><p className="eyebrow">Blog editor</p><h2>Create news or blog post</h2></div></div>
+        <article className="appPanel span6 contentEditorPanel" id="new-blog">
+          <div className="panelHeader editorPanelHeader">
+            <div>
+              <p className="eyebrow">Blog editor</p>
+              <h2>Create news or blog post</h2>
+              <span>Write the story, add the hero image, then save as draft or publish.</span>
+            </div>
+          </div>
           <BlogPostForm />
         </article>
-        <article className="appPanel span6" id="new-gallery">
-          <div className="panelHeader"><div><p className="eyebrow">Gallery editor</p><h2>Create gallery card</h2></div></div>
+        <article className="appPanel span6 contentEditorPanel" id="new-gallery">
+          <div className="panelHeader editorPanelHeader">
+            <div>
+              <p className="eyebrow">Gallery editor</p>
+              <h2>Create gallery card</h2>
+              <span>Add an image to the right album with a clear visitor-facing caption.</span>
+            </div>
+          </div>
           <GalleryItemForm />
         </article>
         <details className="appPanel span6 collapsiblePanel">
