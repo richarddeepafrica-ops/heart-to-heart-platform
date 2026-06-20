@@ -71,7 +71,6 @@ export default function EventsPage() {
       <section className="section eventCardsSection">
         <div className="sectionHeading compactHeading">
           <p className="eyebrow">Featured events</p>
-          <h2>Signature event first, with more ways for supporters to gather around the mission.</h2>
           <p>
             Events help the foundation raise funds, create public awareness,
             mobilise partners, and keep children&apos;s heart care visible.
