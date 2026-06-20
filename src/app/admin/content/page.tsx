@@ -15,6 +15,28 @@ export default async function AdminContentPage() {
     album,
     count: galleries.filter((item) => item.category === album).length
   }));
+  const publishingFlow = [
+    {
+      label: "Draft",
+      copy: "Saved by admin and hidden from public pages until it is ready.",
+      tone: "draft"
+    },
+    {
+      label: "Pending review",
+      copy: "Ready for approval, image checks, and story consent review.",
+      tone: "review"
+    },
+    {
+      label: "Published",
+      copy: "Visible as public cards that open dedicated pages.",
+      tone: "published"
+    },
+    {
+      label: "Archived",
+      copy: "Kept for records but removed from the public experience.",
+      tone: "archived"
+    }
+  ];
 
   return (
     <>
@@ -38,10 +60,13 @@ export default async function AdminContentPage() {
         <article className="appPanel span12">
           <div className="panelHeader"><div><p className="eyebrow">Moderation</p><h2>Publishing flow</h2></div></div>
           <div className="contentOpsGrid">
-            <span><strong>Draft</strong>Saved by admin but hidden from public pages.</span>
-            <span><strong>Pending review</strong>Ready for approval, image checks, and story consent review.</span>
-            <span><strong>Published</strong>Visible as public cards that open dedicated pages.</span>
-            <span><strong>Archived</strong>Kept for records but removed from the public experience.</span>
+            {publishingFlow.map((step, index) => (
+              <article className={`contentFlowCard ${step.tone}`} key={step.label}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{step.label}</strong>
+                <small>{step.copy}</small>
+              </article>
+            ))}
           </div>
         </article>
         <article className="appPanel span6 contentEditorPanel" id="new-blog">

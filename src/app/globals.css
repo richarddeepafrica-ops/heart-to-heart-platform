@@ -1882,6 +1882,7 @@ body:has(.adminApp) .siteHeader {
 .adminKpiCard {
   display: grid;
   gap: 5px;
+  min-width: 0;
   padding: 16px;
   color: inherit;
   transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
@@ -1908,6 +1909,24 @@ body:has(.adminApp) .siteHeader {
 .adminKpis strong {
   color: var(--text);
   font-size: 25px;
+  overflow-wrap: anywhere;
+}
+
+.adminRouteKpi {
+  align-content: start;
+}
+
+.adminRouteKpi a {
+  color: var(--blue-dark);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.adminRouteKpi a:hover,
+.adminRouteKpi a:focus-visible {
+  color: var(--blue);
 }
 
 .adminDashboardGrid {
@@ -2250,7 +2269,7 @@ body:has(.adminApp) .siteHeader {
 .readinessList div,
 .roleMatrix div,
 .auditCompactList div,
-.contentOpsGrid span,
+.contentFlowCard,
 .albumManagerGrid a {
   position: relative;
   overflow: hidden;
@@ -2297,7 +2316,7 @@ body:has(.adminApp) .siteHeader {
 .roleMatrix small,
 .auditCompactList span,
 .auditCompactList small,
-.contentOpsGrid span,
+.contentFlowCard small,
 .albumManagerGrid span,
 .albumManagerGrid small,
 .adminFilterBar span,
@@ -2318,7 +2337,7 @@ body:has(.adminApp) .siteHeader {
 .readinessList strong,
 .roleMatrix strong,
 .auditCompactList strong,
-.contentOpsGrid strong,
+.contentFlowCard strong,
 .albumManagerGrid strong {
   color: var(--blue-dark);
 }
@@ -2328,7 +2347,7 @@ body:has(.adminApp) .siteHeader {
 .readinessList small,
 .roleMatrix small,
 .auditCompactList small,
-.contentOpsGrid span,
+.contentFlowCard small,
 .albumManagerGrid small {
   line-height: 1.45;
 }
@@ -2424,9 +2443,71 @@ body:has(.adminApp) .siteHeader {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.contentOpsGrid span,
+.contentFlowCard,
 .albumManagerGrid a {
   min-height: 112px;
+}
+
+.contentFlowCard {
+  display: grid;
+  gap: 10px;
+  min-height: 140px;
+  align-content: start;
+}
+
+.contentFlowCard::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: var(--blue);
+  content: "";
+}
+
+.contentFlowCard.review::before {
+  background: #55708f;
+}
+
+.contentFlowCard.published::before {
+  background: var(--green);
+}
+
+.contentFlowCard.archived::before {
+  background: #9aa7b5;
+}
+
+.contentFlowCard > span {
+  display: inline-flex;
+  width: fit-content;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(25, 94, 165, 0.1);
+  color: var(--blue-dark);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.contentFlowCard.review > span {
+  background: rgba(85, 112, 143, 0.12);
+}
+
+.contentFlowCard.published > span {
+  background: rgba(0, 164, 89, 0.12);
+}
+
+.contentFlowCard.archived > span {
+  background: rgba(154, 167, 181, 0.16);
+}
+
+.contentFlowCard strong {
+  display: block;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.contentFlowCard small {
+  display: block;
+  font-size: 15px;
 }
 
 .eventOps {

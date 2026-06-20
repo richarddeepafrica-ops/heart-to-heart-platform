@@ -33,11 +33,15 @@ export default async function AdminGalleryAlbumPage({ params }: AdminGalleryAlbu
         {[
           ["Images", String(items.length), "in this album"],
           ["Published", String(publishedCount), "visible publicly"],
-          ["Drafts", String(items.length - publishedCount), "not yet public"],
-          ["Album route", publicAlbumHref, "public page"]
+          ["Drafts", String(items.length - publishedCount), "not yet public"]
         ].map(([label, value, meta]) => (
           <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>
         ))}
+        <article className="adminRouteKpi">
+          <span>Album route</span>
+          <a href={publicAlbumHref}>{publicAlbumHref}</a>
+          <small>public page</small>
+        </article>
       </section>
 
       <section className="adminDashboardGrid">
