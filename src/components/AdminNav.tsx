@@ -2,66 +2,20 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
+import { filterAdminNavGroups } from "@/lib/admin-permissions";
 
-type NavGroup = {
-  label: string;
-  items: [string, string][];
+type AdminNavProps = {
+  role?: string;
 };
 
-const navGroups: NavGroup[] = [
-  {
-    label: "Overview",
-    items: [
-      ["Dashboard", "/admin"],
-      ["System", "/admin/system"]
-    ]
-  },
-  {
-    label: "Fundraising",
-    items: [
-      ["Donations", "/admin/donations"],
-      ["Finance", "/admin/finance"],
-      ["Campaigns", "/admin/campaigns"],
-      ["Donors", "/admin/donors"],
-      ["Reports", "/admin/reports"]
-    ]
-  },
-  {
-    label: "Programmes",
-    items: [
-      ["Applications", "/admin/applications"],
-      ["Beneficiaries", "/admin/beneficiaries"],
-      ["Partners", "/admin/partners"]
-    ]
-  },
-  {
-    label: "Events",
-    items: [
-      ["Events", "/admin/events"]
-    ]
-  },
-  {
-    label: "Content",
-    items: [
-      ["Content studio", "/admin/content"],
-      ["Marketing", "/admin/marketing"]
-    ]
-  },
-  {
-    label: "Administration",
-    items: [
-      ["Staff", "/admin/staff"]
-    ]
-  }
-];
-
-export function AdminNav() {
+export function AdminNav({ role }: AdminNavProps) {
   const pathname = usePathname();
+  const navGroups = useMemo(() => filterAdminNavGroups(role), [role]);
   const activeGroupLabel = useMemo(() => {
     return navGroups.find((group) => (
-      group.items.some(([, href]) => (href === "/admin" ? pathname === href : pathname.startsWith(href)))
+      group.items.some(({ href }) => (href === "/admin" ? pathname === href : pathname.startsWith(href)))
     ))?.label;
-  }, [pathname]);
+  }, [navGroups, pathname]);
   const [openGroups, setOpenGroups] = useState<string[]>(() => (
     Array.from(new Set(["Overview", activeGroupLabel].filter(Boolean) as string[]))
   ));
@@ -93,7 +47,7 @@ export function AdminNav() {
               <span>{group.label}</span>
             </summary>
             <div>
-              {group.items.map(([label, href], index) => {
+              {group.items.map(({ label, href }, index) => {
                 const isActive = href === "/admin" ? pathname === href : pathname.startsWith(href);
                 return (
                   <a className={isActive ? "active" : ""} href={href} key={href}>

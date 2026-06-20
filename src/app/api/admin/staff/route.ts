@@ -13,6 +13,7 @@ export async function POST(request: Request) {
   const email = readString(body.email).toLowerCase();
   const role = readString(body.role).toUpperCase();
   const password = readString(body.password);
+  const active = readString(body.active).toLowerCase() !== "inactive";
 
   if (!name) return apiError("Staff name is required.");
   if (!email || !email.includes("@")) return apiError("A valid staff email is required.");
@@ -43,12 +44,17 @@ export async function POST(request: Request) {
         passwordHash: hashPassword(password)
       }
     });
+    await db.$executeRawUnsafe(
+      `UPDATE "User" SET "active" = $1, "passwordResetRequired" = true WHERE "id" = $2`,
+      active,
+      user.id
+    );
 
     await writeAuditLog({
       action: "UPSERT_STAFF_USER",
       entityType: "User",
       entityId: user.id,
-      metadata: { email: user.email, role: user.role }
+      metadata: { email: user.email, role: user.role, active }
     });
 
     return NextResponse.json({

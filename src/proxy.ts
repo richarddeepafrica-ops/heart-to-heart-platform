@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { canAccessAdminPath, canAccessProtectedApi, normalizeAdminRole } from "@/lib/admin-permissions";
 
 const adminSessionCookie = "h2h_admin_session";
 const protectedApiPrefixes = ["/api/admin", "/api/beneficiaries", "/api/event-registrations", "/api/finance", "/api/marketing-campaigns", "/api/reports"];
@@ -24,15 +25,15 @@ async function sign(payload: string) {
   return toHex(await crypto.subtle.sign("HMAC", key, encoder.encode(payload)));
 }
 
-async function hasValidSession(token?: string) {
-  if (!token) return false;
+async function readValidSession(token?: string) {
+  if (!token) return null;
   if (
     process.env.NODE_ENV === "production" &&
     (!process.env.ADMIN_SESSION_SECRET ||
       process.env.ADMIN_SESSION_SECRET === developmentSessionSecret ||
       process.env.ADMIN_SESSION_SECRET.length < 32)
   ) {
-    return false;
+    return null;
   }
 
   const trimmedToken = token.trim().replace(/^"|"$/g, "");
@@ -44,13 +45,19 @@ async function hasValidSession(token?: string) {
   }
 
   const parts = normalizedToken.split(":");
-  if (parts.length !== 3) return false;
+  if (parts.length !== 3 && parts.length !== 4) return null;
 
-  const [email, expiresAtRaw, signature] = parts;
+  const [email, roleOrExpiresAt, expiresAtOrSignature, maybeSignature] = parts;
+  const hasRole = parts.length === 4;
+  const role = hasRole ? normalizeAdminRole(roleOrExpiresAt) : "SUPER_ADMIN";
+  const expiresAtRaw = hasRole ? expiresAtOrSignature : roleOrExpiresAt;
+  const signature = hasRole ? maybeSignature : expiresAtOrSignature;
   const expiresAt = Number(expiresAtRaw);
-  if (!Number.isFinite(expiresAt) || expiresAt < Date.now()) return false;
+  if (!Number.isFinite(expiresAt) || expiresAt < Date.now()) return null;
 
-  return signature === await sign(`${email}:${expiresAtRaw}`);
+  const payload = hasRole ? `${email}:${role}:${expiresAtRaw}` : `${email}:${expiresAtRaw}`;
+  const valid = signature === await sign(payload);
+  return valid ? { email, role, expiresAt } : null;
 }
 
 export async function proxy(request: NextRequest) {
@@ -64,8 +71,21 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const isAuthenticated = await hasValidSession(request.cookies.get(adminSessionCookie)?.value);
-  if (isAuthenticated) return NextResponse.next();
+  const session = await readValidSession(request.cookies.get(adminSessionCookie)?.value);
+  if (session) {
+    if (isAdminPage && !canAccessAdminPath(session.role, pathname)) {
+      const forbiddenUrl = request.nextUrl.clone();
+      forbiddenUrl.pathname = "/admin";
+      forbiddenUrl.searchParams.set("access", "denied");
+      return NextResponse.redirect(forbiddenUrl);
+    }
+
+    if (isProtectedApi && !canAccessProtectedApi(session.role, pathname, request.method)) {
+      return NextResponse.json({ ok: false, message: "Your staff role does not allow this action." }, { status: 403 });
+    }
+
+    return NextResponse.next();
+  }
 
   if (isProtectedApi) {
     return NextResponse.json({ ok: false, message: "Admin login required." }, { status: 401 });

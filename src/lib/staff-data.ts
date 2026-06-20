@@ -10,6 +10,8 @@ export type StaffRecord = {
   department: string;
   status: string;
   access: string[];
+  lastLoginAt?: Date | null;
+  passwordResetRequired?: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -52,6 +54,19 @@ export const staffRoleProfiles: Record<string, { department: string; access: str
     department: "Programmes",
     access: ["Applications", "Beneficiaries", "Volunteers", "Partners"]
   }
+};
+
+type StaffUserRow = {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  passwordHash: string | null;
+  active: boolean;
+  passwordResetRequired: boolean;
+  lastLoginAt: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 const previewStaff: StaffRecord[] = [
@@ -98,9 +113,11 @@ export async function getStaffDashboard(): Promise<StaffDashboard> {
   if (!hasDatabaseUrl()) return summarize(previewStaff);
 
   try {
-    const users = await db.user.findMany({
-      orderBy: [{ role: "asc" }, { updatedAt: "desc" }]
-    });
+    const users = await db.$queryRawUnsafe<StaffUserRow[]>(
+      `SELECT "id", "name", "email", "role", "passwordHash", "active", "passwordResetRequired", "lastLoginAt", "createdAt", "updatedAt"
+       FROM "User"
+       ORDER BY "role" ASC, "updatedAt" DESC`
+    );
 
     return summarize(users.map((user) => {
       const role = normalizeRole(user.role);
@@ -111,8 +128,10 @@ export async function getStaffDashboard(): Promise<StaffDashboard> {
         email: user.email,
         role,
         department: profile.department,
-        status: user.passwordHash ? "Active" : "Invite pending",
+        status: user.active === false ? "Inactive" : user.passwordHash ? "Active" : "Invite pending",
         access: profile.access,
+        lastLoginAt: user.lastLoginAt,
+        passwordResetRequired: user.passwordResetRequired,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt
       };

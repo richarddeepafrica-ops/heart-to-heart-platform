@@ -33,7 +33,8 @@ export function StaffMemberForm() {
         name: String(form.get("name") || ""),
         email: String(form.get("email") || ""),
         role: String(form.get("role") || ""),
-        password: String(form.get("password") || "")
+        password: String(form.get("password") || ""),
+        active: String(form.get("active") || "active")
       })
     });
     const payload = await response.json().catch(() => null) as { ok?: boolean; message?: string; staff?: { name?: string; email?: string } } | null;
@@ -66,6 +67,13 @@ export function StaffMemberForm() {
       <label>
         Temporary password
         <input name="password" type="password" minLength={8} placeholder="Minimum 8 characters" required />
+      </label>
+      <label>
+        Account status
+        <select name="active" defaultValue="active">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
       </label>
       <div className="formSubmitRow">
         <button className="primaryAction" disabled={state.status === "saving"} type="submit">

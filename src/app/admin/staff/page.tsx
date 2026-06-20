@@ -42,7 +42,7 @@ export default async function StaffAdminPage() {
                 <span>{staff.email}</span>
                 <span>{staff.department}</span>
                 <span>{staff.role.replace(/_/g, " ")}</span>
-                <em>{staff.status}</em>
+                <em>{staff.status}{staff.passwordResetRequired ? " / Reset required" : ""}</em>
               </div>
             ))}
           </div>
@@ -75,9 +75,9 @@ export default async function StaffAdminPage() {
             <div><p className="eyebrow">Production readiness</p><h2>Staff controls still to harden</h2></div>
           </div>
           <div className="eventPackageRules">
-            <span><strong>Enforcement</strong>Use the role map to restrict routes and actions per staff role before live launch.</span>
-            <span><strong>Lifecycle</strong>Add active/inactive status, password reset, and last-login tracking in the next database migration.</span>
-            <span><strong>Accountability</strong>Continue writing audit logs for every staff-created finance, content, and beneficiary action.</span>
+            <span><strong>Enforcement</strong>Admin routes, sidebar items, and protected API actions now use the staff role map before launch.<em>Active</em></span>
+            <span><strong>Lifecycle</strong>Next migration adds active/inactive status, password reset requirement, and last-login tracking.<em>Migration ready</em></span>
+            <span><strong>Accountability</strong>Finance, content, event, staff, and beneficiary admin actions continue writing audit logs.<em>Ongoing</em></span>
           </div>
         </article>
       </section>

@@ -16,6 +16,7 @@ export async function POST(request: Request) {
 
   const credentials = getAdminCredentials();
   let authenticatedEmail = "";
+  let authenticatedRole = "SUPER_ADMIN";
   const matchesFallbackAdmin =
     email === credentials.email.toLowerCase() &&
     password === credentials.password;
@@ -23,8 +24,16 @@ export async function POST(request: Request) {
   if (hasDatabaseUrl()) {
     try {
       const user = await db.user.findUnique({ where: { email } });
+      const lifecycleRows = user
+        ? await db.$queryRawUnsafe<Array<{ active: boolean }>>(`SELECT "active" FROM "User" WHERE "id" = $1 LIMIT 1`, user.id).catch(() => [])
+        : [];
+      if (lifecycleRows[0]?.active === false) {
+        return apiError("This staff account is inactive. Please contact a super admin.", 403);
+      }
       if (user && verifyPassword(password, user.passwordHash)) {
         authenticatedEmail = user.email;
+        authenticatedRole = user.role;
+        await db.$executeRawUnsafe(`UPDATE "User" SET "lastLoginAt" = NOW() WHERE "id" = $1`, user.id).catch(() => null);
       } else if (process.env.NODE_ENV !== "production" && matchesFallbackAdmin) {
         authenticatedEmail = credentials.email;
       }
@@ -45,7 +54,7 @@ export async function POST(request: Request) {
   if (!authenticatedEmail) return apiError("Invalid email or password.", 401);
 
   const response = NextResponse.json({ ok: true });
-  response.cookies.set(adminSessionCookie, createAdminSession(authenticatedEmail), {
+  response.cookies.set(adminSessionCookie, createAdminSession(authenticatedEmail, authenticatedRole), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",

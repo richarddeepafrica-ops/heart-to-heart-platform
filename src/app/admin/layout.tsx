@@ -1,7 +1,12 @@
+import { cookies } from "next/headers";
 import { AdminNav } from "@/components/AdminNav";
 import { AdminLogoutButton } from "@/components/AdminLogoutButton";
+import { adminSessionCookie, verifyAdminSession } from "@/lib/auth";
 
-export default function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const cookieStore = await cookies();
+  const session = verifyAdminSession(cookieStore.get(adminSessionCookie)?.value);
+
   return (
     <main className="adminApp">
       <aside className="adminSidebar">
@@ -9,7 +14,7 @@ export default function AdminLayout({ children }: Readonly<{ children: React.Rea
           <img src="/assets/heart-to-heart-logo.svg" alt="Heart to Heart Foundation" />
           <span>Foundation operations</span>
         </a>
-        <AdminNav />
+        <AdminNav role={session?.role} />
         <div className="sidebarCard">
           <span>Workspace</span>
           <strong>Live admin</strong>

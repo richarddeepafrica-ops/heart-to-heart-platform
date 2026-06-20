@@ -13,6 +13,7 @@ export async function GET() {
   return NextResponse.json({
     ok: true,
     authenticated: true,
-    email: session.email
+    email: session.email,
+    role: session.role
   });
 }
