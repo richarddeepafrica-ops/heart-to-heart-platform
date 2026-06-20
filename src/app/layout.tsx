@@ -5,7 +5,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Heart to Heart Foundation",
-  description: "Supporting prevention, control, and treatment of heart disease in children in Kenya."
+  description: "Supporting prevention, control, and treatment of heart disease in children in Kenya.",
+  icons: {
+    icon: "/icon.svg"
+  }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
