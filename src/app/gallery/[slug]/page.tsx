@@ -1,6 +1,6 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { GalleryPhotoControls } from "@/components/GalleryPhotoControls";
-import { galleryAlbumSlug, getGalleryItem, getGalleryItems } from "@/lib/publishing-data";
+import { galleryAlbumFromSlug, galleryAlbumSlug, getGalleryItem, getGalleryItems } from "@/lib/publishing-data";
 
 type GalleryPageContext = {
   params: Promise<{ slug: string }>;
@@ -13,6 +13,9 @@ export async function generateStaticParams() {
 
 export default async function GalleryDetailPage({ params }: GalleryPageContext) {
   const { slug } = await params;
+  const albumName = galleryAlbumFromSlug(slug);
+  if (albumName) redirect(`/gallery/albums/${galleryAlbumSlug(albumName)}`);
+
   const [item, items] = await Promise.all([
     getGalleryItem(slug),
     getGalleryItems()

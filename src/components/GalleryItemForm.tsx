@@ -9,7 +9,14 @@ type FormResult = {
   publicUrl?: string | null;
 };
 
-export function GalleryItemForm() {
+type GalleryItemFormProps = {
+  defaultCategory?: string;
+  submitLabel?: string;
+};
+
+const galleryCategories = ["General", "Gala Dinner", "Teachers Workshop", "Heart Run"];
+
+export function GalleryItemForm({ defaultCategory = "Heart Run", submitLabel = "Create gallery item" }: GalleryItemFormProps) {
   const [result, setResult] = useState<FormResult>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -49,13 +56,20 @@ export function GalleryItemForm() {
     <form className="contentAdminForm" onSubmit={handleSubmit}>
       <label><span>Title</span><input name="title" placeholder="Gallery moment title" required /></label>
       <label><span>Slug</span><input name="slug" placeholder="Optional, generated from title" /></label>
-      <label><span>Category</span><input name="category" defaultValue="Heart Run" /></label>
+      <label>
+        <span>Album</span>
+        <select name="category" defaultValue={defaultCategory}>
+          {galleryCategories.map((category) => (
+            <option value={category} key={category}>{category}</option>
+          ))}
+        </select>
+      </label>
       <label><span>Location</span><input name="location" placeholder="Nairobi, Karen Hospital..." /></label>
       <label className="wide"><span>Image</span><input name="imageUrl" placeholder="/assets/impact/CDB_6159-scaled.jpg" required /></label>
       <label className="wide"><span>Description</span><textarea name="description" placeholder="Tell visitors what is happening in this image." required rows={5} /></label>
       <label><span>Status</span><select name="status" defaultValue="DRAFT"><option value="DRAFT">Save draft</option><option value="PUBLISHED">Publish now</option></select></label>
       <div className="wide formSubmitRow">
-        <button className="primaryAction" disabled={isSubmitting} type="submit">{isSubmitting ? "Saving..." : "Create gallery item"}</button>
+        <button className="primaryAction" disabled={isSubmitting} type="submit">{isSubmitting ? "Saving..." : submitLabel}</button>
         {result.message || result.nextAction ? <small className={result.ok ? "formSuccess" : "formError"}>{result.nextAction || result.message}</small> : null}
         {result.publicUrl ? <a className="panelLink" href={result.publicUrl}>Open public page</a> : null}
       </div>

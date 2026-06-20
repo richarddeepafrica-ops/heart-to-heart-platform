@@ -1,6 +1,6 @@
 import { BlogPostForm } from "@/components/BlogPostForm";
 import { GalleryItemForm } from "@/components/GalleryItemForm";
-import { getBlogPosts, getGalleryItems } from "@/lib/publishing-data";
+import { galleryAlbumNames, galleryAlbumSlug, getBlogPosts, getGalleryItems } from "@/lib/publishing-data";
 
 export default async function AdminContentPage() {
   const [posts, galleries] = await Promise.all([
@@ -11,7 +11,7 @@ export default async function AdminContentPage() {
   const publishedGalleries = galleries.filter((item) => item.status === "PUBLISHED").length;
   const draftPosts = posts.length - publishedPosts;
   const draftGalleries = galleries.length - publishedGalleries;
-  const albumCounts = ["General", "Gala Dinner", "Teachers Workshop", "Heart Run"].map((album) => ({
+  const albumCounts = galleryAlbumNames.map((album) => ({
     album,
     count: galleries.filter((item) => item.category === album).length
   }));
@@ -101,13 +101,13 @@ export default async function AdminContentPage() {
           </div>
         </details>
         <article className="appPanel span12">
-          <div className="panelHeader"><div><p className="eyebrow">Album manager</p><h2>Gallery coverage</h2></div><a className="panelLink" href="#new-gallery">Add image</a></div>
+          <div className="panelHeader"><div><p className="eyebrow">Album manager</p><h2>Gallery coverage</h2></div><a className="panelLink" href="#new-gallery">Quick add image</a></div>
           <div className="albumManagerGrid">
             {albumCounts.map((album) => (
-              <a href={`/gallery/${album.album.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}`} key={album.album}>
+              <a href={`/admin/content/gallery/${galleryAlbumSlug(album.album)}`} key={album.album}>
                 <strong>{album.album}</strong>
                 <span>{album.count} images</span>
-                <small>Open public album</small>
+                <small>Manage album and add images</small>
               </a>
             ))}
           </div>

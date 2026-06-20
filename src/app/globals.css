@@ -3297,6 +3297,76 @@ body:has(.adminApp) .siteHeader {
   font-weight: 900;
 }
 
+.adminAlbumImageGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.adminAlbumImageGrid a {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #ffffff, #f8fbff);
+  color: inherit;
+  box-shadow: 0 14px 30px rgba(25, 94, 165, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.adminAlbumImageGrid a:hover,
+.adminAlbumImageGrid a:focus-visible {
+  border-color: rgba(25, 94, 165, 0.35);
+  box-shadow: 0 18px 38px rgba(25, 94, 165, 0.13);
+  transform: translateY(-2px);
+}
+
+.adminAlbumImageGrid img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: var(--surface-strong);
+}
+
+.adminAlbumImageGrid span {
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+}
+
+.adminAlbumImageGrid strong {
+  color: var(--blue-dark);
+  font-size: 15px;
+  line-height: 1.25;
+}
+
+.adminAlbumImageGrid small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.adminEmptyState {
+  display: grid;
+  gap: 8px;
+  min-height: 240px;
+  place-content: center;
+  border: 1px dashed rgba(25, 94, 165, 0.26);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff, rgba(248, 251, 255, 0.92));
+  text-align: center;
+}
+
+.adminEmptyState strong {
+  color: var(--blue-dark);
+  font-size: 20px;
+}
+
+.adminEmptyState span {
+  color: var(--muted);
+}
+
 .systemCheckGrid {
   display: grid;
   gap: 12px;
