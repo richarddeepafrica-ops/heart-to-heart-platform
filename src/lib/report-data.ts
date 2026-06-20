@@ -183,9 +183,9 @@ export async function getReportDashboard(): Promise<ReportDashboard> {
       methods: Array.from(methodMap.values()).sort((a, b) => b.amount - a.amount),
       destinations: Array.from(destinationMap.values()).sort((a, b) => b.amount - a.amount),
       boardPriorities: [
-        pendingAmount > 0 ? "Finance should clear pending receipts and provider references." : "Finance reconciliation is clear for confirmed receipts.",
-        campaignRows.some((campaign) => campaign.percent < 50) ? "Fundraising should push campaigns below 50% funded." : "Campaign funding is tracking above halfway.",
-        registrations > 0 ? "Events team should keep registration check-ins updated." : "Events team should test the registration checkout before launch."
+        pendingAmount > 0 ? "Finance needs to clear pending receipts and provider references." : "Finance reconciliation is clear for confirmed receipts.",
+        campaignRows.some((campaign) => campaign.percent < 50) ? "Fundraising needs extra focus on campaigns below 50% funded." : "Campaign funding is tracking above halfway.",
+        registrations > 0 ? "Events team needs to keep registration check-ins updated." : "Events team needs to test the registration checkout before launch."
       ]
     };
   } catch (error) {

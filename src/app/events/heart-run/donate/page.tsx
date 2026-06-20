@@ -90,8 +90,8 @@ export default function HeartRunDonatePage() {
           <p className="eyebrow">Donate to Heart Run / Walk</p>
           <h2>Make a dedicated event gift.</h2>
           <p>
-            This form is preselected for Heart Run / Walk giving. You can still
-            change the destination if you decide to support another campaign.
+            Your gift will support Heart Run / Walk fundraising for children&apos;s
+            heart care. You can also choose another giving destination.
           </p>
         </div>
         <Suspense fallback={<div className="notice">Loading payment details...</div>}>

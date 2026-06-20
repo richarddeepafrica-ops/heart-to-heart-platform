@@ -34,7 +34,7 @@ export default function SurgeryCampaignPage() {
       <section className="detailLayout">
         <article className="detailStory">
           <p className="eyebrow">The need</p>
-          <h2>Heart treatment should not end at diagnosis.</h2>
+          <h2>Heart treatment continues beyond diagnosis.</h2>
           <p>
             Heart to Heart Foundation was founded because local specialists
             could diagnose and treat heart disease, but many affected families
@@ -49,7 +49,7 @@ export default function SurgeryCampaignPage() {
             {[
               ["Clinical pathway", "Children move from diagnosis to treatment planning, surgery support, and follow-up care."],
               ["Financial support", "Donations reduce the treatment burden for families who cannot meet the full cost."],
-              ["Ongoing reporting", "Supporters should be able to follow milestones, receipts, and progress updates."]
+              ["Ongoing updates", "Supporters receive milestones, receipts, and progress updates as care moves forward."]
             ].map(([title, copy]) => (
               <span key={title}><strong>{title}</strong>{copy}</span>
             ))}
@@ -74,7 +74,7 @@ export default function SurgeryCampaignPage() {
       <section className="campaignTransparency">
         <div className="sectionHeading compactHeading">
           <p className="eyebrow">Where support goes</p>
-          <h2>Clear giving categories make the appeal easier to trust.</h2>
+          <h2>Clear giving categories help supporters understand the impact.</h2>
         </div>
         <div className="allocationGrid">
           {[
@@ -117,7 +117,7 @@ export default function SurgeryCampaignPage() {
         </div>
         <div className="faqGrid">
           {[
-            ["Can I give to this campaign specifically?", "Yes. The donation form below is preselected for Fund 20 Heart Surgeries."],
+            ["Can I give to this campaign specifically?", "Yes. You can direct your gift to Fund 20 Heart Surgeries."],
             ["Will I receive a receipt?", "The giving flow captures contact details so the foundation can prepare confirmation and follow-up."],
             ["Can a company support this appeal?", "Yes. Corporate partners can sponsor surgery support, events, or broader programme work."],
             ["Can I give monthly?", "Yes. Monthly giving is available in the form for supporters who want ongoing impact."]
@@ -135,8 +135,8 @@ export default function SurgeryCampaignPage() {
           <p className="eyebrow">Donate to this campaign</p>
           <h2>Help fund children waiting for heart surgery.</h2>
           <p>
-            This form is preselected for Fund 20 Heart Surgeries. Supporters can
-            still switch to another campaign if needed.
+            Your gift will support Fund 20 Heart Surgeries. You can also choose
+            another giving destination.
           </p>
         </div>
         <Suspense fallback={<div className="notice">Loading payment details...</div>}>

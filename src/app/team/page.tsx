@@ -76,7 +76,7 @@ export default function TeamPage() {
       <section className="section teamCta">
         <div>
           <p className="eyebrow">Work with the foundation</p>
-          <h2>World-class governance should make it easier to give, partner, and volunteer.</h2>
+          <h2>Strong leadership helps every gift, partnership, and volunteer effort go further.</h2>
         </div>
         <div className="teamCtaActions">
           <a className="button primary" href="/corporate">Partner with us</a>

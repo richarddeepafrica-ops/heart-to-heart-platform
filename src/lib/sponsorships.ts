@@ -39,13 +39,13 @@ export const sponsorshipProfiles: SponsorshipProfile[] = [
   {
     slug: "privacy-safe-profile",
     initials: "LM",
-    name: "Privacy-safe profile",
-    displayName: "Privacy-safe profile",
-    age: "Draft review",
-    need: "Visible only after consent and admin approval.",
+    name: "A child awaiting care",
+    displayName: "Child awaiting care",
+    age: "Care request",
+    need: "Support is needed for treatment planning and family follow-up.",
     goalAmount: 100000,
-    raisedPercent: "Draft review",
-    story: "This profile represents a child whose story should only be published after guardian consent and medical review."
+    raisedPercent: "New request",
+    story: "Some children need support before their full story can be shared publicly. The foundation protects each child's privacy while the family and medical team complete the review process."
   }
 ];
 

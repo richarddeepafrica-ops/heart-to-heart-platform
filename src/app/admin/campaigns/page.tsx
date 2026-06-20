@@ -43,7 +43,7 @@ export default async function CampaignsAdminPage() {
           <div className="eventPackageRules">
             <span><strong>Preview</strong>Use draft status while images, goals, and copy are still being reviewed.</span>
             <span><strong>Publish</strong>Set active once the donation route, public story, and finance destination are ready.</span>
-            <span><strong>Pause or archive</strong>Use paused/completed status when a campaign should stop receiving prominent traffic.</span>
+            <span><strong>Pause or archive</strong>Use paused or completed status when a campaign no longer needs prominent traffic.</span>
           </div>
         </article>
       </section>

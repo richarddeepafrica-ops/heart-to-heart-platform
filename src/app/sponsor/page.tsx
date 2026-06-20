@@ -15,7 +15,7 @@ export default function SponsorPage() {
       <section className="sponsorIntro">
         <div>
           <p className="eyebrow">Care with dignity</p>
-          <h2>Support should protect the child and family.</h2>
+          <h2>Support protects the child and family.</h2>
           <p>
             Sponsorship focuses on practical care needs while keeping children&apos;s
             dignity and privacy at the centre.

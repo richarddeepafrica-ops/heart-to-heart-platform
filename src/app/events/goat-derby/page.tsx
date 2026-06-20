@@ -19,7 +19,7 @@ export default function GoatDerbyPage() {
           <p className="eyebrow">Event focus</p>
           <strong>Community</strong>
           <span>Family participation, sponsor visibility, public awareness, and fundraising activations.</span>
-          <small>Package setup belongs to the event admin workspace.</small>
+          <small>Sponsorship opportunities can be shaped around families, teams, and partners.</small>
         </aside>
       </section>
 

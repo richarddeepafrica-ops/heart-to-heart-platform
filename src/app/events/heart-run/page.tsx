@@ -42,7 +42,7 @@ export default function HeartRunPage() {
           <p className="eyebrow">Why join</p>
           <h2>Heart Run brings families together through sport.</h2>
           <p>
-            It is also a platform for public awareness around preventable heart
+            It also raises public awareness around preventable heart
             conditions, bringing families together for health and fundraising.
           </p>
           <div className="heartRunImpact">
@@ -91,9 +91,8 @@ export default function HeartRunPage() {
           <p className="eyebrow">Event experience</p>
           <h2>A public fundraising day with clear ways to take part.</h2>
           <p>
-            Heart Run works best when the site makes every visitor&apos;s next step
-            obvious, whether they are attending, sponsoring, donating, or helping
-            mobilise a school or company team.
+            Whether you are attending, sponsoring, donating, or mobilising a
+            school or company team, Heart Run gives you a clear way to help.
           </p>
         </div>
         <div className="eventExperienceGrid">

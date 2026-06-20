@@ -19,7 +19,7 @@ export default function GalaDinnerPage() {
           <p className="eyebrow">Event focus</p>
           <strong>Major donors</strong>
           <span>Corporate tables, donor pledges, partner recognition, and impact storytelling.</span>
-          <small>Packages managed from the admin events workspace.</small>
+          <small>Sponsorship packages can be tailored for partners and invited guests.</small>
         </aside>
       </section>
 

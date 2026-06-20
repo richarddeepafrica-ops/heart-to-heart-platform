@@ -27,7 +27,7 @@ export default async function NewsPage() {
         <div className="sectionHeading">
           <p className="eyebrow">Latest stories</p>
           <h2>Fresh from the foundation.</h2>
-          <p>Updates published from the admin portal appear here as modern story cards.</p>
+          <p>Read the latest updates, event recaps, health notes, and community stories.</p>
         </div>
         <div className="publicCardGrid">
           {posts.map((post) => (

@@ -9,13 +9,13 @@ export default function PartnerInstitutionApplyPage() {
           <h1>Apply to collaborate with Heart to Heart Foundation.</h1>
           <p>
             Hospitals, schools, companies, community groups, and institutions
-            can apply online. The admin team reviews each submission before
-            adding approved institutions to the partner pipeline.
+            can apply online. The foundation team reviews each submission and
+            follows up with approved institutions.
           </p>
         </div>
         <aside>
           <span>Review before approval</span>
-          <strong>Approved institutions are added into the partner list for follow-up and relationship management.</strong>
+          <strong>Approved institutions are contacted for next steps and long-term collaboration.</strong>
         </aside>
       </section>
       <section className="section applicationSection">

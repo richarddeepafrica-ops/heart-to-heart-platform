@@ -110,7 +110,7 @@ export async function getAdminOperationsDashboard() {
     {
       area: "System",
       title: `${systemBlockers} launch blockers`,
-      detail: systemBlockers ? "Resolve offline integrations before the public demo goes live." : "Core system checks are ready for demo review.",
+      detail: systemBlockers ? "Resolve offline integrations before launch." : "Core system checks are ready for review.",
       priority: systemBlockers ? "High" : "Low",
       href: "/admin/system",
       action: "View status"
@@ -132,7 +132,7 @@ export async function getAdminOperationsDashboard() {
   const quickActions: AdminQuickAction[] = [
     { label: "Create campaign", href: "/admin/campaigns#campaign-builder", detail: "Draft, preview, and publish appeals." },
     { label: "Record offline gift", href: "/admin/donations#record-offline-gift", detail: "Cash, cheque, bank, or pledge entry." },
-    { label: "Publish blog", href: "/admin/content#new-blog", detail: "Create a story with preview content." },
+    { label: "Publish blog", href: "/admin/content#new-blog", detail: "Create and publish a foundation story." },
     { label: "Review child applications", href: "/admin/applications", detail: "Move applications through intake." },
     { label: "Export board report", href: "/api/reports/fundraising", detail: "Download fundraising CSV." },
     { label: "Check event registrations", href: "/admin/events", detail: "Review tickets, revenue, and check-ins." }

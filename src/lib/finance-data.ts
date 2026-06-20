@@ -126,7 +126,7 @@ function buildProfitLoss(records: FinanceQueueRecord[], target = new Date()): Mo
     { label: "Treatment and surgery support", amount: Math.round(totalIncome * 0.58), note: "Planning allocation until expense ledger is enabled." },
     { label: "Prevention and outreach", amount: Math.round(totalIncome * 0.16), note: "School outreach, teachers workshops, and awareness." },
     { label: "Event delivery", amount: Math.round(eventIncome * 0.22), note: "Estimated direct event delivery costs." },
-    { label: "Administration and compliance", amount: Math.round(totalIncome * 0.09), note: "Operating, audit, and platform support estimate." }
+    { label: "Administration and compliance", amount: Math.round(totalIncome * 0.09), note: "Operating, audit, and digital support estimate." }
   ];
   const totalExpenses = expenses.reduce((total, line) => total + line.amount, 0);
   const pendingCount = records.filter((record) => inSameMonth(record.createdAt, target) && record.donationStatus === "PENDING").length;

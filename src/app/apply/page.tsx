@@ -15,7 +15,7 @@ export default function ApplyForCarePage() {
         </div>
         <aside>
           <span>Private intake</span>
-          <strong>Admin review happens before any child profile or fundraising page is created.</strong>
+          <strong>The foundation reviews every request privately before any story or appeal is shared.</strong>
         </aside>
       </section>
       <section className="section applicationSection">

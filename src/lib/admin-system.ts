@@ -67,7 +67,7 @@ export async function getAdminSystemStatus() {
       label: "Database",
       status: "warning",
       detail: "Preview mode is active. Admin actions can be tested, but changes will not persist.",
-      action: "Set DATABASE_URL and run migrations before a real client demo."
+      action: "Set DATABASE_URL and run migrations before launch."
     });
   } else {
     try {
@@ -111,7 +111,7 @@ export async function getAdminSystemStatus() {
     label: "Public site URL",
     status: hasEnv("NEXT_PUBLIC_SITE_URL") ? "healthy" : "warning",
     detail: hasEnv("NEXT_PUBLIC_SITE_URL") ? `Configured as ${process.env.NEXT_PUBLIC_SITE_URL}.` : "Public site URL is not configured.",
-    action: hasEnv("NEXT_PUBLIC_SITE_URL") ? undefined : "Set NEXT_PUBLIC_SITE_URL for online demo links and callbacks."
+    action: hasEnv("NEXT_PUBLIC_SITE_URL") ? undefined : "Set NEXT_PUBLIC_SITE_URL for public links and callbacks."
   });
 
   checks.push({

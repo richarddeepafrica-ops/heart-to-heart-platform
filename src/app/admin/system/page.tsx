@@ -42,7 +42,7 @@ export default async function AdminSystemPage() {
       <section className="adminDashboardGrid">
         <article className="appPanel span7">
           <div className="panelHeader">
-            <div><p className="eyebrow">Readiness checks</p><h2>What is ready for demo</h2></div>
+            <div><p className="eyebrow">Readiness checks</p><h2>What is ready for launch</h2></div>
           </div>
           <div className="systemCheckGrid">
             {checks.map((check) => (
