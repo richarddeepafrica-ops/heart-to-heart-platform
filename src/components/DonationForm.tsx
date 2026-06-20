@@ -28,14 +28,22 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
   const eventName = searchParams.get("eventName");
   const packageName = searchParams.get("packageName");
   const addOn = Number(searchParams.get("addOn") ?? 0);
+  const quantity = Number(searchParams.get("quantity") ?? 1);
+  const participantName = searchParams.get("participantName") ?? "";
+  const queryPhone = searchParams.get("phone") ?? "";
+  const queryEmail = searchParams.get("email") ?? "";
+  const teamName = searchParams.get("teamName") ?? "";
   const label = searchParams.get("label");
   const hasLockedDestination = ["child", "event-registration"].includes(contextType);
+  const hasLockedAmount = contextType === "event-registration";
   const contextualSource = [
     source,
     contextType,
     childSlug,
     eventSlug,
-    packageName
+    packageName,
+    quantity > 1 ? `quantity-${quantity}` : "",
+    teamName
   ].filter(Boolean).join(":");
 
   const [amount, setAmount] = useState(Number.isFinite(queryAmount) && queryAmount > 0 ? queryAmount : 2500);
@@ -47,8 +55,8 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
   const destinationTitle =
     contextType === "child"
       ? `Sponsor ${label ?? "a child"}`
-      : contextType === "event-registration"
-        ? `${eventName ?? "Event"} registration: ${packageName ?? "Selected package"}`
+        : contextType === "event-registration"
+          ? `${eventName ?? "Event"} registration: ${packageName ?? "Selected package"}${quantity > 1 ? ` x ${quantity}` : ""}`
         : contextType === "event-donation"
           ? `${eventName ?? selectedCampaign.title} donation`
           : selectedCampaign.title;
@@ -57,8 +65,8 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
       ? "This gift is marked for the selected child's care journey."
       : contextType === "event-registration"
         ? addOn > 0
-          ? `Includes registration plus ${formatKes(addOn)} add-on gift.`
-          : "This payment is marked as an event registration."
+          ? `Includes registration plus ${formatKes(addOn)} add-on gift.${teamName ? ` Team: ${teamName}.` : ""}`
+          : `This payment is marked as an event registration.${teamName ? ` Team: ${teamName}.` : ""}`
         : contextType === "event-donation"
           ? "This gift is marked for the selected event fundraising effort."
           : selectedCampaign.summary;
@@ -85,6 +93,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
         childSlug,
         eventSlug,
         packageName,
+        quantity,
         isAnonymous: formData.get("anonymous") === "on",
         source: contextualSource
       })
@@ -153,49 +162,59 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
 
         <div className="checkoutBlock">
           <div className="blockTitle">
-            <strong>Gift amount</strong>
-            <span>{frequency === "monthly" ? "Monthly giving" : "One-time gift"}</span>
+            <strong>{hasLockedAmount ? "Registration payment" : "Gift amount"}</strong>
+            <span>{hasLockedAmount ? "Amount is set by selected package" : frequency === "monthly" ? "Monthly giving" : "One-time gift"}</span>
           </div>
-          <div className="amountGrid" role="group" aria-label="Donation amount">
-            {amounts.map((value) => (
-              <button
-                className={amount === value ? "amount active" : "amount"}
-                key={value}
-                type="button"
-                onClick={() => setAmount(value)}
-              >
-                {formatKes(value)}
-              </button>
-            ))}
-          </div>
-          <div className="checkoutInline">
-            <label>
-              Custom amount
-              <input
-                min="100"
-                name="amount"
-                type="number"
-                value={amount}
-                onChange={(event) => setAmount(Number(event.target.value))}
-              />
-            </label>
-            <div className="segmentedControl" role="group" aria-label="Donation frequency">
-              <button
-                className={frequency === "one-time" ? "active" : ""}
-                type="button"
-                onClick={() => setFrequency("one-time")}
-              >
-                One-time
-              </button>
-              <button
-                className={frequency === "monthly" ? "active" : ""}
-                type="button"
-                onClick={() => setFrequency("monthly")}
-              >
-                Monthly
-              </button>
+          {hasLockedAmount ? (
+            <div className="lockedPaymentCard">
+              <strong>{formatKes(amount)}</strong>
+              <span>{destinationTitle}</span>
+              <small>{destinationSummary}</small>
             </div>
-          </div>
+          ) : (
+            <>
+              <div className="amountGrid" role="group" aria-label="Donation amount">
+                {amounts.map((value) => (
+                  <button
+                    className={amount === value ? "amount active" : "amount"}
+                    key={value}
+                    type="button"
+                    onClick={() => setAmount(value)}
+                  >
+                    {formatKes(value)}
+                  </button>
+                ))}
+              </div>
+              <div className="checkoutInline">
+                <label>
+                  Custom amount
+                  <input
+                    min="100"
+                    name="amount"
+                    type="number"
+                    value={amount}
+                    onChange={(event) => setAmount(Number(event.target.value))}
+                  />
+                </label>
+                <div className="segmentedControl" role="group" aria-label="Donation frequency">
+                  <button
+                    className={frequency === "one-time" ? "active" : ""}
+                    type="button"
+                    onClick={() => setFrequency("one-time")}
+                  >
+                    One-time
+                  </button>
+                  <button
+                    className={frequency === "monthly" ? "active" : ""}
+                    type="button"
+                    onClick={() => setFrequency("monthly")}
+                  >
+                    Monthly
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
 
         <div className="checkoutBlock">
@@ -219,6 +238,14 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
             <strong>{destinationTitle}</strong>
             <span>{destinationSummary}</span>
           </div>
+          {contextType === "event-registration" ? (
+            <div className="registrationMini">
+              <span><strong>Package</strong>{packageName ?? "Selected package"}</span>
+              <span><strong>Quantity</strong>{Number.isFinite(quantity) && quantity > 0 ? quantity : 1}</span>
+              {teamName ? <span><strong>Team</strong>{teamName}</span> : null}
+              {participantName ? <span><strong>Attendee</strong>{participantName}</span> : null}
+            </div>
+          ) : null}
         </div>
 
         <div className="checkoutBlock">
@@ -229,16 +256,16 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
           <div className="formGrid">
             <label>
               Name
-              <input name="name" placeholder="Your name" />
+              <input name="name" placeholder="Your name" defaultValue={participantName} />
             </label>
             <label>
               Phone
-              <input name="phone" placeholder="07..." />
+              <input name="phone" placeholder="07..." defaultValue={queryPhone} />
             </label>
           </div>
           <label>
             Email
-            <input name="email" placeholder="you@example.com" type="email" />
+            <input name="email" placeholder="you@example.com" type="email" defaultValue={queryEmail} />
           </label>
           <div className="consentGrid">
             <label><input name="anonymous" type="checkbox" /> Give anonymously publicly</label>
@@ -293,6 +320,8 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
           <span>Frequency</span><strong>{frequency === "monthly" ? "Monthly" : "One-time"}</strong>
           <span>Destination</span><strong>{destinationTitle}</strong>
           {packageName ? <><span>Package</span><strong>{packageName}</strong></> : null}
+          {contextType === "event-registration" ? <><span>Quantity</span><strong>{Number.isFinite(quantity) && quantity > 0 ? quantity : 1}</strong></> : null}
+          {teamName ? <><span>Team</span><strong>{teamName}</strong></> : null}
           <span>Payment</span><strong>{method.replace("_", " ")}</strong>
           <span>Receipt</span><strong>Prepared after payment</strong>
         </div>

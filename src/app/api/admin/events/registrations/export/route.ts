@@ -5,12 +5,17 @@ function csvCell(value: string | number | Date | null) {
   return /[",\n]/.test(stringValue) ? `"${stringValue.replace(/"/g, "\"\"")}"` : stringValue;
 }
 
+function registrationCode(id: string) {
+  return `H2H-${id.slice(-6).toUpperCase()}`;
+}
+
 export async function GET() {
   const dashboard = await getEventDashboard();
   const rows = [
-    ["Registration ID", "Event", "Attendee", "Contact", "Package", "Quantity", "Amount", "Payment status", "Checked in at", "Created at"],
+    ["Registration ID", "Check-in code", "Event", "Attendee", "Contact", "Package", "Quantity", "Amount", "Payment status", "Checked in at", "Created at"],
     ...dashboard.registrations.map((registration) => [
       registration.id,
+      registrationCode(registration.id),
       registration.eventTitle,
       registration.donorName,
       registration.donorContact,

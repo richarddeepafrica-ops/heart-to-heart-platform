@@ -31,6 +31,7 @@ export type AdminEventPackageRecord = {
   name: string;
   description: string;
   price: number;
+  capacity: number;
   sold: number;
   revenue: number;
   status: string;
@@ -123,9 +124,10 @@ function packageRows(registrations: AdminRegistrationRecord[]) {
       name: ticket.name,
       description: ticket.description,
       price: ticket.price,
+      capacity: ticket.capacity,
       sold,
       revenue,
-      status: "Published"
+      status: sold >= ticket.capacity ? "Sold out" : "Published"
     };
   });
 }

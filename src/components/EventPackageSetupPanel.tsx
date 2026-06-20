@@ -7,15 +7,10 @@ type PackageDraft = {
   name: string;
   price: number;
   description: string;
+  audience: string;
+  capacity: number;
   benefits: string;
   status: string;
-};
-
-const defaultBenefits: Record<string, string> = {
-  Individual: "Single participant registration, event access, and confirmation receipt.",
-  Family: "Family participation, shared registration confirmation, and supporter recognition.",
-  "School Team": "School team coordination, group participation support, and event-day registration guidance.",
-  "Corporate Team": "Corporate team participation, visibility support, and event-day coordination."
 };
 
 export function EventPackageSetupPanel() {
@@ -24,7 +19,9 @@ export function EventPackageSetupPanel() {
       name: item.name,
       price: item.price,
       description: item.description,
-      benefits: defaultBenefits[item.name] || item.description,
+      audience: item.audience,
+      capacity: item.capacity,
+      benefits: item.benefits.join("\n"),
       status: "Ready"
     }))
   );
@@ -45,6 +42,16 @@ export function EventPackageSetupPanel() {
     );
   }
 
+  function updateSelectedNumber(field: "price" | "capacity", value: string) {
+    setPackages((current) =>
+      current.map((item) =>
+        item.name === selectedName
+          ? { ...item, [field]: Number(value) || 0 }
+          : item
+      )
+    );
+  }
+
   return (
     <div className="eventPackageBuilder">
       <div className="packageSetupList">
@@ -52,7 +59,7 @@ export function EventPackageSetupPanel() {
           <button className={item.name === selectedName ? "active" : ""} type="button" key={item.name} onClick={() => setSelectedName(item.name)}>
             <strong>{item.name}</strong>
             <span>{formatKes(item.price)}</span>
-            <small>{item.status}</small>
+            <small>{item.capacity.toLocaleString("en-KE")} capacity · {item.status}</small>
           </button>
         ))}
       </div>
@@ -65,7 +72,15 @@ export function EventPackageSetupPanel() {
           </label>
           <label>
             Price
-            <input type="number" value={selectedPackage.price} onChange={(event) => updateSelected("price", event.target.value)} />
+            <input type="number" value={selectedPackage.price} onChange={(event) => updateSelectedNumber("price", event.target.value)} />
+          </label>
+          <label>
+            Audience
+            <input value={selectedPackage.audience} onChange={(event) => updateSelected("audience", event.target.value)} />
+          </label>
+          <label>
+            Capacity
+            <input type="number" value={selectedPackage.capacity} onChange={(event) => updateSelectedNumber("capacity", event.target.value)} />
           </label>
           <label className="wide">
             Public checkout description
@@ -83,6 +98,12 @@ export function EventPackageSetupPanel() {
               <option>Paused</option>
             </select>
           </label>
+          <div className="packageReadinessChecklist">
+            <span className={selectedPackage.name ? "complete" : ""}>Name</span>
+            <span className={selectedPackage.price > 0 ? "complete" : ""}>Price</span>
+            <span className={selectedPackage.capacity > 0 ? "complete" : ""}>Capacity</span>
+            <span className={selectedPackage.benefits.trim() ? "complete" : ""}>Benefits</span>
+          </div>
           <div className="packageCopyPreview">
             <span>Public checkout copy</span>
             <strong>{checkoutCopy}</strong>

@@ -75,10 +75,10 @@ export default async function EventsAdminPage() {
             <div className="tableHead"><span>Package</span><span>Price</span><span>Sales</span><span>Status</span><span>Revenue</span></div>
             {dashboard.packages.map((ticket) => (
               <div className="tableLine" key={ticket.name}>
-                <span><strong>{ticket.name}</strong><small>{ticket.description}</small></span>
+                <span><strong>{ticket.name}</strong><small>{ticket.description}</small><small>{ticket.sold} of {ticket.capacity.toLocaleString("en-KE")} capacity</small></span>
                 <span>{formatKes(ticket.price)}</span>
-                <span>{ticket.sold} sold</span>
-                <span className="status success">{ticket.status}</span>
+                <span>{ticket.capacity ? Math.round((ticket.sold / ticket.capacity) * 100) : 0}% sold</span>
+                <span className={ticket.status === "Sold out" ? "status warning" : "status success"}>{ticket.status}</span>
                 <span>{formatKes(ticket.revenue)}</span>
               </div>
             ))}

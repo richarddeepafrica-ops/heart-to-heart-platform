@@ -2636,7 +2636,8 @@ body:has(.adminApp) .siteHeader {
 }
 
 .packageSetupEditor label.wide,
-.packageCopyPreview {
+.packageCopyPreview,
+.packageReadinessChecklist {
   grid-column: 1 / -1;
 }
 
@@ -2688,6 +2689,28 @@ body:has(.adminApp) .siteHeader {
   line-height: 1.45;
 }
 
+.packageReadinessChecklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.packageReadinessChecklist span {
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: white;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.packageReadinessChecklist span.complete {
+  border-color: rgba(1, 166, 80, 0.24);
+  background: rgba(1, 166, 80, 0.1);
+  color: var(--green);
+}
+
 .eventRegistrationQueue {
   display: grid;
   gap: 14px;
@@ -2714,6 +2737,14 @@ body:has(.adminApp) .siteHeader {
   color: var(--muted);
   font-size: 12px;
   font-weight: 750;
+}
+
+.eventRegistrationTable span small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .financeTable {
@@ -7243,8 +7274,36 @@ body:not(:has(.adminApp)) :where(
   color: var(--muted);
 }
 
+.eventPackageChoices em {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 13px;
+  font-style: normal;
+  line-height: 1.35;
+}
+
 .eventPackageChoices b {
   color: var(--green);
+}
+
+.eventPackageChoices ul {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.eventPackageChoices li {
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: white;
+  color: var(--blue-dark);
+  font-size: 12px;
+  font-weight: 850;
 }
 
 .addOnGift {
@@ -7279,6 +7338,101 @@ body:not(:has(.adminApp)) :where(
 .eventFlowSummary p {
   color: var(--muted);
   line-height: 1.55;
+}
+
+.compactFlowBlock {
+  padding: 18px 22px;
+}
+
+.eventQuantityControl {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 48px;
+  gap: 10px;
+  align-items: end;
+}
+
+.eventQuantityControl button {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-strong);
+  color: var(--blue-dark);
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.eventQuantityControl label {
+  display: grid;
+  gap: 7px;
+  color: var(--blue-dark);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.eventQuantityControl input {
+  text-align: center;
+}
+
+.reservationBadge {
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(1, 166, 80, 0.1);
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.eventConfirmationPreview,
+.registrationMini,
+.lockedPaymentCard {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-soft);
+}
+
+.eventConfirmationPreview strong,
+.lockedPaymentCard strong {
+  color: var(--blue-dark);
+}
+
+.eventConfirmationPreview span,
+.lockedPaymentCard span,
+.lockedPaymentCard small {
+  color: var(--muted);
+}
+
+.button.disabled,
+.button[aria-disabled="true"] {
+  opacity: 0.58;
+  pointer-events: none;
+}
+
+.registrationMini {
+  margin-top: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.registrationMini span {
+  display: grid;
+  gap: 3px;
+  color: var(--muted);
+}
+
+.registrationMini strong {
+  color: var(--blue-dark);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lockedPaymentCard strong {
+  font-size: 30px;
 }
 
 .donateEventHero {

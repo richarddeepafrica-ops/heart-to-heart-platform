@@ -12,6 +12,9 @@ export type EventProduct = {
   name: string;
   price: number;
   description: string;
+  audience: string;
+  capacity: number;
+  benefits: string[];
 };
 
 export type ImpactMetric = {

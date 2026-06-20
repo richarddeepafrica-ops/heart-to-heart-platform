@@ -25,6 +25,14 @@ function normalized(value: string) {
   return value.toLowerCase().trim();
 }
 
+function registrationCode(id: string) {
+  return `H2H-${id.slice(-6).toUpperCase()}`;
+}
+
+function formatRegistrationDate(value: string) {
+  return new Intl.DateTimeFormat("en-KE", { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }).format(new Date(value));
+}
+
 export function EventRegistrationQueue({ registrations }: EventRegistrationQueueProps) {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("ALL");
@@ -85,7 +93,7 @@ export function EventRegistrationQueue({ registrations }: EventRegistrationQueue
           <div key={registration.id}>
             <strong>{registration.donorName}<small>{registration.donorContact}</small></strong>
             <span>{registration.eventTitle}</span>
-            <span>{registration.ticketType} x {registration.quantity}</span>
+            <span>{registration.ticketType} x {registration.quantity}<small>{registrationCode(registration.id)} · {formatRegistrationDate(registration.createdAt)}</small></span>
             <span>{formatKes(registration.totalAmount)}</span>
             <em className={registration.checkedInAt ? "status success" : registration.paymentStatus === "CONFIRMED" ? "status" : "status warning"}>
               {registration.checkedInAt ? "Checked in" : registration.paymentStatus}

@@ -49,10 +49,38 @@ export const campaigns: Campaign[] = [
 ];
 
 export const eventProducts: EventProduct[] = [
-  { name: "Individual", price: 1500, description: "Single Heart Run / Walk registration." },
-  { name: "Family", price: 5000, description: "Family registration package." },
-  { name: "School Team", price: 25000, description: "School team registration and coordination." },
-  { name: "Corporate Team", price: 100000, description: "Corporate team package with visibility." }
+  {
+    name: "Individual",
+    price: 1500,
+    description: "Single Heart Run / Walk registration.",
+    audience: "One participant",
+    capacity: 2500,
+    benefits: ["Event access", "Registration confirmation", "Digital receipt"]
+  },
+  {
+    name: "Family",
+    price: 5000,
+    description: "Family registration package.",
+    audience: "Up to 5 family members",
+    capacity: 1000,
+    benefits: ["Shared family registration", "Event access", "Family confirmation receipt"]
+  },
+  {
+    name: "School Team",
+    price: 25000,
+    description: "School team registration and coordination.",
+    audience: "School groups",
+    capacity: 600,
+    benefits: ["Group coordination", "School team listing", "Event-day registration support"]
+  },
+  {
+    name: "Corporate Team",
+    price: 100000,
+    description: "Corporate team package with visibility.",
+    audience: "Company teams",
+    capacity: 300,
+    benefits: ["Corporate team registration", "Visibility support", "Event-day coordination"]
+  }
 ];
 
 export function formatKes(value: number) {

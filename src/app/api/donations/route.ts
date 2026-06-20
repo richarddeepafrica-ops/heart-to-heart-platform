@@ -16,6 +16,7 @@ export async function POST(request: Request) {
   const childSlug = readString(body.childSlug);
   const eventSlug = readString(body.eventSlug);
   const packageName = readString(body.packageName);
+  const quantity = Math.max(1, readPositiveInt(body.quantity) || 1);
   const destinationType = readString(body.destinationType) || "campaign";
   const destinationLabel = readString(body.destinationLabel);
   const frequency = readString(body.frequency) || "one-time";
@@ -99,7 +100,7 @@ export async function POST(request: Request) {
           donorId: donor.id,
           donationId: donation.id,
           ticketType: packageName,
-          quantity: 1,
+          quantity,
           totalAmount: amount
         }
       });
