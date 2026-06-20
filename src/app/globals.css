@@ -2482,8 +2482,157 @@ body:has(.adminApp) .siteHeader {
   line-height: 1.45;
 }
 
+.eventPackageRules em {
+  width: fit-content;
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: rgba(25, 94, 165, 0.1);
+  color: var(--blue-dark);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+}
+
 .eventPackageRules strong {
   color: var(--blue-dark);
+}
+
+.packageSetupList {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.packageSetupList button {
+  display: grid;
+  gap: 5px;
+  min-height: 100px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffffff, #f8fbff);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.packageSetupList button.active,
+.packageSetupList button:hover,
+.packageSetupList button:focus-visible {
+  border-color: rgba(25, 94, 165, 0.36);
+  box-shadow: 0 14px 30px rgba(25, 94, 165, 0.12);
+  transform: translateY(-1px);
+}
+
+.packageSetupList strong {
+  color: var(--blue-dark);
+  font-size: 17px;
+}
+
+.packageSetupList span,
+.packageSetupList small {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.packageSetupEditor {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid rgba(25, 94, 165, 0.14);
+  border-radius: 14px;
+  background: rgba(248, 251, 255, 0.82);
+}
+
+.packageSetupEditor label {
+  display: grid;
+  gap: 7px;
+  color: var(--blue-dark);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.packageSetupEditor label.wide,
+.packageCopyPreview {
+  grid-column: 1 / -1;
+}
+
+.packageSetupEditor input,
+.packageSetupEditor select,
+.packageSetupEditor textarea,
+.eventQueueToolbar input,
+.eventQueueToolbar select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgba(25, 94, 165, 0.16);
+  border-radius: 10px;
+  background: white;
+  color: var(--text);
+  font: inherit;
+  font-weight: 750;
+}
+
+.packageSetupEditor input,
+.packageSetupEditor select,
+.eventQueueToolbar input,
+.eventQueueToolbar select {
+  padding: 0 12px;
+}
+
+.packageSetupEditor textarea {
+  padding: 11px 12px;
+  resize: vertical;
+}
+
+.packageCopyPreview {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 12px;
+  background: white;
+}
+
+.packageCopyPreview span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.packageCopyPreview strong {
+  color: var(--blue-dark);
+  line-height: 1.45;
+}
+
+.eventRegistrationQueue {
+  display: grid;
+  gap: 14px;
+}
+
+.eventQueueToolbar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.5fr) minmax(160px, 0.8fr) minmax(160px, 0.8fr) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.eventQueueToolbar label {
+  display: grid;
+  gap: 6px;
+  color: var(--blue-dark);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.eventRegistrationTable strong small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
 }
 
 .financeTable {

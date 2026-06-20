@@ -1,4 +1,5 @@
-import { EventCheckInForm } from "@/components/EventCheckInForm";
+import { EventPackageSetupPanel } from "@/components/EventPackageSetupPanel";
+import { EventRegistrationQueue, type EventRegistrationQueueItem } from "@/components/EventRegistrationQueue";
 import { formatKes } from "@/lib/content";
 import { getEventDashboard } from "@/lib/event-data";
 
@@ -8,6 +9,14 @@ export default async function EventsAdminPage() {
   const checkInPercent = featuredEvent?.registrationCount
     ? Math.round((featuredEvent.checkedInCount / featuredEvent.registrationCount) * 100)
     : 0;
+  const pendingPayments = dashboard.registrations.filter((registration) => registration.paymentStatus !== "CONFIRMED").length;
+  const readyForCheckIn = dashboard.registrations.filter((registration) => registration.paymentStatus === "CONFIRMED" && !registration.checkedInAt).length;
+  const packageRevenue = dashboard.packages.reduce((total, ticket) => total + ticket.revenue, 0);
+  const queueItems: EventRegistrationQueueItem[] = dashboard.registrations.map((registration) => ({
+    ...registration,
+    checkedInAt: registration.checkedInAt ? registration.checkedInAt.toISOString() : null,
+    createdAt: registration.createdAt.toISOString()
+  }));
 
   return (
     <>
@@ -20,6 +29,8 @@ export default async function EventsAdminPage() {
           ["Event revenue", formatKes(dashboard.totalRevenue), "registrations and event gifts"],
           ["Registrations", String(dashboard.totalRegistrations), "all events"],
           ["Checked in", String(dashboard.checkedInCount), "attendance marked"],
+          ["Pending payment", String(pendingPayments), "needs finance review"],
+          ["Ready for arrival", String(readyForCheckIn), "confirmed but not checked in"],
           ["Events", String(dashboard.events.length), "active calendar"]
         ].map(([label, value, meta]) => <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>)}
       </section>
@@ -27,9 +38,9 @@ export default async function EventsAdminPage() {
         <article className="appPanel span12">
           <div className="panelHeader"><div><p className="eyebrow">Event workflow</p><h2>Registration to check-in</h2></div></div>
           <div className="eventPackageRules">
-            <span><strong>Package setup</strong>Confirm ticket names, benefits, pricing, and public checkout copy before launch.</span>
-            <span><strong>Registration review</strong>Track payment status and export attendee records before the event day.</span>
-            <span><strong>Check-in</strong>Use the latest registration queue to mark arrivals and clear mistakes quickly.</span>
+            <span><strong>Package setup</strong>Confirm ticket names, benefits, pricing, and public checkout copy before launch.<em>Setup</em></span>
+            <span><strong>Registration review</strong>Track payment status and export attendee records before the event day.<em>{pendingPayments} pending</em></span>
+            <span><strong>Check-in</strong>Use the latest registration queue to mark arrivals and clear mistakes quickly.<em>{checkInPercent}% checked in</em></span>
           </div>
         </article>
         <article className="appPanel span8">
@@ -57,7 +68,7 @@ export default async function EventsAdminPage() {
         </article>
         <article className="appPanel span8">
           <div className="panelHeader">
-            <div><p className="eyebrow">Event packages</p><h2>Heart Run registration packages</h2></div>
+            <div><p className="eyebrow">Package setup</p><h2>Heart Run registration packages</h2></div>
             <a href="/events/heart-run/register">Preview checkout</a>
           </div>
           <div className="eventPackageAdminTable">
@@ -74,36 +85,20 @@ export default async function EventsAdminPage() {
           </div>
         </article>
         <article className="appPanel span4">
-          <div className="panelHeader"><div><p className="eyebrow">Package model</p><h2>Current setup</h2></div></div>
+          <div className="panelHeader"><div><p className="eyebrow">Launch readiness</p><h2>Before publishing</h2></div></div>
           <div className="reviewStack">
-            <div><strong>Static package catalog</strong><span>Public package cards still come from content config.</span><em>Current</em></div>
-            <div><strong>Live package sales</strong><span>Admin sales are computed from registration ticket types.</span><em>Working</em></div>
-            <div><strong>Next schema step</strong><span>Add EventPackage records for publish, pause, capacity, and edits.</span><em>Next</em></div>
+            <div><strong>Package names and pricing</strong><span>Confirm names match public checkout and receipts.</span><em>Review</em></div>
+            <div><strong>Benefits and copy</strong><span>Make sure sponsors and schools understand what each package includes.</span><em>Review</em></div>
+            <div><strong>Revenue tracking</strong><span>{formatKes(packageRevenue)} is currently tied to package registrations.</span><em>Live</em></div>
           </div>
         </article>
         <article className="appPanel span12">
-          <div className="panelHeader"><div><p className="eyebrow">Registration queue</p><h2>Latest event registrations</h2></div></div>
-          <div className="simpleTable eventRegistrationTable">
-            {dashboard.registrations.length ? dashboard.registrations.map((registration) => (
-              <div key={registration.id}>
-                <strong>{registration.donorName}</strong>
-                <span>{registration.eventTitle}</span>
-                <span>{registration.ticketType} x {registration.quantity}</span>
-                <span>{formatKes(registration.totalAmount)}</span>
-                <em>{registration.checkedInAt ? "Checked in" : registration.paymentStatus}</em>
-                <EventCheckInForm registrationId={registration.id} initialCheckedIn={Boolean(registration.checkedInAt)} />
-              </div>
-            )) : (
-              <div>
-                <strong>No registrations yet</strong>
-                <span>Event checkout registrations will appear here.</span>
-                <span>Package pending</span>
-                <span>{formatKes(0)}</span>
-                <em>Waiting</em>
-                <span>Use test registration</span>
-              </div>
-            )}
-          </div>
+          <div className="panelHeader"><div><p className="eyebrow">Package builder</p><h2>Checkout copy review</h2></div><span className="status warning">Draft workspace</span></div>
+          <EventPackageSetupPanel />
+        </article>
+        <article className="appPanel span12">
+          <div className="panelHeader"><div><p className="eyebrow">Registration review and check-in</p><h2>Latest event registrations</h2></div></div>
+          <EventRegistrationQueue registrations={queueItems} />
         </article>
       </section>
     </>
