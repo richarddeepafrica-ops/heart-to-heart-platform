@@ -26,6 +26,8 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
   const childSlug = searchParams.get("childSlug");
   const eventSlug = searchParams.get("eventSlug");
   const eventName = searchParams.get("eventName");
+  const productSlug = searchParams.get("productSlug");
+  const productName = searchParams.get("productName");
   const packageName = searchParams.get("packageName");
   const addOn = Number(searchParams.get("addOn") ?? 0);
   const quantity = Number(searchParams.get("quantity") ?? 1);
@@ -34,13 +36,14 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
   const queryEmail = searchParams.get("email") ?? "";
   const teamName = searchParams.get("teamName") ?? "";
   const label = searchParams.get("label");
-  const hasLockedDestination = ["child", "event-registration"].includes(contextType);
-  const hasLockedAmount = contextType === "event-registration";
+  const hasLockedDestination = ["child", "event-registration", "merchandise"].includes(contextType);
+  const hasLockedAmount = ["event-registration", "merchandise"].includes(contextType);
   const contextualSource = [
     source,
     contextType,
     childSlug,
     eventSlug,
+    productSlug,
     packageName,
     quantity > 1 ? `quantity-${quantity}` : "",
     teamName
@@ -57,6 +60,8 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
       ? `Sponsor ${label ?? "a child"}`
         : contextType === "event-registration"
           ? `${eventName ?? "Event"} registration: ${packageName ?? "Selected package"}${quantity > 1 ? ` x ${quantity}` : ""}`
+        : contextType === "merchandise"
+          ? `${productName ?? packageName ?? "Merchandise"}${quantity > 1 ? ` x ${quantity}` : ""}`
         : contextType === "event-donation"
           ? `${eventName ?? selectedCampaign.title} donation`
           : selectedCampaign.title;
@@ -67,6 +72,8 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
         ? addOn > 0
           ? `Includes registration plus ${formatKes(addOn)} add-on gift.${teamName ? ` Team: ${teamName}.` : ""}`
           : `This payment is marked as an event registration.${teamName ? ` Team: ${teamName}.` : ""}`
+        : contextType === "merchandise"
+          ? `This payment is marked as a merchandise sale. Proceeds go toward ${label ?? "Heart to Heart Foundation programmes"}.`
         : contextType === "event-donation"
           ? "This gift is marked for the selected event fundraising effort."
           : selectedCampaign.summary;
@@ -92,6 +99,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
         destinationLabel: destinationTitle,
         childSlug,
         eventSlug,
+        productSlug,
         packageName,
         quantity,
         isAnonymous: formData.get("anonymous") === "on",
@@ -162,8 +170,8 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
 
         <div className="checkoutBlock">
           <div className="blockTitle">
-            <strong>{hasLockedAmount ? "Registration payment" : "Gift amount"}</strong>
-            <span>{hasLockedAmount ? "Amount is set by selected package" : frequency === "monthly" ? "Monthly giving" : "One-time gift"}</span>
+            <strong>{contextType === "merchandise" ? "Merchandise payment" : hasLockedAmount ? "Registration payment" : "Gift amount"}</strong>
+            <span>{hasLockedAmount ? "Amount is set by the selected item" : frequency === "monthly" ? "Monthly giving" : "One-time gift"}</span>
           </div>
           {hasLockedAmount ? (
             <div className="lockedPaymentCard">
@@ -246,6 +254,13 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
               {participantName ? <span><strong>Attendee</strong>{participantName}</span> : null}
             </div>
           ) : null}
+          {contextType === "merchandise" ? (
+            <div className="registrationMini">
+              <span><strong>Item</strong>{productName ?? packageName ?? "Merchandise"}</span>
+              <span><strong>Quantity</strong>{Number.isFinite(quantity) && quantity > 0 ? quantity : 1}</span>
+              <span><strong>Supports</strong>{label ?? "Foundation programmes"}</span>
+            </div>
+          ) : null}
         </div>
 
         <div className="checkoutBlock">
@@ -298,7 +313,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
         </div>
 
         <button className="button primary wide checkoutSubmit" disabled={state.status === "submitting"} type="submit">
-          {state.status === "submitting" ? "Starting secure gift..." : `Donate ${formatKes(amount)}`}
+          {state.status === "submitting" ? "Starting secure payment..." : contextType === "merchandise" ? `Pay ${formatKes(amount)}` : `Donate ${formatKes(amount)}`}
         </button>
 
         {state.message ? (
@@ -321,6 +336,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
           <span>Destination</span><strong>{destinationTitle}</strong>
           {packageName ? <><span>Package</span><strong>{packageName}</strong></> : null}
           {contextType === "event-registration" ? <><span>Quantity</span><strong>{Number.isFinite(quantity) && quantity > 0 ? quantity : 1}</strong></> : null}
+          {contextType === "merchandise" ? <><span>Quantity</span><strong>{Number.isFinite(quantity) && quantity > 0 ? quantity : 1}</strong></> : null}
           {teamName ? <><span>Team</span><strong>{teamName}</strong></> : null}
           <span>Payment</span><strong>{method.replace("_", " ")}</strong>
           <span>Receipt</span><strong>Prepared after payment</strong>

@@ -47,6 +47,7 @@ export const adminNavGroups: AdminNavGroup[] = [
       { label: "Donations", href: "/admin/donations", roles: fundraisingRoles },
       { label: "Finance", href: "/admin/finance", roles: ["SUPER_ADMIN", "FINANCE_OFFICER"] },
       { label: "Campaigns", href: "/admin/campaigns", roles: ["SUPER_ADMIN", "FUNDRAISING_MANAGER"] },
+      { label: "Merchandise", href: "/admin/merchandise", roles: ["SUPER_ADMIN", "FUNDRAISING_MANAGER"] },
       { label: "Donors", href: "/admin/donors", roles: fundraisingRoles },
       { label: "Reports", href: "/admin/reports", roles: ["SUPER_ADMIN", "FUNDRAISING_MANAGER", "FINANCE_OFFICER"] }
     ]
@@ -106,6 +107,9 @@ export function canAccessProtectedApi(role: string | null | undefined, pathname:
   if (pathname.startsWith("/api/admin/staff") || pathname.startsWith("/api/admin/partners/export")) return false;
   if (pathname.startsWith("/api/admin/donations") || pathname.startsWith("/api/finance") || pathname.startsWith("/api/reports")) {
     return ["FINANCE_OFFICER", "FUNDRAISING_MANAGER"].includes(normalizedRole);
+  }
+  if (pathname.startsWith("/api/admin/merchandise")) {
+    return normalizedRole === "FUNDRAISING_MANAGER";
   }
   if (pathname.startsWith("/api/admin/blogs") || pathname.startsWith("/api/admin/galleries") || pathname.startsWith("/api/marketing-campaigns")) {
     return ["CONTENT_EDITOR", "MARKETING_MANAGER"].includes(normalizedRole);

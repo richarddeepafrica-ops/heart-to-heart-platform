@@ -6560,6 +6560,382 @@ body:has(.adminApp) .siteHeader {
   object-fit: cover;
 }
 
+.shopHero,
+.shopProductHero {
+  display: grid;
+  gap: 34px;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  margin: 0 auto;
+  max-width: 1760px;
+  min-height: 620px;
+  padding: 76px clamp(22px, 5vw, 70px);
+}
+
+.shopHero {
+  align-items: center;
+  background:
+    radial-gradient(circle at 85% 18%, rgba(0, 163, 90, 0.14), transparent 34%),
+    linear-gradient(135deg, #f8fbff 0%, #eef6ff 48%, #ffffff 100%);
+}
+
+.shopHero h1,
+.shopProductDetails h1 {
+  color: var(--blue-dark);
+  font-size: clamp(48px, 7vw, 104px);
+  line-height: 0.94;
+  margin: 12px 0 22px;
+  max-width: 920px;
+}
+
+.shopHero p,
+.shopProductDetails > p {
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1.55;
+  max-width: 720px;
+}
+
+.shopHeroFeature,
+.shopProductMedia {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 0 28px 80px rgba(9, 47, 88, 0.14);
+  overflow: hidden;
+}
+
+.shopHeroFeature {
+  color: var(--blue-dark);
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.shopHeroFeature:hover {
+  box-shadow: 0 34px 90px rgba(9, 47, 88, 0.2);
+  transform: translateY(-4px);
+}
+
+.shopHeroFeature img {
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.shopHeroFeature span,
+.shopProductBody > span {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.shopHeroFeature strong {
+  font-size: 28px;
+}
+
+.shopHeroFeature small {
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.sectionIntro.compact {
+  padding-bottom: 18px;
+}
+
+.shopGrid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0 auto;
+  max-width: 1760px;
+  padding: 0 clamp(22px, 5vw, 70px) 90px;
+}
+
+.shopProductCard {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 18px 48px rgba(9, 47, 88, 0.08);
+  color: inherit;
+  display: grid;
+  min-height: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.shopProductCard:hover {
+  border-color: rgba(0, 83, 156, 0.28);
+  box-shadow: 0 24px 64px rgba(9, 47, 88, 0.15);
+  transform: translateY(-3px);
+}
+
+.shopProductImage {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #eaf4ff, #ffffff);
+  overflow: hidden;
+  position: relative;
+}
+
+.shopProductImage img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.shopProductImage span {
+  background: #ffffff;
+  border-radius: 999px;
+  color: var(--blue);
+  font-weight: 900;
+  left: 14px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 14px;
+}
+
+.shopProductBody {
+  display: grid;
+  gap: 12px;
+  padding: 22px;
+}
+
+.shopProductBody strong {
+  color: var(--blue-dark);
+  font-size: 27px;
+  line-height: 1.05;
+}
+
+.shopProductBody p {
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.shopProductBody div {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  padding-top: 14px;
+}
+
+.shopProductBody b {
+  color: var(--ink);
+  font-size: 21px;
+}
+
+.shopProductBody small {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.shopProductHero {
+  align-items: center;
+  background:
+    radial-gradient(circle at 15% 12%, rgba(0, 83, 156, 0.12), transparent 28%),
+    linear-gradient(135deg, #ffffff, #f1f7ff);
+}
+
+.shopProductMedia {
+  padding: 14px;
+}
+
+.shopProductMedia img {
+  aspect-ratio: 1 / 1;
+  border-radius: 22px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.shopProductDetails {
+  display: grid;
+  gap: 18px;
+}
+
+.shopProductFacts {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.shopProductFacts span,
+.shopCauseCard,
+.merchandisePurchasePanel {
+  background: rgba(255, 255, 255, 0.84);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 16px 42px rgba(9, 47, 88, 0.07);
+  padding: 18px;
+}
+
+.shopProductFacts strong {
+  color: var(--blue-dark);
+  display: block;
+  font-size: 24px;
+}
+
+.shopProductFacts small,
+.shopCauseCard span,
+.merchandisePurchasePanel small,
+.merchandisePurchasePanel p {
+  color: var(--muted);
+}
+
+.shopCauseCard {
+  border-left: 5px solid var(--green);
+}
+
+.shopCauseCard strong {
+  color: var(--blue-dark);
+  display: block;
+  font-size: 22px;
+  margin-top: 4px;
+}
+
+.merchandisePurchasePanel {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr) 130px;
+}
+
+.merchandisePurchasePanel > div strong {
+  color: var(--ink);
+  display: block;
+  font-size: 34px;
+}
+
+.merchandisePurchasePanel label {
+  color: var(--blue-dark);
+  display: grid;
+  font-weight: 900;
+  gap: 8px;
+}
+
+.merchandisePurchasePanel input {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  font: inherit;
+  min-height: 48px;
+  padding: 0 14px;
+}
+
+.merchandisePurchasePanel .wide,
+.merchandisePurchasePanel p {
+  grid-column: 1 / -1;
+}
+
+.button.disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.merchandiseAdminLayout {
+  align-items: start;
+}
+
+.merchandiseAdminList {
+  display: grid;
+  gap: 14px;
+}
+
+.merchandiseAdminCard {
+  align-items: center;
+  background: linear-gradient(135deg, #ffffff, #f8fbff);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 116px minmax(0, 1fr) auto;
+  padding: 14px;
+}
+
+.merchandiseAdminCard img {
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  height: 116px;
+  object-fit: cover;
+  width: 116px;
+}
+
+.merchandiseAdminCard strong {
+  color: var(--blue-dark);
+  display: block;
+  font-size: 23px;
+  margin-top: 8px;
+}
+
+.merchandiseAdminCard small {
+  color: var(--muted);
+  display: block;
+  line-height: 1.45;
+}
+
+.merchandiseInventoryMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.merchandiseInventoryMeta span {
+  background: #eef6ff;
+  border-radius: 999px;
+  color: var(--blue-dark);
+  font-size: 13px;
+  font-weight: 900;
+  padding: 7px 10px;
+}
+
+.merchandiseInventoryMeta .lowStock {
+  background: #fff2f2;
+  color: #b3261e;
+}
+
+.merchandiseAdminActions {
+  align-items: end;
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+}
+
+.buttonReset {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.dangerIconButton {
+  background: #fff2f2;
+  border: 1px solid rgba(179, 38, 30, 0.18);
+  border-radius: 999px;
+  color: #b3261e;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+  padding: 9px 12px;
+}
+
+.checkboxLine {
+  align-items: center;
+  color: var(--blue-dark);
+  display: flex !important;
+  flex-direction: row !important;
+  font-weight: 900;
+  gap: 10px;
+}
+
+.checkboxLine input {
+  min-height: auto;
+  width: auto;
+}
+
 .partnerInquiryHero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
@@ -8563,6 +8939,36 @@ body:not(:has(.adminApp)) :where(
   .financeWide {
     grid-column: auto;
   }
+
+  .shopHero,
+  .shopProductHero,
+  .partnerInquiryHero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .shopGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .shopProductFacts {
+    grid-template-columns: 1fr;
+  }
+
+  .merchandiseAdminCard {
+    grid-template-columns: 92px minmax(0, 1fr);
+  }
+
+  .merchandiseAdminCard img {
+    height: 92px;
+    width: 92px;
+  }
+
+  .merchandiseAdminActions {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-items: stretch;
+  }
 }
 
 @media (max-width: 560px) {
@@ -8613,6 +9019,21 @@ body:not(:has(.adminApp)) :where(
 
   .contactMapCard iframe {
     min-height: 280px;
+  }
+
+  .shopGrid,
+  .merchandisePurchasePanel {
+    grid-template-columns: 1fr;
+  }
+
+  .shopHero h1,
+  .shopProductDetails h1 {
+    font-size: 44px;
+  }
+
+  .shopHero p,
+  .shopProductDetails > p {
+    font-size: 18px;
   }
 }
 

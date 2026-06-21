@@ -15,7 +15,8 @@ const navGroups = [
       ["Donate", "/donate"],
       ["Sponsor", "/sponsor"],
       ["Volunteer", "/volunteer"],
-      ["Campaigns", "/campaigns"]
+      ["Campaigns", "/campaigns"],
+      ["Merchandise", "/shop"]
     ]
   },
   {
@@ -23,6 +24,7 @@ const navGroups = [
     href: "/events",
     links: [
       ["Events", "/events"],
+      ["Gallery", "/gallery"],
       ["News & Blogs", "/news"]
     ]
   }

@@ -3,6 +3,20 @@ import type { Prisma } from "@prisma/client";
 import { apiError, hasDatabaseUrl, readPositiveInt, readString } from "@/lib/api";
 import { db } from "@/lib/db";
 import { initiateMpesaStkPush, normalizeMpesaPhone } from "@/lib/mpesa";
+import { slugify } from "@/lib/publishing-data";
+
+type DonationWriteDb = {
+  $queryRawUnsafe: <T = unknown>(query: string, ...values: unknown[]) => Promise<T>;
+};
+
+type MerchandiseCheckoutProduct = {
+  id: string;
+  slug: string;
+  name: string;
+  price: number;
+  stockQuantity: number;
+  status: string;
+};
 
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
@@ -15,6 +29,7 @@ export async function POST(request: Request) {
   const campaignSlug = readString(body.campaignSlug);
   const childSlug = readString(body.childSlug);
   const eventSlug = readString(body.eventSlug);
+  const productSlug = slugify(readString(body.productSlug));
   const packageName = readString(body.packageName);
   const quantity = Math.max(1, readPositiveInt(body.quantity) || 1);
   const destinationType = readString(body.destinationType) || "campaign";
@@ -60,6 +75,25 @@ export async function POST(request: Request) {
     const event = eventSlug
       ? await db.event.findUnique({ where: { slug: eventSlug } })
       : null;
+    let merchandiseProduct: MerchandiseCheckoutProduct | null = null;
+
+    if (destinationType === "merchandise") {
+      if (!productSlug) return apiError("Selected merchandise product was not found.", 404);
+      const rows = await (db as unknown as DonationWriteDb).$queryRawUnsafe<MerchandiseCheckoutProduct[]>(
+        `SELECT "id", "slug", "name", "price", "stockQuantity", "status"
+         FROM "MerchandiseProduct"
+         WHERE "slug" = $1
+         LIMIT 1`,
+        productSlug
+      );
+      merchandiseProduct = rows[0] || null;
+      if (!merchandiseProduct || merchandiseProduct.status !== "ACTIVE") {
+        return apiError("Selected merchandise product was not found.", 404);
+      }
+      if (merchandiseProduct.stockQuantity < quantity) {
+        return apiError("Not enough stock is available for this merchandise item.", 409);
+      }
+    }
 
     if (destinationType === "child" && !beneficiary) {
       return apiError("Selected child sponsorship profile was not found.", 404);
@@ -87,8 +121,8 @@ export async function POST(request: Request) {
         eventId: event?.id,
         frequency,
         destinationType,
-        destinationLabel: destinationLabel || beneficiary?.publicName || event?.title || campaign?.title || "General giving",
-        packageName: packageName || null,
+        destinationLabel: destinationLabel || merchandiseProduct?.name || beneficiary?.publicName || event?.title || campaign?.title || "General giving",
+        packageName: packageName || merchandiseProduct?.name || null,
         source: readString(body.source) || "website"
       }
     });
@@ -104,6 +138,17 @@ export async function POST(request: Request) {
           totalAmount: amount
         }
       });
+    }
+
+    if (destinationType === "merchandise" && merchandiseProduct) {
+      await (db as unknown as DonationWriteDb).$queryRawUnsafe(
+        `UPDATE "MerchandiseProduct"
+         SET "stockQuantity" = GREATEST("stockQuantity" - $2, 0),
+             "updatedAt" = NOW()
+         WHERE "id" = $1`,
+        merchandiseProduct.id,
+        quantity
+      );
     }
 
     const transaction = await db.paymentTransaction.create({
