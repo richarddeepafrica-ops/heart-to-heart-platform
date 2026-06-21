@@ -5623,40 +5623,55 @@ body:has(.adminApp) .siteHeader {
 
 .adminReturnButton {
   position: fixed;
-  right: 18px;
-  bottom: 18px;
+  right: 16px;
+  bottom: 16px;
   z-index: 80;
-  display: grid;
-  min-width: 150px;
-  gap: 2px;
-  padding: 12px 16px;
-  border: 1px solid rgba(25, 94, 165, 0.18);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 8px 11px 8px 9px;
+  border: 1px solid rgba(25, 94, 165, 0.14);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.86);
   color: var(--blue-dark);
-  box-shadow: 0 18px 42px rgba(8, 35, 66, 0.18);
-  backdrop-filter: blur(14px);
-  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  box-shadow: 0 12px 30px rgba(8, 35, 66, 0.14);
+  backdrop-filter: blur(16px);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
 .adminReturnButton:hover,
 .adminReturnButton:focus-visible {
-  border-color: rgba(25, 94, 165, 0.34);
-  box-shadow: 0 22px 52px rgba(8, 35, 66, 0.22);
+  border-color: rgba(25, 94, 165, 0.28);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 16px 36px rgba(8, 35, 66, 0.18);
   transform: translateY(-2px);
 }
 
 .adminReturnButton span {
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(1, 166, 80, 0.12);
 }
 
 .adminReturnButton strong {
   color: var(--blue-dark);
-  font-size: 16px;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+}
+
+.adminReturnButton svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.4;
+  opacity: 0.68;
 }
 
 .contactHero {

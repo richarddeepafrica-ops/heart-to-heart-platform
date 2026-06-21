@@ -54,8 +54,11 @@ export function AdminReturnButton() {
 
   return (
     <a className="adminReturnButton" href={adminHref}>
-      <span>Back to admin</span>
-      <strong>Panel</strong>
+      <span aria-hidden="true" />
+      <strong>Admin</strong>
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24">
+        <path d="M9 6l6 6-6 6" />
+      </svg>
     </a>
   );
 }
