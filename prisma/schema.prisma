@@ -266,6 +266,13 @@ model GalleryItem {
   updatedAt   DateTime @updatedAt
 }
 
+model GalleryHiddenItem {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  reason    String?
+  createdAt DateTime @default(now())
+}
+
 model ChildCareApplication {
   id              String   @id @default(cuid())
   childName       String

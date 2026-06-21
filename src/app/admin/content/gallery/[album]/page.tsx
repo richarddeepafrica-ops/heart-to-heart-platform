@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { GalleryDeleteButton } from "@/components/GalleryDeleteButton";
 import { GalleryItemForm } from "@/components/GalleryItemForm";
 import { galleryAlbumFromSlug, galleryAlbumSlug, getGalleryItems } from "@/lib/publishing-data";
 
@@ -64,13 +65,16 @@ export default async function AdminGalleryAlbumPage({ params }: AdminGalleryAlbu
           {items.length ? (
             <div className="adminAlbumImageGrid">
               {items.map((item) => (
-                <a href={`/gallery/${item.slug}`} key={item.id}>
-                  <img src={item.imageUrl} alt="" />
-                  <span>
-                    <strong>{item.title}</strong>
-                    <small>{item.status}</small>
-                  </span>
-                </a>
+                <article className="adminAlbumImageCard" key={item.id}>
+                  <a href={`/gallery/${item.slug}`}>
+                    <img src={item.imageUrl} alt="" />
+                    <span>
+                      <strong>{item.title}</strong>
+                      <small>{item.status}</small>
+                    </span>
+                  </a>
+                  <GalleryDeleteButton id={item.id} slug={item.slug} title={item.title} />
+                </article>
               ))}
             </div>
           ) : (

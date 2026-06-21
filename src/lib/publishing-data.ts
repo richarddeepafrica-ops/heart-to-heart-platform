@@ -43,6 +43,10 @@ type DbGalleryItem = Omit<GalleryRecord, "location" | "takenAt" | "publishedAt">
   publishedAt: Date | null;
 };
 
+type DbGalleryHiddenItem = {
+  slug: string;
+};
+
 type PublishingDb = {
   $queryRawUnsafe: <T = unknown>(query: string, ...values: unknown[]) => Promise<T>;
 };
@@ -154,6 +158,20 @@ function normalizeGallery(item: DbGalleryItem): GalleryRecord {
   });
 }
 
+async function getHiddenGallerySlugs() {
+  if (!hasDatabaseUrl()) return new Set<string>();
+  if (!(await tableExists("GalleryHiddenItem"))) return new Set<string>();
+
+  try {
+    const rows = await publishingDb().$queryRawUnsafe<DbGalleryHiddenItem[]>(
+      `SELECT "slug" FROM "GalleryHiddenItem"`
+    );
+    return new Set(rows.map((row) => row.slug));
+  } catch (error) {
+    return new Set<string>();
+  }
+}
+
 export function slugify(value: string) {
   return value
     .toLowerCase()
@@ -202,11 +220,13 @@ export async function getGalleryItems({ admin = false } = {}) {
   if (!(await tableExists("GalleryItem"))) return admin ? previewGalleryItems : previewGalleryItems.filter((item) => item.status === "PUBLISHED");
 
   try {
+    const hiddenSlugs = await getHiddenGallerySlugs();
     const items = await publishingDb().$queryRawUnsafe<DbGalleryItem[]>(
       `SELECT * FROM "GalleryItem" ${admin ? "" : `WHERE "status" = 'PUBLISHED'`} ORDER BY "publishedAt" DESC NULLS LAST, "createdAt" DESC`
     );
-    const databaseItems = items.map(normalizeGallery);
-    const importedItems = admin ? previewGalleryItems : previewGalleryItems.filter((item) => item.status === "PUBLISHED");
+    const databaseItems = items.map(normalizeGallery).filter((item) => !hiddenSlugs.has(item.slug));
+    const importedItems = (admin ? previewGalleryItems : previewGalleryItems.filter((item) => item.status === "PUBLISHED"))
+      .filter((item) => !hiddenSlugs.has(item.slug));
     const databaseSlugs = new Set(databaseItems.map((item) => item.slug));
     return [...databaseItems, ...importedItems.filter((item) => !databaseSlugs.has(item.slug))];
   } catch (error) {
@@ -215,6 +235,9 @@ export async function getGalleryItems({ admin = false } = {}) {
 }
 
 export async function getGalleryItem(slug: string) {
+  const hiddenSlugs = await getHiddenGallerySlugs();
+  if (hiddenSlugs.has(slug)) return null;
+
   const preview = previewGalleryItems.find((item) => item.slug === slug);
   if (!hasDatabaseUrl()) return preview || null;
   if (!(await tableExists("GalleryItem"))) return preview || null;
