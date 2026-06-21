@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AdminReturnButton } from "@/components/AdminReturnButton";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <SiteHeader />
         {children}
+        <AdminReturnButton />
         <SiteFooter />
       </body>
     </html>
