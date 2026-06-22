@@ -6880,6 +6880,13 @@ body:has(.adminApp) .siteHeader {
   text-align: center;
 }
 
+.shopCheckoutControls {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 16px;
+  padding-top: 16px;
+}
+
 .merchandisePurchasePanel p {
   margin: 0;
 }
@@ -7140,6 +7147,13 @@ body:has(.adminApp) .siteHeader {
   padding: 30px clamp(20px, 5vw, 72px) 86px;
 }
 
+.shopProductDetails .shopCheckout {
+  gap: 16px;
+  grid-template-columns: 1fr;
+  max-width: none;
+  padding: 0;
+}
+
 .shopCheckoutSummary,
 .shopCheckoutPanel {
   background: #ffffff;
@@ -7155,6 +7169,14 @@ body:has(.adminApp) .siteHeader {
   padding: 18px;
   position: sticky;
   top: 110px;
+}
+
+.shopProductDetails .shopCheckoutSummary {
+  position: static;
+}
+
+.shopProductDetails .shopCheckoutSummary img {
+  display: none;
 }
 
 .shopCheckoutSummary img {

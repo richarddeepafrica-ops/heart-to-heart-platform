@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import { formatKes } from "@/lib/content";
 import type { MerchandiseProductRecord } from "@/lib/merchandise-data";
 
@@ -13,12 +13,15 @@ type CheckoutState = {
 
 type ShopCheckoutFormProps = {
   product: MerchandiseProductRecord;
-  quantity: number;
+  quantity?: number;
   size?: string;
 };
 
-export function ShopCheckoutForm({ product, quantity, size }: ShopCheckoutFormProps) {
-  const safeQuantity = Math.max(1, quantity);
+export function ShopCheckoutForm({ product, quantity = 1, size: initialSize }: ShopCheckoutFormProps) {
+  const hasSizes = useMemo(() => /t-?shirt|shirt|tee|apparel/i.test(`${product.name} ${product.category}`), [product.category, product.name]);
+  const [selectedQuantity, setSelectedQuantity] = useState(quantity);
+  const [selectedSize, setSelectedSize] = useState(initialSize || "M");
+  const safeQuantity = Math.max(1, Math.min(selectedQuantity, Math.max(product.stockQuantity, 1)));
   const total = product.price * safeQuantity;
   const [method, setMethod] = useState<"MPESA" | "CARD" | "BANK_TRANSFER">("MPESA");
   const [state, setState] = useState<CheckoutState>({ status: "idle", message: "" });
@@ -41,9 +44,9 @@ export function ShopCheckoutForm({ product, quantity, size }: ShopCheckoutFormPr
         destinationType: "merchandise",
         destinationLabel: product.name,
         productSlug: product.slug,
-        packageName: size ? `${product.name} - Size ${size}` : product.name,
+        packageName: hasSizes ? `${product.name} - Size ${selectedSize}` : product.name,
         quantity: safeQuantity,
-        source: ["shop-checkout", product.slug, size ? `size-${size}` : "", `quantity-${safeQuantity}`].filter(Boolean).join(":")
+        source: ["shop-checkout", product.slug, hasSizes ? `size-${selectedSize}` : "", `quantity-${safeQuantity}`].filter(Boolean).join(":")
       })
     });
 
@@ -77,8 +80,31 @@ export function ShopCheckoutForm({ product, quantity, size }: ShopCheckoutFormPr
           <strong>{product.name}</strong>
           <small>{product.causeLabel}</small>
         </div>
+
+        <div className="shopCheckoutControls">
+          {hasSizes ? (
+            <div className="shopSizeSelector" role="group" aria-label="T-shirt size">
+              <span>Size</span>
+              {["S", "M", "L", "XL"].map((option) => (
+                <button className={selectedSize === option ? "active" : ""} type="button" onClick={() => setSelectedSize(option)} key={option}>
+                  {option}
+                </button>
+              ))}
+            </div>
+          ) : null}
+
+          <div className="shopQuantityStepper">
+            <span>Quantity</span>
+            <div>
+              <button type="button" onClick={() => setSelectedQuantity((current) => Math.max(1, current - 1))}>-</button>
+              <strong>{safeQuantity}</strong>
+              <button type="button" onClick={() => setSelectedQuantity((current) => Math.min(Math.max(product.stockQuantity, 1), current + 1))}>+</button>
+            </div>
+          </div>
+        </div>
+
         <div className="shopCheckoutRows">
-          {size ? <><span>Size</span><strong>{size}</strong></> : null}
+          {hasSizes ? <><span>Size</span><strong>{selectedSize}</strong></> : null}
           <span>Quantity</span><strong>{safeQuantity}</strong>
           <span>Unit price</span><strong>{formatKes(product.price)}</strong>
           <span>Total</span><strong>{formatKes(total)}</strong>

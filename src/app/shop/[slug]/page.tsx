@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { MerchandisePurchasePanel } from "@/components/MerchandisePurchasePanel";
+import { ShopCheckoutForm } from "@/components/ShopCheckoutForm";
 import { formatKes } from "@/lib/content";
 import { getMerchandiseProduct } from "@/lib/merchandise-data";
 
@@ -30,7 +30,7 @@ export default async function MerchandiseProductPage({ params }: MerchandiseProd
             <span>Proceeds support</span>
             <strong>{product.causeLabel}</strong>
           </div>
-          <MerchandisePurchasePanel product={product} />
+          <ShopCheckoutForm product={product} />
         </div>
       </section>
     </main>
