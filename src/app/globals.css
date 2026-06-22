@@ -6588,11 +6588,11 @@ body:has(.adminApp) .siteHeader {
 
 .shopProductDetails h1 {
   color: var(--blue-dark);
-  font-size: clamp(30px, 3.2vw, 46px);
-  letter-spacing: -0.015em;
-  line-height: 1.06;
-  margin: 6px 0 10px;
-  max-width: 560px;
+  font-size: clamp(26px, 2.4vw, 34px);
+  letter-spacing: 0;
+  line-height: 1.12;
+  margin: 4px 0 8px;
+  max-width: 460px;
 }
 
 .shopHero p,
@@ -9556,7 +9556,7 @@ body:not(:has(.adminApp)) :where(
   }
 
   .shopProductDetails h1 {
-    font-size: 30px;
+    font-size: 26px;
   }
 
   .shopHero p,
