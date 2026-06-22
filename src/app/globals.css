@@ -7109,6 +7109,139 @@ body:has(.adminApp) .siteHeader {
   border-top: 5px solid var(--green);
 }
 
+.shopCheckoutHero {
+  background:
+    radial-gradient(circle at 85% 20%, rgba(1, 166, 80, 0.12), transparent 28rem),
+    linear-gradient(135deg, #ffffff, #eef6ff);
+  padding: 52px clamp(20px, 5vw, 72px) 30px;
+}
+
+.shopCheckoutHero h1 {
+  color: var(--blue-dark);
+  font-size: clamp(46px, 6vw, 86px);
+  line-height: 0.95;
+  margin: 16px 0 12px;
+}
+
+.shopCheckoutHero p {
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.55;
+  max-width: 680px;
+}
+
+.shopCheckout {
+  align-items: start;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(300px, 440px) minmax(0, 1fr);
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 30px clamp(20px, 5vw, 72px) 86px;
+}
+
+.shopCheckoutSummary,
+.shopCheckoutPanel {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  box-shadow: 0 24px 70px rgba(9, 47, 88, 0.11);
+}
+
+.shopCheckoutSummary {
+  display: grid;
+  gap: 18px;
+  overflow: hidden;
+  padding: 18px;
+  position: sticky;
+  top: 110px;
+}
+
+.shopCheckoutSummary img {
+  aspect-ratio: 1 / 1;
+  background: radial-gradient(circle at 50% 45%, #ffffff, #f2f7ff);
+  border-radius: 22px;
+  object-fit: contain;
+  padding: 18px;
+  width: 100%;
+}
+
+.shopCheckoutSummary > div > span {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.shopCheckoutSummary > div > strong {
+  color: var(--blue-dark);
+  display: block;
+  font-size: 32px;
+  line-height: 1.05;
+  margin: 6px 0;
+}
+
+.shopCheckoutSummary small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.shopCheckoutRows {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr auto;
+  padding-top: 16px;
+}
+
+.shopCheckoutRows span {
+  color: var(--muted);
+}
+
+.shopCheckoutRows strong {
+  color: var(--blue-dark);
+}
+
+.shopCheckoutRows strong:last-child {
+  font-size: 24px;
+}
+
+.shopCheckoutPanel {
+  display: grid;
+  gap: 18px;
+  padding: clamp(20px, 4vw, 34px);
+}
+
+.shopCheckoutBlock {
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+}
+
+.shopCheckoutBlock h3 {
+  color: var(--blue-dark);
+  font-size: 22px;
+  margin: 0;
+}
+
+.shopCheckoutBlock label {
+  color: var(--blue-dark);
+  display: grid;
+  font-weight: 900;
+  gap: 8px;
+}
+
+.shopCheckoutBlock input {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  font: inherit;
+  min-height: 52px;
+  padding: 0 14px;
+}
+
 .partnerInquiryHero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
@@ -9115,6 +9248,7 @@ body:not(:has(.adminApp)) :where(
 
   .shopHero,
   .shopProductHero,
+  .shopCheckout,
   .partnerInquiryHero {
     grid-template-columns: 1fr;
     min-height: auto;
@@ -9130,6 +9264,10 @@ body:not(:has(.adminApp)) :where(
 
   .merchandiseAdminCard {
     grid-template-columns: 92px minmax(0, 1fr);
+  }
+
+  .shopCheckoutSummary {
+    position: static;
   }
 
   .merchandiseAdminCard img {

@@ -17,17 +17,12 @@ export function MerchandisePurchasePanel({ product }: MerchandisePurchasePanelPr
 
   const checkoutUrl = useMemo(() => {
     const params = new URLSearchParams({
-      type: "merchandise",
       productSlug: product.slug,
-      productName: product.name,
-      packageName: product.name,
       quantity: String(safeQuantity),
-      amount: String(total),
-      label: product.causeLabel,
       ...(hasSizes ? { size } : {})
     });
-    return `/donate?${params.toString()}`;
-  }, [hasSizes, product.causeLabel, product.name, product.slug, safeQuantity, size, total]);
+    return `/shop/checkout?${params.toString()}`;
+  }, [hasSizes, product.slug, safeQuantity, size]);
 
   return (
     <div className="merchandisePurchasePanel">
