@@ -41,14 +41,18 @@ export default async function ReportsPage() {
             ))}
           </div>
         </article>
-        <article className="appPanel span4">
-          <div className="panelHeader"><div><p className="eyebrow">Report builder</p><h2>Generate PDF pack</h2></div></div>
-          <form className="financeActionForm reportBuilderForm">
-            <label><span>Report type</span><select><option>Board fundraising report</option><option>Monthly P&L</option><option>Campaign performance</option><option>Partner contribution</option><option>Children helped / waiting list</option></select></label>
-            <label><span>Period</span><select><option>Today</option><option>This week</option><option>This month</option><option>This year</option><option>Custom range</option></select></label>
-            <button className="primaryAction" type="button">Prepare PDF</button>
-            <a className="panelLink" href="/api/reports/fundraising">Download CSV data</a>
-            <small className="formSuccess">PDF rendering is ready to connect to the report generator endpoint.</small>
+        <article className="appPanel span4 reportBuilderCard">
+          <div className="reportBuilderHeader">
+            <p className="eyebrow">Report builder</p>
+            <h2>Generate board-ready reports</h2>
+            <p>Select the report pack and period, then download a PDF for review or presentation.</p>
+          </div>
+          <form className="reportBuilderForm" action="/api/reports/fundraising/pdf" method="get">
+            <label><span>Report type</span><select name="type" defaultValue="board"><option value="board">Board fundraising report</option><option value="pl">Monthly P&L</option><option value="campaigns">Campaign performance</option><option value="partners">Partner contribution</option><option value="children">Children helped / waiting list</option></select></label>
+            <label><span>Period</span><select name="period" defaultValue="month"><option value="today">Today</option><option value="week">This week</option><option value="month">This month</option><option value="year">This year</option><option value="custom">Custom range</option></select></label>
+            <button className="primaryAction reportPdfButton" type="submit"><strong>Generate PDF</strong><span>Downloads instantly</span></button>
+            <a className="reportCsvLink" href="/api/reports/fundraising">Download CSV data</a>
+            <small>Includes campaign performance, payment methods, destination mix, and board priorities.</small>
           </form>
         </article>
         <article className="appPanel span6">
