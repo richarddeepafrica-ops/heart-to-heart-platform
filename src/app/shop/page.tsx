@@ -4,69 +4,77 @@ import { getMerchandiseProducts } from "@/lib/merchandise-data";
 export default async function MerchandiseShopPage() {
   const products = await getMerchandiseProducts();
   const featured = products.find((product) => product.featured) || products[0];
+  const remainingProducts = products.filter((product) => product.id !== featured?.id);
 
   return (
     <main>
       <section className="shopHero">
         <div>
-          <p className="eyebrow">Merchandise shop</p>
-          <h1>Wear the mission. Fund the care.</h1>
+          <p className="eyebrow">Shop</p>
+          <h1>Choose something useful. Fund something life-saving.</h1>
           <p>
-            Merchandise sales support Heart to Heart Foundation programmes, from treatment and follow-up care to prevention outreach and fundraising events.
+            Every purchase supports Heart to Heart Foundation programmes, from treatment and follow-up care to prevention outreach and fundraising events.
           </p>
           <div className="heroActions">
-            <a className="button primary" href="#shop-products">Shop items</a>
-            <a className="button secondary" href="/campaigns">View causes</a>
+            <a className="button primary" href="#shop-products">Browse shop</a>
+            <a className="button secondary" href="#event-tickets">Event tickets</a>
           </div>
         </div>
         {featured ? (
-          <a className="shopHeroFeature" href={`/shop/${featured.slug}`}>
-            <img src={featured.imageUrl} alt="" />
-            <span>{featured.category}</span>
-            <strong>{featured.name}</strong>
-            <small>{formatKes(featured.price)}</small>
+          <a className="shopHeroFeature" href={`/shop/${featured.slug}`} aria-label={`Shop ${featured.name}`}>
+            <span className="shopHeroTag">Featured item</span>
+            <div className="shopHeroFeatureImage">
+              <img src={featured.imageUrl} alt="" />
+            </div>
+            <div className="shopHeroFeatureMeta">
+              <span>{featured.category}</span>
+              <strong>{featured.name}</strong>
+              <small>{formatKes(featured.price)}</small>
+            </div>
           </a>
         ) : null}
       </section>
 
-      <section className="sectionIntro compact">
-        <p className="eyebrow">Available now</p>
-        <h2>Merchandise that gives back</h2>
-        <p>Choose an item, confirm quantity, then complete payment through the secure giving checkout.</p>
+      <section className="shopSectionIntro" id="shop-products">
+        <div>
+          <p className="eyebrow">Available now</p>
+          <h2>Foundation shop</h2>
+        </div>
+        <p>Select an item, choose quantity, and pay on the product page in one simple flow.</p>
       </section>
 
-      <section className="shopGrid" id="shop-products">
-        {products.map((product) => (
+      <section className="shopGrid">
+        {[featured, ...remainingProducts].filter(Boolean).map((product) => (
           <a className="shopProductCard" href={`/shop/${product.slug}`} key={product.id}>
             <div className="shopProductImage">
               <img src={product.imageUrl} alt="" />
-              {product.featured ? <span>Featured</span> : null}
             </div>
             <div className="shopProductBody">
               <span>{product.category}</span>
               <strong>{product.name}</strong>
               <div>
                 <b>{formatKes(product.price)}</b>
-                <small>Shop now</small>
+                <small>Buy now</small>
               </div>
             </div>
           </a>
         ))}
       </section>
 
-      <section className="sectionIntro compact">
-        <p className="eyebrow">Event tickets</p>
-        <h2>Register through the shop</h2>
-        <p>Event packages can be sold alongside merchandise, with proceeds supporting the same programme work.</p>
+      <section className="shopSectionIntro eventTicketIntro" id="event-tickets">
+        <div>
+          <p className="eyebrow">Event tickets</p>
+          <h2>Register for foundation events</h2>
+        </div>
+        <p>Choose a package and continue to the event registration checkout.</p>
       </section>
 
       <section className="shopGrid eventTicketShopGrid">
         {eventProducts.map((ticket) => (
           <a className="shopProductCard eventTicketCard" href="/events/heart-run/register" key={ticket.name}>
             <div className="shopProductBody">
-              <span>Heart Run ticket</span>
+              <span>Heart Run</span>
               <strong>{ticket.name}</strong>
-              <small>{ticket.audience}</small>
               <div>
                 <b>{formatKes(ticket.price)}</b>
                 <small>Register</small>

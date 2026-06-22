@@ -21,6 +21,7 @@ export function ShopCheckoutForm({ product, quantity = 1, size: initialSize }: S
   const hasSizes = useMemo(() => /t-?shirt|shirt|tee|apparel/i.test(`${product.name} ${product.category}`), [product.category, product.name]);
   const [selectedQuantity, setSelectedQuantity] = useState(quantity);
   const [selectedSize, setSelectedSize] = useState(initialSize || "M");
+  const isAvailable = product.stockQuantity > 0;
   const safeQuantity = Math.max(1, Math.min(selectedQuantity, Math.max(product.stockQuantity, 1)));
   const total = product.price * safeQuantity;
   const [method, setMethod] = useState<"MPESA" | "CARD" | "BANK_TRANSFER">("MPESA");
@@ -150,8 +151,8 @@ export function ShopCheckoutForm({ product, quantity = 1, size: initialSize }: S
           </div>
         </div>
 
-        <button className="button primary wide checkoutSubmit" disabled={state.status === "submitting"} type="submit">
-          {state.status === "submitting" ? "Starting payment..." : `Pay ${formatKes(total)}`}
+        <button className="button primary wide checkoutSubmit" disabled={!isAvailable || state.status === "submitting"} type="submit">
+          {!isAvailable ? "Currently unavailable" : state.status === "submitting" ? "Starting payment..." : `Pay ${formatKes(total)}`}
         </button>
 
         {state.message ? (

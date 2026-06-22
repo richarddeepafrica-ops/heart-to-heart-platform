@@ -16,6 +16,7 @@ export default async function MerchandiseProductPage({ params }: MerchandiseProd
     <main>
       <section className="shopProductHero">
         <div className="shopProductMedia">
+          {product.featured ? <span>Featured</span> : null}
           <img src={product.imageUrl} alt="" />
         </div>
         <div className="shopProductDetails">
@@ -23,11 +24,11 @@ export default async function MerchandiseProductPage({ params }: MerchandiseProd
           <p className="eyebrow">{product.category}</p>
           <h1>{product.name}</h1>
           <div className="shopProductFacts">
-            <span><strong>{formatKes(product.price)}</strong><small>per item</small></span>
-            <span><strong>{product.featured ? "Featured" : "Available"}</strong><small>{product.category}</small></span>
+            <span><strong>{formatKes(product.price)}</strong><small>Price</small></span>
+            <span><strong>{product.stockQuantity > 0 ? "In stock" : "Unavailable"}</strong><small>{product.stockQuantity > 0 ? "Ready for checkout" : "Check back soon"}</small></span>
           </div>
           <div className="shopCauseCard">
-            <span>Proceeds support</span>
+            <span>Supports</span>
             <strong>{product.causeLabel}</strong>
           </div>
           <ShopCheckoutForm product={product} />

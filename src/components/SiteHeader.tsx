@@ -16,7 +16,7 @@ const navGroups = [
       ["Sponsor", "/sponsor"],
       ["Volunteer", "/volunteer"],
       ["Campaigns", "/campaigns"],
-      ["Merchandise", "/shop"]
+      ["Shop", "/shop"]
     ]
   },
   {

@@ -94,7 +94,7 @@ export function MerchandiseAdminPanel({ products }: MerchandiseAdminPanelProps) 
         <div className="panelHeader editorPanelHeader">
           <div>
             <p className="eyebrow">{isEditing ? "Edit product" : "New product"}</p>
-            <h2>{isEditing ? selectedProduct.name : "Add merchandise item"}</h2>
+            <h2>{isEditing ? selectedProduct.name : "Add shop product"}</h2>
             <span>Set pricing, stock, cause messaging, and whether the product is live in the public shop.</span>
           </div>
         </div>
@@ -136,7 +136,7 @@ export function MerchandiseAdminPanel({ products }: MerchandiseAdminPanelProps) 
                 <div>
                   <span className={`status ${product.status === "ACTIVE" ? "success" : "warning"}`}>{product.status}</span>
                   <strong>{product.name}</strong>
-                  <small>{product.category} · {product.causeLabel}</small>
+                  <small>{product.category} / {product.causeLabel}</small>
                   <div className="merchandiseInventoryMeta">
                     <span>{formatKes(product.price)}</span>
                     <span className={product.stockQuantity <= 10 ? "lowStock" : ""}>{product.stockQuantity} in stock</span>
@@ -153,7 +153,7 @@ export function MerchandiseAdminPanel({ products }: MerchandiseAdminPanelProps) 
           </div>
         ) : (
           <div className="adminEmptyState">
-            <strong>No merchandise yet</strong>
+            <strong>No shop products yet</strong>
             <span>Add your first product, set stock, and publish it when ready.</span>
           </div>
         )}
