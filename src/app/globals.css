@@ -6621,7 +6621,7 @@ body:has(.adminApp) .siteHeader {
 .shopHeroFeature img {
   aspect-ratio: 4 / 3;
   border-radius: 20px;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
 }
 
@@ -6677,14 +6677,15 @@ body:has(.adminApp) .siteHeader {
 
 .shopProductImage {
   aspect-ratio: 4 / 3;
-  background: linear-gradient(135deg, #eaf4ff, #ffffff);
+  background: radial-gradient(circle at 50% 44%, #ffffff 0%, #f3f8ff 72%);
   overflow: hidden;
   position: relative;
 }
 
 .shopProductImage img {
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 14px;
   width: 100%;
 }
 
@@ -6749,7 +6750,8 @@ body:has(.adminApp) .siteHeader {
 .shopProductMedia img {
   aspect-ratio: 1 / 1;
   border-radius: 22px;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 18px;
   width: 100%;
 }
 
@@ -6761,7 +6763,7 @@ body:has(.adminApp) .siteHeader {
 .shopProductFacts {
   display: grid;
   gap: 12px;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .shopProductFacts span,
@@ -6801,33 +6803,85 @@ body:has(.adminApp) .siteHeader {
 .merchandisePurchasePanel {
   display: grid;
   gap: 16px;
-  grid-template-columns: minmax(0, 1fr) 130px;
+  grid-template-columns: 1fr;
 }
 
-.merchandisePurchasePanel > div strong {
+.merchandiseCheckoutHeader {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+}
+
+.merchandiseCheckoutHeader strong {
   color: var(--ink);
   display: block;
-  font-size: 34px;
+  font-size: 38px;
 }
 
-.merchandisePurchasePanel label {
-  color: var(--blue-dark);
+.shopSizeSelector {
   display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.shopSizeSelector span {
+  color: var(--blue-dark);
   font-weight: 900;
-  gap: 8px;
-}
-
-.merchandisePurchasePanel input {
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  font: inherit;
-  min-height: 48px;
-  padding: 0 14px;
-}
-
-.merchandisePurchasePanel .wide,
-.merchandisePurchasePanel p {
   grid-column: 1 / -1;
+}
+
+.shopSizeSelector button,
+.shopQuantityStepper button {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--blue-dark);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+  min-height: 44px;
+}
+
+.shopSizeSelector button.active,
+.shopQuantityStepper button:hover {
+  background: var(--blue-dark);
+  color: #ffffff;
+}
+
+.shopQuantityStepper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.shopQuantityStepper > span {
+  color: var(--blue-dark);
+  font-weight: 900;
+}
+
+.shopQuantityStepper div {
+  align-items: center;
+  background: #f4f8fd;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 12px;
+  padding: 6px;
+}
+
+.shopQuantityStepper button {
+  height: 38px;
+  min-height: 38px;
+  width: 38px;
+}
+
+.shopQuantityStepper strong {
+  color: var(--blue-dark);
+  min-width: 28px;
+  text-align: center;
+}
+
+.merchandisePurchasePanel p {
+  margin: 0;
 }
 
 .button.disabled {

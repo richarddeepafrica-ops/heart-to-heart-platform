@@ -9,9 +9,12 @@ type MerchandisePurchasePanelProps = {
 };
 
 export function MerchandisePurchasePanel({ product }: MerchandisePurchasePanelProps) {
+  const hasSizes = /t-?shirt|shirt|tee|apparel/i.test(`${product.name} ${product.category}`);
   const [quantity, setQuantity] = useState(1);
+  const [size, setSize] = useState("M");
   const safeQuantity = Math.max(1, Math.min(quantity, Math.max(product.stockQuantity, 1)));
   const total = product.price * safeQuantity;
+
   const checkoutUrl = useMemo(() => {
     const params = new URLSearchParams({
       type: "merchandise",
@@ -20,32 +23,44 @@ export function MerchandisePurchasePanel({ product }: MerchandisePurchasePanelPr
       packageName: product.name,
       quantity: String(safeQuantity),
       amount: String(total),
-      label: product.causeLabel
+      label: product.causeLabel,
+      ...(hasSizes ? { size } : {})
     });
     return `/donate?${params.toString()}`;
-  }, [product.causeLabel, product.name, product.slug, safeQuantity, total]);
+  }, [hasSizes, product.causeLabel, product.name, product.slug, safeQuantity, size, total]);
 
   return (
     <div className="merchandisePurchasePanel">
-      <div>
-        <span>Total</span>
+      <div className="merchandiseCheckoutHeader">
+        <span>Checkout</span>
         <strong>{formatKes(total)}</strong>
-        <small>{safeQuantity} × {formatKes(product.price)}</small>
+        <small>{safeQuantity} x {formatKes(product.price)}</small>
       </div>
-      <label>
-        Quantity
-        <input
-          min="1"
-          max={Math.max(product.stockQuantity, 1)}
-          type="number"
-          value={safeQuantity}
-          onChange={(event) => setQuantity(Number(event.target.value))}
-        />
-      </label>
-      <a className={product.stockQuantity > 0 ? "button primary wide" : "button primary wide disabled"} href={product.stockQuantity > 0 ? checkoutUrl : "#stock"}>
-        {product.stockQuantity > 0 ? "Buy and support" : "Out of stock"}
+
+      {hasSizes ? (
+        <div className="shopSizeSelector" role="group" aria-label="T-shirt size">
+          <span>Size</span>
+          {["S", "M", "L", "XL"].map((option) => (
+            <button className={size === option ? "active" : ""} type="button" onClick={() => setSize(option)} key={option}>
+              {option}
+            </button>
+          ))}
+        </div>
+      ) : null}
+
+      <div className="shopQuantityStepper">
+        <span>Quantity</span>
+        <div>
+          <button type="button" onClick={() => setQuantity((current) => Math.max(1, current - 1))}>-</button>
+          <strong>{safeQuantity}</strong>
+          <button type="button" onClick={() => setQuantity((current) => Math.min(Math.max(product.stockQuantity, 1), current + 1))}>+</button>
+        </div>
+      </div>
+
+      <a className={product.stockQuantity > 0 ? "button primary wide" : "button primary wide disabled"} href={product.stockQuantity > 0 ? checkoutUrl : "#checkout-note"}>
+        {product.stockQuantity > 0 ? "Checkout now" : "Currently unavailable"}
       </a>
-      <p id="stock">{product.stockQuantity} available. Proceeds go towards {product.causeLabel.toLowerCase()}.</p>
+      <p id="checkout-note">Proceeds go towards {product.causeLabel.toLowerCase()}.</p>
     </div>
   );
 }

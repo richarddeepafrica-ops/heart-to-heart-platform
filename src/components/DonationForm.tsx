@@ -28,6 +28,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
   const eventName = searchParams.get("eventName");
   const productSlug = searchParams.get("productSlug");
   const productName = searchParams.get("productName");
+  const size = searchParams.get("size");
   const packageName = searchParams.get("packageName");
   const addOn = Number(searchParams.get("addOn") ?? 0);
   const quantity = Number(searchParams.get("quantity") ?? 1);
@@ -44,6 +45,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
     childSlug,
     eventSlug,
     productSlug,
+    size,
     packageName,
     quantity > 1 ? `quantity-${quantity}` : "",
     teamName
@@ -100,7 +102,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
         childSlug,
         eventSlug,
         productSlug,
-        packageName,
+        packageName: contextType === "merchandise" && size ? `${packageName ?? productName ?? "Merchandise"} - Size ${size}` : packageName,
         quantity,
         isAnonymous: formData.get("anonymous") === "on",
         source: contextualSource
@@ -257,6 +259,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
           {contextType === "merchandise" ? (
             <div className="registrationMini">
               <span><strong>Item</strong>{productName ?? packageName ?? "Merchandise"}</span>
+              {size ? <span><strong>Size</strong>{size}</span> : null}
               <span><strong>Quantity</strong>{Number.isFinite(quantity) && quantity > 0 ? quantity : 1}</span>
               <span><strong>Supports</strong>{label ?? "Foundation programmes"}</span>
             </div>
@@ -335,6 +338,7 @@ export function DonationForm({ defaultCampaignSlug, source = "website-donation-p
           <span>Frequency</span><strong>{frequency === "monthly" ? "Monthly" : "One-time"}</strong>
           <span>Destination</span><strong>{destinationTitle}</strong>
           {packageName ? <><span>Package</span><strong>{packageName}</strong></> : null}
+          {contextType === "merchandise" && size ? <><span>Size</span><strong>{size}</strong></> : null}
           {contextType === "event-registration" ? <><span>Quantity</span><strong>{Number.isFinite(quantity) && quantity > 0 ? quantity : 1}</strong></> : null}
           {contextType === "merchandise" ? <><span>Quantity</span><strong>{Number.isFinite(quantity) && quantity > 0 ? quantity : 1}</strong></> : null}
           {teamName ? <><span>Team</span><strong>{teamName}</strong></> : null}

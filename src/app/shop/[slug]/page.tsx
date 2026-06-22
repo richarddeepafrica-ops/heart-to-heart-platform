@@ -22,11 +22,9 @@ export default async function MerchandiseProductPage({ params }: MerchandiseProd
           <a className="panelLink" href="/shop">Back to shop</a>
           <p className="eyebrow">{product.category}</p>
           <h1>{product.name}</h1>
-          <p>{product.description}</p>
           <div className="shopProductFacts">
             <span><strong>{formatKes(product.price)}</strong><small>per item</small></span>
-            <span><strong>{product.stockQuantity}</strong><small>in stock</small></span>
-            <span><strong>{product.featured ? "Featured" : "Available"}</strong><small>{product.status.toLowerCase()}</small></span>
+            <span><strong>{product.featured ? "Featured" : "Available"}</strong><small>{product.category}</small></span>
           </div>
           <div className="shopCauseCard">
             <span>Proceeds support</span>

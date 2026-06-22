@@ -24,7 +24,7 @@ export default async function MerchandiseShopPage() {
             <img src={featured.imageUrl} alt="" />
             <span>{featured.category}</span>
             <strong>{featured.name}</strong>
-            <small>{formatKes(featured.price)} · {featured.stockQuantity} in stock</small>
+            <small>{formatKes(featured.price)}</small>
           </a>
         ) : null}
       </section>
@@ -45,10 +45,9 @@ export default async function MerchandiseShopPage() {
             <div className="shopProductBody">
               <span>{product.category}</span>
               <strong>{product.name}</strong>
-              <p>{product.description}</p>
               <div>
                 <b>{formatKes(product.price)}</b>
-                <small>{product.stockQuantity > 0 ? `${product.stockQuantity} in stock` : "Out of stock"}</small>
+                <small>Shop now</small>
               </div>
             </div>
           </a>
@@ -67,11 +66,10 @@ export default async function MerchandiseShopPage() {
             <div className="shopProductBody">
               <span>Heart Run ticket</span>
               <strong>{ticket.name}</strong>
-              <p>{ticket.description}</p>
               <small>{ticket.audience}</small>
               <div>
                 <b>{formatKes(ticket.price)}</b>
-                <small>{ticket.capacity.toLocaleString("en-KE")} capacity</small>
+                <small>Register</small>
               </div>
             </div>
           </a>
