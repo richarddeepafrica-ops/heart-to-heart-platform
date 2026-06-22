@@ -1,4 +1,4 @@
-import { formatKes } from "@/lib/content";
+import { eventProducts, formatKes } from "@/lib/content";
 import { getMerchandiseProducts } from "@/lib/merchandise-data";
 
 export default async function MerchandiseShopPage() {
@@ -49,6 +49,29 @@ export default async function MerchandiseShopPage() {
               <div>
                 <b>{formatKes(product.price)}</b>
                 <small>{product.stockQuantity > 0 ? `${product.stockQuantity} in stock` : "Out of stock"}</small>
+              </div>
+            </div>
+          </a>
+        ))}
+      </section>
+
+      <section className="sectionIntro compact">
+        <p className="eyebrow">Event tickets</p>
+        <h2>Register through the shop</h2>
+        <p>Event packages can be sold alongside merchandise, with proceeds supporting the same programme work.</p>
+      </section>
+
+      <section className="shopGrid eventTicketShopGrid">
+        {eventProducts.map((ticket) => (
+          <a className="shopProductCard eventTicketCard" href="/events/heart-run/register" key={ticket.name}>
+            <div className="shopProductBody">
+              <span>Heart Run ticket</span>
+              <strong>{ticket.name}</strong>
+              <p>{ticket.description}</p>
+              <small>{ticket.audience}</small>
+              <div>
+                <b>{formatKes(ticket.price)}</b>
+                <small>{ticket.capacity.toLocaleString("en-KE")} capacity</small>
               </div>
             </div>
           </a>

@@ -19,15 +19,15 @@ export default async function ReportsPage() {
       </header>
       <section className="adminKpis">
         {[
-          ["Confirmed raised", formatKes(report.confirmedRaised), "confirmed or reconciled"],
-          ["Pending", formatKes(report.pendingAmount), "awaiting payment review"],
-          ["Failed", formatKes(report.failedAmount), "needs follow-up"],
-          ["Donors", String(report.donorCount), "CRM contacts"],
-          ["Registrations", String(report.eventRegistrationCount), "event tickets"]
-        ].map(([label, value, meta]) => <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>)}
+          ["Confirmed raised", formatKes(report.confirmedRaised), "confirmed or reconciled", "#fundraising-report"],
+          ["Pending", formatKes(report.pendingAmount), "awaiting payment review", "/admin/donations?status=PENDING"],
+          ["Failed", formatKes(report.failedAmount), "needs follow-up", "/admin/donations?status=FAILED"],
+          ["Donors", String(report.donorCount), "CRM contacts", "/admin/donors"],
+          ["Registrations", String(report.eventRegistrationCount), "event tickets", "/admin/events"]
+        ].map(([label, value, meta, href]) => <a className="adminKpiCard" href={href} key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></a>)}
       </section>
       <section className="adminDashboardGrid">
-        <article className="appPanel span8">
+        <article className="appPanel span8" id="fundraising-report">
           <div className="panelHeader"><div><p className="eyebrow">Fundraising summary</p><h2>Campaign performance</h2></div><span className="status">Generated {formatDate(report.generatedAt)}</span></div>
           <div className="simpleTable reportCampaignTable">
             {report.campaigns.map((campaign) => (
@@ -42,12 +42,14 @@ export default async function ReportsPage() {
           </div>
         </article>
         <article className="appPanel span4">
-          <div className="panelHeader"><div><p className="eyebrow">Board pack</p><h2>Priorities</h2></div></div>
-          <div className="reviewStack">
-            {report.boardPriorities.map((priority, index) => (
-              <div key={priority}><strong>Priority {index + 1}</strong><span>{priority}</span><em>Board</em></div>
-            ))}
-          </div>
+          <div className="panelHeader"><div><p className="eyebrow">Report builder</p><h2>Generate PDF pack</h2></div></div>
+          <form className="financeActionForm reportBuilderForm">
+            <label><span>Report type</span><select><option>Board fundraising report</option><option>Monthly P&L</option><option>Campaign performance</option><option>Partner contribution</option><option>Children helped / waiting list</option></select></label>
+            <label><span>Period</span><select><option>Today</option><option>This week</option><option>This month</option><option>This year</option><option>Custom range</option></select></label>
+            <button className="primaryAction" type="button">Prepare PDF</button>
+            <a className="panelLink" href="/api/reports/fundraising">Download CSV data</a>
+            <small className="formSuccess">PDF rendering is ready to connect to the report generator endpoint.</small>
+          </form>
         </article>
         <article className="appPanel span6">
           <div className="panelHeader"><div><p className="eyebrow">Finance export</p><h2>Payment methods</h2></div></div>
@@ -66,14 +68,13 @@ export default async function ReportsPage() {
           </div>
         </article>
         <article className="appPanel span12">
-          <div className="panelHeader"><div><p className="eyebrow">Operational coverage</p><h2>What this report includes</h2></div></div>
-          <div className="eventPackageRules">
-            {[
-              ["Fundraising", `${report.campaignCount} campaigns with confirmed/reconciled gift totals and progress against goals.`],
-              ["Finance", "Payment method totals, pending amounts, failed payments, and export-ready CSV rows."],
-              ["Impact", `${report.beneficiaryCount} beneficiary profiles and event registration activity for board reporting.`]
-            ].map(([title, copy]) => (
-              <span key={title}><strong>{title}</strong>{copy}</span>
+          <div className="panelHeader"><div><p className="eyebrow">Report shortcuts</p><h2>Choose a working period</h2></div></div>
+          <div className="quickActionGrid reportPeriodGrid">
+            {["Day", "Week", "Month", "Year"].map((period) => (
+              <a href={`/admin/reports?period=${period.toLowerCase()}`} key={period}>
+                <strong>{period}</strong>
+                <span>Generate and review fundraising, finance, impact, and event performance by {period.toLowerCase()}.</span>
+              </a>
             ))}
           </div>
         </article>

@@ -17,14 +17,14 @@ export default async function CampaignsAdminPage() {
       </header>
       <section className="adminKpis">
         {[
-          ["Total raised", formatKes(totalRaised), `${campaignPercent({ raised: totalRaised, goal: totalGoal })}% of all goals`],
-          ["Active", String(activeCount), "public fundraising appeals"],
-          ["Drafts", String(draftCount), "preview before publishing"],
-          ["Campaigns", String(campaigns.length), "managed appeals"]
-        ].map(([label, value, meta]) => <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>)}
+          ["Total raised", formatKes(totalRaised), `${campaignPercent({ raised: totalRaised, goal: totalGoal })}% of all goals`, "#campaign-performance"],
+          ["Active", String(activeCount), "public fundraising appeals", "/admin/campaigns?status=ACTIVE"],
+          ["Drafts", String(draftCount), "preview before publishing", "/admin/campaigns?status=DRAFT"],
+          ["Campaigns", String(campaigns.length), "managed appeals", "#campaign-performance"]
+        ].map(([label, value, meta, href]) => <a className="adminKpiCard" href={href} key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></a>)}
       </section>
       <section className="adminDashboardGrid">
-        <article className="appPanel span8">
+        <article className="appPanel span8" id="campaign-performance">
           <div className="panelHeader"><div><p className="eyebrow">Active appeals</p><h2>Fundraising progress</h2></div></div>
           <div className="dataTable">
             <div className="tableHead"><span>Campaign</span><span>Raised</span><span>Goal</span><span>Funded</span><span>Status</span></div>
@@ -38,14 +38,7 @@ export default async function CampaignsAdminPage() {
           <div className="panelHeader"><div><p className="eyebrow">Builder</p><h2>Draft appeal</h2></div></div>
           <CampaignBuilderForm />
         </article>
-        <article className="appPanel span12">
-          <div className="panelHeader"><div><p className="eyebrow">Campaign controls</p><h2>Publishing checklist</h2></div></div>
-          <div className="eventPackageRules">
-            <span><strong>Preview</strong>Use draft status while images, goals, and copy are still being reviewed.</span>
-            <span><strong>Publish</strong>Set active once the donation route, public story, and finance destination are ready.</span>
-            <span><strong>Pause or archive</strong>Use paused or completed status when a campaign no longer needs prominent traffic.</span>
-          </div>
-        </article>
+        <div className="adminInlineHelp span12"><a href="/admin/help">Open campaign publishing guide</a></div>
       </section>
     </>
   );

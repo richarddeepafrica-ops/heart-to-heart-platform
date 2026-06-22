@@ -13,19 +13,19 @@ export default async function BeneficiariesPage() {
       </header>
       <section className="adminKpis">
         {[
-          ["Total raised", formatKes(dashboard.totalRaised), "beneficiary gifts"],
-          ["Approved", String(dashboard.approvedCount), "public profiles"],
-          ["In review", String(dashboard.reviewCount), "consent workflow"],
-          ["Still funding", String(dashboard.pendingCount), "below goal"]
-        ].map(([label, value, meta]) => <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>)}
+          ["Total raised", formatKes(dashboard.totalRaised), "beneficiary gifts", "#beneficiary-list"],
+          ["Approved", String(dashboard.approvedCount), "public profiles", "#beneficiary-list"],
+          ["In review", String(dashboard.reviewCount), "consent workflow", "#beneficiary-list"],
+          ["Still funding", String(dashboard.pendingCount), "below goal", "#beneficiary-list"]
+        ].map(([label, value, meta, href]) => <a className="adminKpiCard" href={href} key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></a>)}
       </section>
       <section className="adminDashboardGrid">
-        <article className="appPanel span8">
+        <article className="appPanel span8" id="beneficiary-list">
           <div className="panelHeader"><div><p className="eyebrow">Review queue</p><h2>Profiles and updates</h2></div></div>
           <div className="simpleTable beneficiaryAdminTable">
             {dashboard.records.length ? dashboard.records.map((beneficiary) => (
               <div key={beneficiary.id}>
-                <strong>{beneficiary.publicName}</strong>
+                <a className="adminInlineRecordLink" href={`/admin/beneficiaries/${beneficiary.slug}`}><strong>{beneficiary.publicName}</strong></a>
                 <span>{formatConsentStatus(beneficiary.consentStatus)}</span>
                 <span>{formatKes(beneficiary.raised)} of {formatKes(beneficiary.fundingGoal)}</span>
                 <em>{beneficiary.visibility}</em>

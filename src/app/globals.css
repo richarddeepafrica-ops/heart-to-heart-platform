@@ -6936,6 +6936,125 @@ body:has(.adminApp) .siteHeader {
   width: auto;
 }
 
+.adminInlineHelp {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin: 14px 0;
+}
+
+.adminInlineHelp a,
+.adminInlineRecordLink {
+  color: var(--blue-dark);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.adminInlineHelp a {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: 0 12px 30px rgba(25, 94, 165, 0.08);
+  padding: 10px 14px;
+}
+
+.knowledgeCard {
+  min-height: 100%;
+}
+
+.adminFilterBar a.active {
+  background: var(--blue-dark);
+  color: #ffffff;
+}
+
+.systemMetricList a,
+.pipelineBoard a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.systemMetricList a {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 0;
+}
+
+.systemMetricList a:last-child {
+  border-bottom: 0;
+}
+
+.systemCheck {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pipelineBoard a {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  display: block;
+  margin-top: 8px;
+  padding: 10px;
+}
+
+.packageEventSelector {
+  align-items: end;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 14px;
+  grid-column: 1 / -1;
+  grid-template-columns: minmax(220px, 360px) minmax(0, 1fr);
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+}
+
+.packageEventSelector label {
+  color: var(--blue-dark);
+  display: grid;
+  font-weight: 900;
+  gap: 8px;
+}
+
+.packageEventSelector select,
+.financeExpenseForm input,
+.financeExpenseForm select,
+.reportBuilderForm select {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  font: inherit;
+  min-height: 48px;
+  padding: 0 14px;
+}
+
+.packageEventSelector span {
+  color: var(--muted);
+}
+
+.financeExpenseForm,
+.reportBuilderForm {
+  display: grid;
+  gap: 14px;
+}
+
+.financeExpenseForm {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.financeExpenseForm .wide {
+  grid-column: 1 / -1;
+}
+
+.eventTicketShopGrid {
+  padding-bottom: 110px;
+}
+
+.eventTicketCard {
+  border-top: 5px solid var(--green);
+}
+
 .partnerInquiryHero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);

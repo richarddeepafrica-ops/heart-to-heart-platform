@@ -47,7 +47,7 @@ export const adminNavGroups: AdminNavGroup[] = [
       { label: "Donations", href: "/admin/donations", roles: fundraisingRoles },
       { label: "Finance", href: "/admin/finance", roles: ["SUPER_ADMIN", "FINANCE_OFFICER"] },
       { label: "Campaigns", href: "/admin/campaigns", roles: ["SUPER_ADMIN", "FUNDRAISING_MANAGER"] },
-      { label: "Merchandise", href: "/admin/merchandise", roles: ["SUPER_ADMIN", "FUNDRAISING_MANAGER"] },
+      { label: "Shop", href: "/admin/merchandise", roles: ["SUPER_ADMIN", "FUNDRAISING_MANAGER"] },
       { label: "Donors", href: "/admin/donors", roles: fundraisingRoles },
       { label: "Reports", href: "/admin/reports", roles: ["SUPER_ADMIN", "FUNDRAISING_MANAGER", "FINANCE_OFFICER"] }
     ]
@@ -76,6 +76,7 @@ export const adminNavGroups: AdminNavGroup[] = [
   {
     label: "Administration",
     items: [
+      { label: "Knowledge Base", href: "/admin/help", roles: allRoles },
       { label: "Staff", href: "/admin/staff", roles: ["SUPER_ADMIN"] }
     ]
   }

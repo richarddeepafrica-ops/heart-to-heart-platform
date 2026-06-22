@@ -13,10 +13,11 @@ export default async function AdminMerchandisePage() {
     <>
       <header className="adminTopbar">
         <div>
-          <p className="eyebrow">Merchandise</p>
+          <p className="eyebrow">Shop</p>
           <h1>Shop and inventory</h1>
         </div>
         <div className="adminActions">
+          <a href="/admin/events">Event tickets</a>
           <a href="/shop">Preview shop</a>
           <a className="primaryAction" href="#product-editor">Add product</a>
         </div>
@@ -24,12 +25,12 @@ export default async function AdminMerchandisePage() {
 
       <section className="adminKpis">
         {[
-          ["Active products", String(activeProducts.length), "visible in the public shop"],
-          ["Stock units", String(stockUnits), "available for sale"],
-          ["Low stock", String(lowStock), "active products need attention"],
-          ["Stock value", formatKes(inventoryValue), "at listed price"]
-        ].map(([label, value, meta]) => (
-          <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>
+          ["Active products", String(activeProducts.length), "visible in the public shop", "#product-editor"],
+          ["Stock units", String(stockUnits), "available for sale", "#product-editor"],
+          ["Low stock", String(lowStock), "active products need attention", "#product-editor"],
+          ["Stock value", formatKes(inventoryValue), "at listed price", "#product-editor"]
+        ].map(([label, value, meta, href]) => (
+          <a className="adminKpiCard" href={href} key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></a>
         ))}
       </section>
 

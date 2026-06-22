@@ -30,28 +30,28 @@ export default async function AdminSystemPage() {
 
       <section className="adminKpis">
         {[
-          ["Readiness", blockedCount ? "Blocked" : warningCount ? "Review" : "Ready", `${blockedCount} blockers, ${warningCount} warnings`],
-          ["Admin users", String(metrics.users), "seeded accounts"],
-          ["Applications", String(metrics.childApplications + metrics.partnerApplications), "children and partners"],
-          ["Audit trail", String(metrics.auditLogs), "recorded actions"]
-        ].map(([label, value, meta]) => (
-          <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>
+          ["Readiness", blockedCount ? "Blocked" : warningCount ? "Review" : "Ready", `${blockedCount} blockers, ${warningCount} warnings`, "#readiness-checks"],
+          ["Admin users", String(metrics.users), "seeded accounts", "/admin/staff"],
+          ["Applications", String(metrics.childApplications + metrics.partnerApplications), "children and partners", "/admin/applications"],
+          ["Audit trail", String(metrics.auditLogs), "recorded actions", "#audit-trail"]
+        ].map(([label, value, meta, href]) => (
+          <a className="adminKpiCard" href={href} key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></a>
         ))}
       </section>
 
       <section className="adminDashboardGrid">
-        <article className="appPanel span7">
+        <article className="appPanel span7" id="readiness-checks">
           <div className="panelHeader">
             <div><p className="eyebrow">Readiness checks</p><h2>What is ready for launch</h2></div>
           </div>
           <div className="systemCheckGrid">
             {checks.map((check) => (
-              <div className={`systemCheck ${check.status}`} key={check.label}>
+              <a className={`systemCheck ${check.status}`} href={check.status === "blocked" ? "/admin/system" : "/admin/help"} key={check.label}>
                 <span>{statusLabel(check.status)}</span>
                 <strong>{check.label}</strong>
                 <p>{check.detail}</p>
                 {check.action && <small>{check.action}</small>}
-              </div>
+              </a>
             ))}
           </div>
         </article>
@@ -61,14 +61,14 @@ export default async function AdminSystemPage() {
             <div><p className="eyebrow">Operations snapshot</p><h2>Backend coverage</h2></div>
           </div>
           <div className="systemMetricList">
-            <div><span>Donations in database</span><strong>{metrics.donations}</strong></div>
-            <div><span>Child applications</span><strong>{metrics.childApplications}</strong></div>
-            <div><span>Partner applications</span><strong>{metrics.partnerApplications}</strong></div>
-            <div><span>Audit events</span><strong>{metrics.auditLogs}</strong></div>
+            <a href="/admin/donations"><span>Donations in database</span><strong>{metrics.donations}</strong></a>
+            <a href="/admin/applications"><span>Child applications</span><strong>{metrics.childApplications}</strong></a>
+            <a href="/admin/applications"><span>Partner applications</span><strong>{metrics.partnerApplications}</strong></a>
+            <a href="#audit-trail"><span>Audit events</span><strong>{metrics.auditLogs}</strong></a>
           </div>
         </article>
 
-        <article className="appPanel span12">
+        <article className="appPanel span12" id="audit-trail">
           <div className="panelHeader">
             <div><p className="eyebrow">Audit trail</p><h2>Recent admin actions</h2></div>
           </div>

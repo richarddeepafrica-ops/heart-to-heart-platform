@@ -6,6 +6,7 @@ export type AdminDonationRecord = {
   donor: string;
   amount: number;
   method: string;
+  type: string;
   destination: string;
   status: string;
   createdAt: Date;
@@ -25,6 +26,7 @@ const previewRecords: AdminDonationRecord[] = [
     donor: "Mary A.",
     amount: 10000,
     method: "MPESA",
+    type: "campaign",
     destination: "Fund 20 Heart Surgeries",
     status: "PENDING",
     createdAt: new Date()
@@ -34,6 +36,7 @@ const previewRecords: AdminDonationRecord[] = [
     donor: "Corporate Team Alpha",
     amount: 250000,
     method: "BANK_TRANSFER",
+    type: "campaign",
     destination: "CSR Surgery Fund",
     status: "PENDING",
     createdAt: new Date()
@@ -76,6 +79,7 @@ export async function getDonationDashboard(): Promise<DonationDashboard> {
       donor: donation.donor?.isAnonymous ? "Anonymous" : donation.donor?.name || "Anonymous",
       amount: donation.amount,
       method: donation.method,
+      type: donation.destinationType,
       destination:
         donation.destinationLabel ||
         donation.beneficiary?.publicName ||

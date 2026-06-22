@@ -26,13 +26,13 @@ export default async function EventsAdminPage() {
       </header>
       <section className="adminKpis">
         {[
-          ["Event revenue", formatKes(dashboard.totalRevenue), "registrations and event gifts"],
-          ["Registrations", String(dashboard.totalRegistrations), "all events"],
-          ["Checked in", String(dashboard.checkedInCount), "attendance marked"],
-          ["Pending payment", String(pendingPayments), "needs finance review"],
-          ["Ready for arrival", String(readyForCheckIn), "confirmed but not checked in"],
-          ["Events", String(dashboard.events.length), "active calendar"]
-        ].map(([label, value, meta]) => <article key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></article>)}
+          ["Event revenue", formatKes(dashboard.totalRevenue), "registrations and event gifts", "#event-calendar"],
+          ["Registrations", String(dashboard.totalRegistrations), "all events", "#registration-queue"],
+          ["Checked in", String(dashboard.checkedInCount), "attendance marked", "#registration-queue"],
+          ["Pending payment", String(pendingPayments), "needs finance review", "/admin/finance"],
+          ["Ready for arrival", String(readyForCheckIn), "confirmed but not checked in", "#registration-queue"],
+          ["Events", String(dashboard.events.length), "active calendar", "#event-calendar"]
+        ].map(([label, value, meta, href]) => <a className="adminKpiCard" href={href} key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></a>)}
       </section>
       <section className="adminDashboardGrid">
         <article className="appPanel span12">
@@ -43,7 +43,7 @@ export default async function EventsAdminPage() {
             <span><strong>Check-in</strong>Use the latest registration queue to mark arrivals and clear mistakes quickly.<em>{checkInPercent}% checked in</em></span>
           </div>
         </article>
-        <article className="appPanel span8">
+        <article className="appPanel span8" id="event-calendar">
           <div className="panelHeader"><div><p className="eyebrow">Calendar</p><h2>Fundraising events</h2></div></div>
           <div className="simpleTable eventsAdminTable">
             {dashboard.events.map((event) => (
@@ -94,9 +94,9 @@ export default async function EventsAdminPage() {
         </article>
         <article className="appPanel span12">
           <div className="panelHeader"><div><p className="eyebrow">Package builder</p><h2>Checkout copy review</h2></div><span className="status warning">Draft workspace</span></div>
-          <EventPackageSetupPanel />
+          <EventPackageSetupPanel events={dashboard.events.map((event) => ({ id: event.id, title: event.title }))} />
         </article>
-        <article className="appPanel span12">
+        <article className="appPanel span12" id="registration-queue">
           <div className="panelHeader"><div><p className="eyebrow">Registration review and check-in</p><h2>Latest event registrations</h2></div></div>
           <EventRegistrationQueue registrations={queueItems} />
         </article>

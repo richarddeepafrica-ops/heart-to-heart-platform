@@ -12,6 +12,7 @@ export default async function AdminPage() {
           <h1>Today&apos;s command center</h1>
         </div>
         <div className="adminActions">
+          <a href="/admin/system">Open system</a>
           <a href="/admin/reports">View reports</a>
           <a className="primaryAction" href="/admin/campaigns">Create campaign</a>
         </div>
@@ -94,43 +95,6 @@ export default async function AdminPage() {
                 </div>
               );
             })}
-          </div>
-        </article>
-
-        <article className="appPanel span5">
-          <div className="panelHeader">
-            <div>
-              <p className="eyebrow">Notifications</p>
-              <h2>Signals</h2>
-            </div>
-          </div>
-          <div className="reviewStack">
-            {dashboard.notifications.map((notification) => (
-              <div key={notification.title}>
-                <strong>{notification.title}</strong>
-                <span>{notification.detail}</span>
-                <em>{notification.tone}</em>
-              </div>
-            ))}
-          </div>
-        </article>
-
-        <article className="appPanel span7">
-          <div className="panelHeader">
-            <div>
-              <p className="eyebrow">Launch readiness</p>
-              <h2>Demo blockers and integrations</h2>
-            </div>
-            <a href="/admin/system">Open system</a>
-          </div>
-          <div className="readinessList">
-            {dashboard.system.checks.map((check) => (
-              <div key={check.label}>
-                <span className={`status ${check.status === "healthy" ? "success" : check.status === "warning" ? "warning" : ""}`}>{check.status}</span>
-                <strong>{check.label}</strong>
-                <small>{check.detail}</small>
-              </div>
-            ))}
           </div>
         </article>
 

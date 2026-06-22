@@ -13,7 +13,11 @@ type PackageDraft = {
   status: string;
 };
 
-export function EventPackageSetupPanel() {
+type EventPackageSetupPanelProps = {
+  events?: { id: string; title: string }[];
+};
+
+export function EventPackageSetupPanel({ events = [] }: EventPackageSetupPanelProps) {
   const [packages, setPackages] = useState<PackageDraft[]>(() =>
     eventProducts.map((item) => ({
       name: item.name,
@@ -25,6 +29,7 @@ export function EventPackageSetupPanel() {
       status: "Ready"
     }))
   );
+  const [selectedEventId, setSelectedEventId] = useState(events[0]?.id || "heart-run");
   const [selectedName, setSelectedName] = useState(packages[0]?.name || "");
   const selectedPackage = packages.find((item) => item.name === selectedName) || packages[0];
   const checkoutCopy = useMemo(() => {
@@ -54,6 +59,17 @@ export function EventPackageSetupPanel() {
 
   return (
     <div className="eventPackageBuilder">
+      <div className="packageEventSelector">
+        <label>
+          Event
+          <select value={selectedEventId} onChange={(event) => setSelectedEventId(event.target.value)}>
+            {events.length ? events.map((event) => (
+              <option value={event.id} key={event.id}>{event.title}</option>
+            )) : <option value="heart-run">Heart Run</option>}
+          </select>
+        </label>
+        <span>Build and review package copy for the selected event.</span>
+      </div>
       <div className="packageSetupList">
         {packages.map((item) => (
           <button className={item.name === selectedName ? "active" : ""} type="button" key={item.name} onClick={() => setSelectedName(item.name)}>
