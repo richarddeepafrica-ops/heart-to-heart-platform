@@ -6588,11 +6588,11 @@ body:has(.adminApp) .siteHeader {
 
 .shopProductDetails h1 {
   color: var(--blue-dark);
-  font-size: clamp(38px, 4.4vw, 64px);
-  letter-spacing: -0.025em;
-  line-height: 1;
-  margin: 8px 0 12px;
-  max-width: 680px;
+  font-size: clamp(30px, 3.2vw, 46px);
+  letter-spacing: -0.015em;
+  line-height: 1.06;
+  margin: 6px 0 10px;
+  max-width: 560px;
 }
 
 .shopHero p,
@@ -6827,6 +6827,13 @@ body:has(.adminApp) .siteHeader {
 .shopProductDetails {
   display: grid;
   gap: 18px;
+}
+
+.shopProductDetails > .eyebrow {
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  margin-bottom: 0;
 }
 
 .shopProductFacts {
@@ -9549,7 +9556,7 @@ body:not(:has(.adminApp)) :where(
   }
 
   .shopProductDetails h1 {
-    font-size: 36px;
+    font-size: 30px;
   }
 
   .shopHero p,
