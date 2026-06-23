@@ -70,6 +70,17 @@ export async function POST(request: Request) {
       `INSERT INTO "MerchandiseProduct"
         ("id", "slug", "name", "category", "description", "imageUrl", "price", "stockQuantity", "status", "featured", "causeLabel", "updatedAt")
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW())
+       ON CONFLICT ("slug") DO UPDATE SET
+         "name" = EXCLUDED."name",
+         "category" = EXCLUDED."category",
+         "description" = EXCLUDED."description",
+         "imageUrl" = EXCLUDED."imageUrl",
+         "price" = EXCLUDED."price",
+         "stockQuantity" = EXCLUDED."stockQuantity",
+         "status" = EXCLUDED."status",
+         "featured" = EXCLUDED."featured",
+         "causeLabel" = EXCLUDED."causeLabel",
+         "updatedAt" = NOW()
        RETURNING *`,
       id,
       product.slug,
@@ -159,7 +170,37 @@ export async function PATCH(request: Request) {
       product.causeLabel
     );
 
-    if (!rows[0]) return apiError("Product was not found.", 404);
+    if (!rows[0]) {
+      const fallbackId = id.startsWith("preview-") ? `merch_${crypto.randomUUID().replace(/-/g, "")}` : id;
+      rows.push(...await merchandiseDb().$queryRawUnsafe<unknown[]>(
+        `INSERT INTO "MerchandiseProduct"
+          ("id", "slug", "name", "category", "description", "imageUrl", "price", "stockQuantity", "status", "featured", "causeLabel", "updatedAt")
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW())
+         ON CONFLICT ("slug") DO UPDATE SET
+           "name" = EXCLUDED."name",
+           "category" = EXCLUDED."category",
+           "description" = EXCLUDED."description",
+           "imageUrl" = EXCLUDED."imageUrl",
+           "price" = EXCLUDED."price",
+           "stockQuantity" = EXCLUDED."stockQuantity",
+           "status" = EXCLUDED."status",
+           "featured" = EXCLUDED."featured",
+           "causeLabel" = EXCLUDED."causeLabel",
+           "updatedAt" = NOW()
+         RETURNING *`,
+        fallbackId,
+        product.slug,
+        product.name,
+        product.category,
+        product.description,
+        product.imageUrl || null,
+        product.price,
+        product.stockQuantity,
+        product.status,
+        product.featured,
+        product.causeLabel
+      ));
+    }
 
     await writeAuditLog({
       actorEmail: "Admin",

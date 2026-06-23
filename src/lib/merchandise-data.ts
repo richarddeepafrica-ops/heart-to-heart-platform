@@ -97,6 +97,38 @@ function merchandiseDb() {
   return db as unknown as MerchandiseDb;
 }
 
+async function ensureDefaultMerchandiseProducts() {
+  if (!(await tableExists("MerchandiseProduct"))) return;
+  try {
+    const rows = await merchandiseDb().$queryRawUnsafe<Array<{ count: number }>>(
+      `SELECT COUNT(*)::int AS "count" FROM "MerchandiseProduct"`
+    );
+    if ((rows[0]?.count || 0) > 0) return;
+
+    for (const product of previewProducts) {
+      await merchandiseDb().$queryRawUnsafe(
+        `INSERT INTO "MerchandiseProduct"
+         ("id", "slug", "name", "category", "description", "imageUrl", "price", "stockQuantity", "status", "featured", "causeLabel", "updatedAt")
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, NOW())
+         ON CONFLICT ("slug") DO NOTHING`,
+        product.id,
+        product.slug,
+        product.name,
+        product.category,
+        product.description,
+        product.imageUrl || null,
+        product.price,
+        product.stockQuantity,
+        product.status,
+        product.featured,
+        product.causeLabel
+      );
+    }
+  } catch {
+    // Keep preview fallback available if the database is not ready.
+  }
+}
+
 async function tableExists(tableName: string) {
   if (!hasDatabaseUrl()) return false;
   try {
@@ -137,13 +169,14 @@ export async function getMerchandiseProducts(options: { admin?: boolean } = {}) 
   }
 
   try {
+    await ensureDefaultMerchandiseProducts();
     const where = options.admin ? "" : `WHERE "status" = 'ACTIVE'`;
     const rows = await merchandiseDb().$queryRawUnsafe<MerchandiseRow[]>(
       `SELECT * FROM "MerchandiseProduct"
        ${where}
        ORDER BY "featured" DESC, "createdAt" DESC`
     );
-    return rows.map(normalizeProduct);
+    return rows.length ? rows.map(normalizeProduct) : options.admin ? previewProducts : previewProducts.filter((product) => product.status === "ACTIVE");
   } catch {
     return options.admin ? previewProducts : previewProducts.filter((product) => product.status === "ACTIVE");
   }
@@ -156,6 +189,7 @@ export async function getMerchandiseProduct(slug: string) {
   }
 
   try {
+    await ensureDefaultMerchandiseProducts();
     const rows = await merchandiseDb().$queryRawUnsafe<MerchandiseRow[]>(
       `SELECT * FROM "MerchandiseProduct"
        WHERE "slug" = $1 AND "status" = 'ACTIVE'
