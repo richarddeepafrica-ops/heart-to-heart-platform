@@ -1,6 +1,6 @@
 import { hasDatabaseUrl } from "@/lib/api";
-import { eventProducts } from "@/lib/content";
 import { db } from "@/lib/db";
+import { ensureDefaultEventTicketPackages, getEventTicketPackages } from "@/lib/event-ticket-data";
 
 export type AdminEventRecord = {
   id: string;
@@ -28,10 +28,14 @@ export type AdminRegistrationRecord = {
 };
 
 export type AdminEventPackageRecord = {
+  id: string;
+  eventId: string;
   name: string;
   description: string;
   price: number;
   capacity: number;
+  color: string;
+  showInShop: boolean;
   sold: number;
   revenue: number;
   status: string;
@@ -114,30 +118,36 @@ function summarize(
   };
 }
 
-function packageRows(registrations: AdminRegistrationRecord[]) {
-  return eventProducts.map((ticket) => {
+async function packageRows(registrations: AdminRegistrationRecord[]) {
+  const tickets = await getEventTicketPackages({ admin: true });
+  return tickets.map((ticket) => {
     const matchingRegistrations = registrations.filter((registration) => registration.ticketType === ticket.name);
     const sold = matchingRegistrations.reduce((total, registration) => total + registration.quantity, 0);
     const revenue = matchingRegistrations.reduce((total, registration) => total + registration.totalAmount, 0);
 
     return {
+      id: ticket.id,
+      eventId: ticket.eventId,
       name: ticket.name,
       description: ticket.description,
       price: ticket.price,
       capacity: ticket.capacity,
+      color: ticket.color,
+      showInShop: ticket.showInShop,
       sold,
       revenue,
-      status: sold >= ticket.capacity ? "Sold out" : "Published"
+      status: sold >= ticket.capacity && ticket.capacity > 0 ? "Sold out" : ticket.status === "ACTIVE" ? "Published" : ticket.status
     };
   });
 }
 
 export async function getEventDashboard(): Promise<EventDashboard> {
   if (!hasDatabaseUrl()) {
-    return summarize(previewEvents, previewRegistrations, packageRows(previewRegistrations));
+    return summarize(previewEvents, previewRegistrations, await packageRows(previewRegistrations));
   }
 
   try {
+    await ensureDefaultEventTicketPackages();
     const [events, registrations] = await Promise.all([
       db.event.findMany({
         orderBy: { startsAt: "asc" },
@@ -189,8 +199,8 @@ export async function getEventDashboard(): Promise<EventDashboard> {
       };
     });
 
-    return summarize(eventRecords, registrationRecords, packageRows(registrationRecords));
+    return summarize(eventRecords, registrationRecords, await packageRows(registrationRecords));
   } catch (error) {
-    return summarize(previewEvents, previewRegistrations, packageRows(previewRegistrations));
+    return summarize(previewEvents, previewRegistrations, await packageRows(previewRegistrations));
   }
 }

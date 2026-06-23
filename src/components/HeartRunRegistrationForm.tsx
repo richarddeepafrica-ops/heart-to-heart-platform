@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { eventProducts, formatKes } from "@/lib/content";
+import { formatKes } from "@/lib/content";
+import type { EventTicketPackageRecord } from "@/lib/event-ticket-data";
 
 const addOns = [0, 1000, 2500, 5000, 10000];
 
@@ -42,20 +43,26 @@ function paymentHref({
   return `/donate?${params.toString()}#give`;
 }
 
-export function HeartRunRegistrationForm() {
-  const [packageName, setPackageName] = useState(eventProducts[1].name);
+type HeartRunRegistrationFormProps = {
+  tickets: EventTicketPackageRecord[];
+  initialPackage?: string;
+};
+
+export function HeartRunRegistrationForm({ tickets, initialPackage }: HeartRunRegistrationFormProps) {
+  const defaultTicket = tickets.find((ticket) => ticket.name === initialPackage) || tickets[1] || tickets[0];
+  const [packageName, setPackageName] = useState(defaultTicket?.name || "");
   const [quantity, setQuantity] = useState(1);
   const [addOn, setAddOn] = useState(2500);
   const [participantName, setParticipantName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [teamName, setTeamName] = useState("");
-  const selectedPackage = eventProducts.find((ticket) => ticket.name === packageName) ?? eventProducts[1];
+  const selectedPackage = tickets.find((ticket) => ticket.name === packageName) ?? defaultTicket;
   const packageTotal = selectedPackage.price * quantity;
   const total = packageTotal + addOn;
   const href = useMemo(() => paymentHref({
-    packageName: selectedPackage.name,
-    packagePrice: selectedPackage.price,
+    packageName: selectedPackage?.name || "",
+    packagePrice: selectedPackage?.price || 0,
     addOn,
     quantity,
     participantName,
@@ -65,17 +72,18 @@ export function HeartRunRegistrationForm() {
   }), [addOn, email, participantName, phone, quantity, selectedPackage, teamName]);
   const canContinue = participantName.trim().length > 1 && phone.trim().length > 5;
 
+  if (!selectedPackage) return null;
+
   return (
     <section className="eventFlowLayout">
       <form className="eventFlowForm">
         <div className="flowBlock" id="participant-details">
           <div className="blockTitle">
             <strong>Registration package</strong>
-            <span>Choose one package</span>
           </div>
           <div className="eventPackageChoices">
-            {eventProducts.map((ticket) => (
-              <label className={ticket.name === selectedPackage.name ? "selected" : ""} key={ticket.name}>
+            {tickets.map((ticket) => (
+              <label className={ticket.name === selectedPackage.name ? "selected" : ""} key={ticket.id}>
                 <input
                   checked={ticket.name === selectedPackage.name}
                   name="package"
@@ -99,7 +107,6 @@ export function HeartRunRegistrationForm() {
         <div className="flowBlock compactFlowBlock">
           <div className="blockTitle">
             <strong>Order details</strong>
-            <span>Set package quantity before checkout</span>
           </div>
           <div className="eventQuantityControl">
             <button type="button" onClick={() => setQuantity((current) => Math.max(1, current - 1))}>-</button>
@@ -114,7 +121,6 @@ export function HeartRunRegistrationForm() {
         <div className="flowBlock">
           <div className="blockTitle">
             <strong>Participant details</strong>
-            <span>Used for registration confirmation</span>
           </div>
           <div className="formGrid">
             <label>Name<input placeholder="Full name" value={participantName} onChange={(event) => setParticipantName(event.target.value)} /></label>
@@ -157,10 +163,6 @@ export function HeartRunRegistrationForm() {
           <span>{phone || "Phone number"}</span>
           {teamName ? <span>{teamName}</span> : null}
         </div>
-        <p>
-          Payment confirmation will reserve the package and prepare a receipt
-          for the participant or organisation.
-        </p>
         <a className={`button primary wide ${canContinue ? "" : "disabled"}`} aria-disabled={!canContinue} href={canContinue ? href : "#participant-details"}>Continue to payment</a>
         <a className="button secondary wide" href="/donate?type=event-donation&eventSlug=heart-run&eventName=Heart+Run+%2F+Walk&campaignSlug=heart-run-walk#give">Donate instead</a>
       </aside>

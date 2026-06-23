@@ -184,9 +184,32 @@ model Event {
   startsAt       DateTime
   venue          String?
   registrations  EventRegistration[]
+  ticketPackages EventTicketPackage[]
+  complimentaryTickets ComplimentaryTicket[]
   donations       Donation[]
   createdAt      DateTime            @default(now())
   updatedAt      DateTime            @updatedAt
+}
+
+model EventTicketPackage {
+  id          String   @id @default(cuid())
+  eventId     String
+  name        String
+  slug        String
+  description String
+  audience    String?
+  benefits    String[]
+  price       Int
+  capacity    Int      @default(0)
+  color       String   @default("#00539C")
+  status      String   @default("DRAFT")
+  showInShop  Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  event       Event    @relation(fields: [eventId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([eventId, slug])
 }
 
 model EventRegistration {
@@ -204,6 +227,38 @@ model EventRegistration {
   donation    Donation? @relation(fields: [donationId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model ComplimentaryTicket {
+  id          String   @id @default(cuid())
+  eventId     String
+  packageName String
+  recipientName String
+  recipientEmail String?
+  recipientPhone String?
+  quantity    Int      @default(1)
+  code        String   @unique
+  note        String?
+  issuedBy    String?
+  sentAt      DateTime?
+  redeemedAt  DateTime?
+  event       Event    @relation(fields: [eventId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model EmailLog {
+  id        String   @id @default(cuid())
+  toEmail   String?
+  toName    String?
+  subject   String
+  body      String
+  status    String   @default("QUEUED")
+  context   String?
+  entityId  String?
+  sentAt    DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model CorporatePartner {

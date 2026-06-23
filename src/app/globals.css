@@ -7170,6 +7170,45 @@ body:has(.adminApp) .siteHeader {
   color: var(--muted);
 }
 
+.ticketColorDot {
+  border-radius: 999px;
+  display: inline-block;
+  height: 12px;
+  margin-right: 8px;
+  vertical-align: middle;
+  width: 12px;
+}
+
+.complimentaryTicketForm {
+  background: #f8fbff;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+}
+
+.complimentaryTicketForm > strong {
+  color: var(--blue-dark);
+  font-size: 20px;
+}
+
+.complimentaryTicketForm label {
+  color: var(--blue-dark);
+  display: grid;
+  font-weight: 900;
+  gap: 8px;
+}
+
+.complimentaryTicketForm input,
+.complimentaryTicketForm textarea {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  font: inherit;
+  min-height: 46px;
+  padding: 10px 12px;
+}
+
 .financeExpenseForm,
 .reportBuilderForm {
   display: grid;

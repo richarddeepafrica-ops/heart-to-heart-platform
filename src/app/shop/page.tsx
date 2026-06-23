@@ -1,8 +1,12 @@
-import { eventProducts, formatKes } from "@/lib/content";
+import { formatKes } from "@/lib/content";
+import { getEventTicketPackages } from "@/lib/event-ticket-data";
 import { getMerchandiseProducts } from "@/lib/merchandise-data";
 
 export default async function MerchandiseShopPage() {
-  const products = await getMerchandiseProducts();
+  const [products, eventTickets] = await Promise.all([
+    getMerchandiseProducts(),
+    getEventTicketPackages({ shopOnly: true })
+  ]);
   const featured = products.find((product) => product.featured) || products[0];
   const remainingProducts = products.filter((product) => product.id !== featured?.id);
 
@@ -40,7 +44,6 @@ export default async function MerchandiseShopPage() {
           <p className="eyebrow">Available now</p>
           <h2>Foundation shop</h2>
         </div>
-        <p>Select an item, choose quantity, and pay on the product page in one simple flow.</p>
       </section>
 
       <section className="shopGrid">
@@ -66,14 +69,13 @@ export default async function MerchandiseShopPage() {
           <p className="eyebrow">Event tickets</p>
           <h2>Register for foundation events</h2>
         </div>
-        <p>Choose a package and continue to the event registration checkout.</p>
       </section>
 
       <section className="shopGrid eventTicketShopGrid">
-        {eventProducts.map((ticket) => (
-          <a className="shopProductCard eventTicketCard" href="/events/heart-run/register" key={ticket.name}>
+        {eventTickets.map((ticket) => (
+          <a className="shopProductCard eventTicketCard" href={`/events/heart-run/register?package=${encodeURIComponent(ticket.name)}`} key={ticket.id} style={{ background: `linear-gradient(135deg, ${ticket.color}, #063666)` }}>
             <div className="shopProductBody">
-              <span>Heart Run</span>
+              <span>{ticket.eventTitle}</span>
               <strong>{ticket.name}</strong>
               <div>
                 <b>{formatKes(ticket.price)}</b>

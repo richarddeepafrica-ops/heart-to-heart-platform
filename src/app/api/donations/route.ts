@@ -128,7 +128,7 @@ export async function POST(request: Request) {
     });
 
     if (destinationType === "event-registration" && event && packageName) {
-      await db.eventRegistration.create({
+      const registration = await db.eventRegistration.create({
         data: {
           eventId: event.id,
           donorId: donor.id,
@@ -138,6 +138,16 @@ export async function POST(request: Request) {
           totalAmount: amount
         }
       });
+      await db.emailLog.create({
+        data: {
+          toEmail: email || null,
+          toName: name,
+          subject: `${event.title} registration confirmation`,
+          body: `Hello ${name},\n\nThank you for registering for ${event.title}.\n\nPackage: ${packageName}\nQuantity: ${quantity}\nTotal: KES ${amount.toLocaleString("en-KE")}\nReference: ${registration.id}\n\nPlease keep this confirmation for event check-in.`,
+          context: "EVENT_REGISTRATION",
+          entityId: registration.id
+        }
+      }).catch(() => null);
     }
 
     if (destinationType === "merchandise" && merchandiseProduct) {

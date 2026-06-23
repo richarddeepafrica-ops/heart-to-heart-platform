@@ -1,6 +1,8 @@
-import { eventProducts, formatKes } from "@/lib/content";
+import { formatKes } from "@/lib/content";
+import { getEventTicketPackages } from "@/lib/event-ticket-data";
 
-export default function HeartRunPage() {
+export default async function HeartRunPage() {
+  const tickets = await getEventTicketPackages({ eventSlug: "heart-run" });
   return (
     <main>
       <section className="detailHero eventDetailHero">
@@ -71,7 +73,7 @@ export default function HeartRunPage() {
             <h3>Choose your package</h3>
             <span>Every registration helps fund care and raise public awareness.</span>
           </div>
-          {eventProducts.map((ticket) => (
+          {tickets.map((ticket) => (
             <a href={`/donate?type=event-registration&eventSlug=heart-run&eventName=Heart+Run+%2F+Walk&packageName=${encodeURIComponent(ticket.name)}&amount=${ticket.price}#give`} key={ticket.name} className={ticket.name === "Family" ? "featuredPackage" : ""}>
               <strong>{ticket.name}</strong>
               <em>{formatKes(ticket.price)}</em>

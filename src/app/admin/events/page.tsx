@@ -38,7 +38,7 @@ export default async function EventsAdminPage() {
         <article className="appPanel span12">
           <div className="panelHeader"><div><p className="eyebrow">Event workflow</p><h2>Registration to check-in</h2></div></div>
           <div className="eventPackageRules">
-            <span><strong>Package setup</strong>Confirm ticket names, benefits, pricing, and public checkout copy before launch.<em>Setup</em></span>
+            <span><strong>Package setup</strong>Confirm ticket names, benefits, pricing, colors, and shop visibility.<em>Setup</em></span>
             <span><strong>Registration review</strong>Track payment status and export attendee records before the event day.<em>{pendingPayments} pending</em></span>
             <span><strong>Check-in</strong>Use the latest registration queue to mark arrivals and clear mistakes quickly.<em>{checkInPercent}% checked in</em></span>
           </div>
@@ -75,7 +75,7 @@ export default async function EventsAdminPage() {
             <div className="tableHead"><span>Package</span><span>Price</span><span>Sales</span><span>Status</span><span>Revenue</span></div>
             {dashboard.packages.map((ticket) => (
               <div className="tableLine" key={ticket.name}>
-                <span><strong>{ticket.name}</strong><small>{ticket.description}</small><small>{ticket.sold} of {ticket.capacity.toLocaleString("en-KE")} capacity</small></span>
+                <span><strong><i className="ticketColorDot" style={{ background: ticket.color }} />{ticket.name}</strong><small>{ticket.description}</small><small>{ticket.sold} of {ticket.capacity.toLocaleString("en-KE")} capacity{ticket.showInShop ? " / shop" : ""}</small></span>
                 <span>{formatKes(ticket.price)}</span>
                 <span>{ticket.capacity ? Math.round((ticket.sold / ticket.capacity) * 100) : 0}% sold</span>
                 <span className={ticket.status === "Sold out" ? "status warning" : "status success"}>{ticket.status}</span>
@@ -88,13 +88,21 @@ export default async function EventsAdminPage() {
           <div className="panelHeader"><div><p className="eyebrow">Launch readiness</p><h2>Before publishing</h2></div></div>
           <div className="reviewStack">
             <div><strong>Package names and pricing</strong><span>Confirm names match public checkout and receipts.</span><em>Review</em></div>
-            <div><strong>Benefits and copy</strong><span>Make sure sponsors and schools understand what each package includes.</span><em>Review</em></div>
+            <div><strong>Benefits and details</strong><span>Keep each package clear for sponsors, schools, and public buyers.</span><em>Review</em></div>
             <div><strong>Revenue tracking</strong><span>{formatKes(packageRevenue)} is currently tied to package registrations.</span><em>Live</em></div>
           </div>
         </article>
         <article className="appPanel span12">
-          <div className="panelHeader"><div><p className="eyebrow">Package builder</p><h2>Checkout copy review</h2></div><span className="status warning">Draft workspace</span></div>
-          <EventPackageSetupPanel events={dashboard.events.map((event) => ({ id: event.id, title: event.title }))} />
+          <div className="panelHeader"><div><p className="eyebrow">Package builder</p><h2>Ticket package manager</h2></div><span className="status warning">Draft workspace</span></div>
+          <EventPackageSetupPanel events={dashboard.events.map((event) => ({ id: event.id, title: event.title }))} packages={dashboard.packages.map((ticket) => ({
+            ...ticket,
+            eventSlug: dashboard.events.find((event) => event.id === ticket.eventId)?.slug || "heart-run",
+            eventTitle: dashboard.events.find((event) => event.id === ticket.eventId)?.title || "Heart Run / Walk",
+            slug: ticket.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+            audience: "Event registration",
+            benefits: [],
+            sortOrder: 0
+          }))} />
         </article>
         <article className="appPanel span12" id="registration-queue">
           <div className="panelHeader"><div><p className="eyebrow">Registration review and check-in</p><h2>Latest event registrations</h2></div></div>
