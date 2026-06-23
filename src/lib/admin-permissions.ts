@@ -76,6 +76,7 @@ export const adminNavGroups: AdminNavGroup[] = [
   {
     label: "Administration",
     items: [
+      { label: "Email queue", href: "/admin/emails", roles: ["SUPER_ADMIN", "CONTENT_EDITOR", "MARKETING_MANAGER", "EVENTS_MANAGER"] },
       { label: "Knowledge Base", href: "/admin/help", roles: allRoles },
       { label: "Staff", href: "/admin/staff", roles: ["SUPER_ADMIN"] }
     ]
@@ -115,7 +116,10 @@ export function canAccessProtectedApi(role: string | null | undefined, pathname:
   if (pathname.startsWith("/api/admin/blogs") || pathname.startsWith("/api/admin/galleries") || pathname.startsWith("/api/marketing-campaigns")) {
     return ["CONTENT_EDITOR", "MARKETING_MANAGER"].includes(normalizedRole);
   }
-  if (pathname.startsWith("/api/admin/events") || pathname.startsWith("/api/event-registrations")) {
+  if (pathname.startsWith("/api/admin/emails")) {
+    return ["CONTENT_EDITOR", "MARKETING_MANAGER", "EVENTS_MANAGER"].includes(normalizedRole);
+  }
+  if (pathname.startsWith("/api/admin/events") || pathname.startsWith("/api/admin/complimentary-tickets") || pathname.startsWith("/api/event-registrations")) {
     return normalizedRole === "EVENTS_MANAGER";
   }
   if (pathname.startsWith("/api/admin/applications") || pathname.startsWith("/api/beneficiaries")) {

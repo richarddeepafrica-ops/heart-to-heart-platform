@@ -12,6 +12,14 @@ type RawAuditLog = {
   metadata: unknown;
   createdAt: Date;
 };
+type RawErrorLog = {
+  id: string;
+  scope: string;
+  message: string;
+  stack: string | null;
+  metadata: unknown;
+  createdAt: Date;
+};
 
 export type SystemCheck = {
   label: string;
@@ -26,6 +34,14 @@ export type AdminAuditLog = {
   action: string;
   entityType: string;
   entityId: string;
+  metadata: unknown;
+  createdAt: Date;
+};
+
+export type AdminErrorLog = {
+  id: string;
+  scope: string;
+  message: string;
   metadata: unknown;
   createdAt: Date;
 };
@@ -124,6 +140,29 @@ export async function getAdminSystemStatus() {
   });
 
   return { checks, metrics };
+}
+
+export async function getRecentErrorLogs(limit = 8): Promise<AdminErrorLog[]> {
+  if (!hasDatabaseUrl()) return [];
+
+  try {
+    const rows = await rawDb().$queryRawUnsafe<RawErrorLog[]>(
+      `SELECT "id", "scope", "message", "stack", "metadata", "createdAt"
+       FROM "ErrorLog"
+       ORDER BY "createdAt" DESC
+       LIMIT $1`,
+      limit
+    );
+    return rows.map((row) => ({
+      id: row.id,
+      scope: row.scope,
+      message: row.message,
+      metadata: row.metadata,
+      createdAt: row.createdAt
+    }));
+  } catch {
+    return [];
+  }
 }
 
 export async function getRecentAuditLogs(limit = 12): Promise<AdminAuditLog[]> {

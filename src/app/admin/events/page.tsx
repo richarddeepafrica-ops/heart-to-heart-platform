@@ -1,10 +1,15 @@
+import { ComplimentaryTicketActions } from "@/components/ComplimentaryTicketActions";
 import { EventPackageSetupPanel } from "@/components/EventPackageSetupPanel";
 import { EventRegistrationQueue, type EventRegistrationQueueItem } from "@/components/EventRegistrationQueue";
+import { getComplimentaryTicketQueue } from "@/lib/complimentary-ticket-data";
 import { formatKes } from "@/lib/content";
 import { getEventDashboard } from "@/lib/event-data";
 
 export default async function EventsAdminPage() {
-  const dashboard = await getEventDashboard();
+  const [dashboard, complimentaryTickets] = await Promise.all([
+    getEventDashboard(),
+    getComplimentaryTicketQueue()
+  ]);
   const featuredEvent = dashboard.featuredEvent;
   const checkInPercent = featuredEvent?.registrationCount
     ? Math.round((featuredEvent.checkedInCount / featuredEvent.registrationCount) * 100)
@@ -92,7 +97,7 @@ export default async function EventsAdminPage() {
             <div><strong>Revenue tracking</strong><span>{formatKes(packageRevenue)} is currently tied to package registrations.</span><em>Live</em></div>
           </div>
         </article>
-        <article className="appPanel span12">
+        <article className="appPanel span12" id="package-builder">
           <div className="panelHeader"><div><p className="eyebrow">Package builder</p><h2>Ticket package manager</h2></div><span className="status warning">Draft workspace</span></div>
           <EventPackageSetupPanel events={dashboard.events.map((event) => ({ id: event.id, title: event.title }))} packages={dashboard.packages.map((ticket) => ({
             ...ticket,
@@ -103,6 +108,32 @@ export default async function EventsAdminPage() {
             benefits: [],
             sortOrder: 0
           }))} />
+        </article>
+        <article className="appPanel span12" id="complimentary-tickets">
+          <div className="panelHeader">
+            <div><p className="eyebrow">Complimentary tickets</p><h2>Issued invitations and redemption</h2></div>
+            <a className="panelLink" href="#package-builder">Issue from package manager</a>
+          </div>
+          {complimentaryTickets.length ? (
+            <div className="simpleTable compTicketTable">
+              {complimentaryTickets.map((ticket) => (
+                <div key={ticket.id}>
+                  <strong>{ticket.recipientName}<small>{ticket.recipientEmail || ticket.recipientPhone || "No contact"}</small></strong>
+                  <span>{ticket.eventTitle}<small>{ticket.packageName} x {ticket.quantity}</small></span>
+                  <span>{ticket.code}<small>{ticket.note || "No internal note"}</small></span>
+                  <em className={ticket.redeemedAt ? "status success" : ticket.sentAt ? "status" : "status warning"}>
+                    {ticket.redeemedAt ? "Redeemed" : ticket.sentAt ? "Sent" : "Not sent"}
+                  </em>
+                  <ComplimentaryTicketActions ticketId={ticket.id} sent={Boolean(ticket.sentAt)} redeemed={Boolean(ticket.redeemedAt)} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="adminEmptyState">
+              <strong>No complimentary tickets yet</strong>
+              <span>Issue partner, guest, or sponsor tickets from the ticket package manager above.</span>
+            </div>
+          )}
         </article>
         <article className="appPanel span12" id="registration-queue">
           <div className="panelHeader"><div><p className="eyebrow">Registration review and check-in</p><h2>Latest event registrations</h2></div></div>

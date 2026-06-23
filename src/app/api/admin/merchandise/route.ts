@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { apiError, hasDatabaseUrl, readPositiveInt, readString } from "@/lib/api";
 import { writeAuditLog } from "@/lib/admin-system";
 import { db } from "@/lib/db";
+import { logError } from "@/lib/error-log";
 import { slugify } from "@/lib/publishing-data";
 
 type MerchandiseWriteDb = {
@@ -112,7 +113,8 @@ export async function POST(request: Request) {
       publicUrl: product.status === "ACTIVE" ? `/shop/${product.slug}` : null,
       nextAction: product.status === "ACTIVE" ? "Product is live in the shop." : "Product saved as draft."
     });
-  } catch {
+  } catch (error) {
+    await logError("api.admin.merchandise.POST", error, { slug: product.slug, name: product.name });
     return NextResponse.json(
       { ok: false, message: "Product could not be created. Check that migrations have run and the slug is unique." },
       { status: 503 }
@@ -219,7 +221,8 @@ export async function PATCH(request: Request) {
       publicUrl: product.status === "ACTIVE" ? `/shop/${product.slug}` : null,
       nextAction: "Product updated."
     });
-  } catch {
+  } catch (error) {
+    await logError("api.admin.merchandise.PATCH", error, { id, slug: product.slug, name: product.name });
     return NextResponse.json(
       { ok: false, message: "Product could not be updated. Check that migrations have run and the slug is unique." },
       { status: 503 }
@@ -262,7 +265,8 @@ export async function DELETE(request: Request) {
     revalidateMerchandisePaths(deleted.slug);
 
     return NextResponse.json({ ok: true, mode: "database", nextAction: "Product deleted." });
-  } catch {
+  } catch (error) {
+    await logError("api.admin.merchandise.DELETE", error, { id, slug });
     return NextResponse.json(
       { ok: false, message: "Product could not be deleted. Check that migrations have run." },
       { status: 503 }

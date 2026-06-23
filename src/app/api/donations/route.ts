@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { Prisma } from "@prisma/client";
 import { apiError, hasDatabaseUrl, readPositiveInt, readString } from "@/lib/api";
 import { db } from "@/lib/db";
+import { logError } from "@/lib/error-log";
 import { initiateMpesaStkPush, normalizeMpesaPhone } from "@/lib/mpesa";
 import { slugify } from "@/lib/publishing-data";
 
@@ -218,6 +219,7 @@ export async function POST(request: Request) {
       nextAction
     });
   } catch (error) {
+    await logError("api.donations.POST", error, { destinationType, destinationLabel, amount, method });
     return NextResponse.json(
       { ok: false, message: "Donation could not be created right now." },
       { status: 503 }

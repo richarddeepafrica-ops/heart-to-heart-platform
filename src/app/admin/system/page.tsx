@@ -1,4 +1,4 @@
-import { getAdminSystemStatus, getRecentAuditLogs } from "@/lib/admin-system";
+import { getAdminSystemStatus, getRecentAuditLogs, getRecentErrorLogs } from "@/lib/admin-system";
 
 function statusLabel(status: "healthy" | "warning" | "blocked") {
   if (status === "healthy") return "Ready";
@@ -7,9 +7,10 @@ function statusLabel(status: "healthy" | "warning" | "blocked") {
 }
 
 export default async function AdminSystemPage() {
-  const [{ checks, metrics }, auditLogs] = await Promise.all([
+  const [{ checks, metrics }, auditLogs, errorLogs] = await Promise.all([
     getAdminSystemStatus(),
-    getRecentAuditLogs()
+    getRecentAuditLogs(),
+    getRecentErrorLogs()
   ]);
 
   const blockedCount = checks.filter((check) => check.status === "blocked").length;
@@ -33,6 +34,7 @@ export default async function AdminSystemPage() {
           ["Readiness", blockedCount ? "Blocked" : warningCount ? "Review" : "Ready", `${blockedCount} blockers, ${warningCount} warnings`, "#readiness-checks"],
           ["Admin users", String(metrics.users), "seeded accounts", "/admin/staff"],
           ["Applications", String(metrics.childApplications + metrics.partnerApplications), "children and partners", "/admin/applications"],
+          ["Errors", String(errorLogs.length), "latest production logs", "#error-logs"],
           ["Audit trail", String(metrics.auditLogs), "recorded actions", "#audit-trail"]
         ].map(([label, value, meta, href]) => (
           <a className="adminKpiCard" href={href} key={label}><span>{label}</span><strong>{value}</strong><small>{meta}</small></a>
@@ -66,6 +68,29 @@ export default async function AdminSystemPage() {
             <a href="/admin/applications"><span>Partner applications</span><strong>{metrics.partnerApplications}</strong></a>
             <a href="#audit-trail"><span>Audit events</span><strong>{metrics.auditLogs}</strong></a>
           </div>
+        </article>
+
+        <article className="appPanel span12" id="error-logs">
+          <div className="panelHeader">
+            <div><p className="eyebrow">Production errors</p><h2>Recent logged failures</h2></div>
+          </div>
+          {errorLogs.length ? (
+            <div className="auditTimeline errorTimeline">
+              {errorLogs.map((log) => (
+                <div key={log.id}>
+                  <span>{log.createdAt.toLocaleString("en-KE", { dateStyle: "medium", timeStyle: "short" })}</span>
+                  <strong>{log.scope}</strong>
+                  <p>{log.message}</p>
+                  <small>{log.id}</small>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="emptyState">
+              <strong>No production errors logged</strong>
+              <p>API failures that are caught by the system will appear here for follow-up.</p>
+            </div>
+          )}
         </article>
 
         <article className="appPanel span12" id="audit-trail">

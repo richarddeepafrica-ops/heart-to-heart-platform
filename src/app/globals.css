@@ -2824,6 +2824,21 @@ body:has(.adminApp) .siteHeader {
   min-width: 980px;
 }
 
+.simpleTable.emailQueueTable > div {
+  grid-template-columns: minmax(240px, 1.2fr) minmax(180px, 0.9fr) 100px minmax(160px, 0.8fr) minmax(220px, 0.9fr);
+  min-width: 1060px;
+}
+
+.simpleTable.compTicketTable > div {
+  grid-template-columns: minmax(180px, 1fr) minmax(180px, 1fr) 180px 110px minmax(180px, 0.8fr);
+  min-width: 960px;
+}
+
+.simpleTable.shopOrderTable > div {
+  grid-template-columns: minmax(180px, 1fr) minmax(190px, 1fr) 150px 110px 100px;
+  min-width: 900px;
+}
+
 .simpleTable.reportCampaignTable > div {
   grid-template-columns: minmax(180px, 1fr) 140px 140px 160px 110px;
   min-width: 880px;
@@ -2900,6 +2915,31 @@ body:has(.adminApp) .siteHeader {
 .inlineAdminForm small {
   grid-column: 1 / -1;
   color: var(--muted);
+}
+
+.inlineActionCluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.inlineActionCluster small {
+  flex-basis: 100%;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.primaryAction.small {
+  min-height: 34px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+.dangerIconButton.compact {
+  min-height: 34px;
+  padding: 7px 10px;
+  font-size: 12px;
 }
 
 .inlineAdminForm.compact {
