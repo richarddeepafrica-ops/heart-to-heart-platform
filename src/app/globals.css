@@ -6663,6 +6663,11 @@ body:has(.adminApp) .siteHeader {
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
+.shopHeroCarousel {
+  display: grid;
+  gap: 14px;
+}
+
 .shopHeroFeature:hover {
   box-shadow: 0 36px 100px rgba(9, 47, 88, 0.18);
   transform: translateY(-4px);
@@ -6721,6 +6726,54 @@ body:has(.adminApp) .siteHeader {
   color: var(--ink);
   font-size: 22px;
   font-weight: 900;
+}
+
+.shopCarouselControls {
+  align-items: center;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: auto 1fr auto;
+}
+
+.shopCarouselControls > button {
+  min-height: 38px;
+  border: 1px solid rgba(25, 94, 165, 0.16);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--blue-dark);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0 14px;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.shopCarouselControls > button:hover,
+.shopCarouselControls > button:focus-visible {
+  border-color: rgba(25, 94, 165, 0.38);
+  box-shadow: 0 10px 22px rgba(9, 47, 88, 0.1);
+  transform: translateY(-1px);
+}
+
+.shopCarouselControls div {
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+}
+
+.shopCarouselControls div button {
+  width: 8px;
+  height: 8px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(25, 94, 165, 0.26);
+  cursor: pointer;
+  padding: 0;
+}
+
+.shopCarouselControls div button[aria-current="true"] {
+  width: 28px;
+  background: var(--green);
 }
 
 .shopSectionIntro {

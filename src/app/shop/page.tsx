@@ -1,3 +1,4 @@
+import { ShopHeroCarousel } from "@/components/ShopHeroCarousel";
 import { formatKes } from "@/lib/content";
 import { getEventTicketPackages } from "@/lib/event-ticket-data";
 import { getMerchandiseProducts } from "@/lib/merchandise-data";
@@ -9,6 +10,14 @@ export default async function MerchandiseShopPage() {
   ]);
   const featured = products.find((product) => product.featured) || products[0];
   const remainingProducts = products.filter((product) => product.id !== featured?.id);
+  const carouselItems = [featured, ...remainingProducts].filter(Boolean).map((product) => ({
+    id: product.id,
+    slug: product.slug,
+    name: product.name,
+    category: product.category,
+    imageUrl: product.imageUrl,
+    priceLabel: formatKes(product.price)
+  }));
 
   return (
     <main>
@@ -24,19 +33,7 @@ export default async function MerchandiseShopPage() {
             <a className="button secondary" href="#event-tickets">Event tickets</a>
           </div>
         </div>
-        {featured ? (
-          <a className="shopHeroFeature" href={`/shop/${featured.slug}`} aria-label={`Shop ${featured.name}`}>
-            <span className="shopHeroTag">Featured item</span>
-            <div className="shopHeroFeatureImage">
-              <img src={featured.imageUrl} alt="" />
-            </div>
-            <div className="shopHeroFeatureMeta">
-              <span>{featured.category}</span>
-              <strong>{featured.name}</strong>
-              <small>{formatKes(featured.price)}</small>
-            </div>
-          </a>
-        ) : null}
+        <ShopHeroCarousel items={carouselItems} />
       </section>
 
       <section className="shopSectionIntro" id="shop-products">
