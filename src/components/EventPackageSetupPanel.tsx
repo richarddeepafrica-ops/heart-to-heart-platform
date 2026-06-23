@@ -121,7 +121,6 @@ export function EventPackageSetupPanel({ events = [], packages: savedPackages = 
             )) : <option value="">Heart Run</option>}
           </select>
         </label>
-        <span>Manage public packages, shop visibility, colors, and complimentary tickets.</span>
       </div>
       <div className="packageSetupList">
         {packages.map((item) => (
