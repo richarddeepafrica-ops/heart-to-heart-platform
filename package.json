@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1 --port 3000",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "node server.js",
     "hostafrica:prepare": "cd /home/techsasa/domains/h2h.techsasaonline.com/app && (npm install --omit=dev && prisma generate --schema=/home/techsasa/domains/h2h.techsasaonline.com/app/prisma/schema.prisma && next build --webpack) > /home/techsasa/logs/h2h-build.log 2>&1",
     "typecheck": "tsc --noEmit",
