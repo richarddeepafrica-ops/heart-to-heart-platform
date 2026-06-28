@@ -2,6 +2,8 @@
 
 Use this before putting the Heart to Heart platform on a public domain.
 
+For the current target domain and DNS instructions, see `docs/deploy-h2h-subdomain.md`.
+
 ## Required Production Environment
 
 - `DATABASE_URL`: production PostgreSQL connection string.

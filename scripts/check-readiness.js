@@ -68,6 +68,22 @@ if (env("NEXT_PUBLIC_SITE_URL") && !env("NEXT_PUBLIC_SITE_URL").startsWith("http
   warn("NEXT_PUBLIC_SITE_URL should use HTTPS before public launch.");
 }
 
+if (env("NEXT_PUBLIC_SITE_URL") && env("NEXT_PUBLIC_SITE_URL") !== "https://h2h.techsasaonline.com") {
+  warn("NEXT_PUBLIC_SITE_URL does not match https://h2h.techsasaonline.com.");
+}
+
+if (env("DATABASE_URL") && /localhost|127\.0\.0\.1/i.test(env("DATABASE_URL"))) {
+  fail("DATABASE_URL still points to localhost. Use the production PostgreSQL host.");
+}
+
+if (!env("ADMIN_PASSWORD")) {
+  fail("ADMIN_PASSWORD is required to seed the first production administrator.");
+}
+
+if (env("ADMIN_EMAIL") && /\.local$/i.test(env("ADMIN_EMAIL"))) {
+  fail("ADMIN_EMAIL must be a real administrator email address in production.");
+}
+
 if (!env("EMAIL_PROVIDER_API_KEY")) {
   warn("EMAIL_PROVIDER_API_KEY is not set, so receipt/thank-you emails are not ready.");
 }

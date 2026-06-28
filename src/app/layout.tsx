@@ -4,9 +4,18 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
 
+const publicSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://127.0.0.1:3000";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(publicSiteUrl),
   title: "Heart to Heart Foundation",
   description: "Supporting prevention, control, and treatment of heart disease in children in Kenya.",
+  openGraph: {
+    title: "Heart to Heart Foundation",
+    description: "Supporting prevention, control, and treatment of heart disease in children in Kenya.",
+    siteName: "Heart to Heart Foundation",
+    type: "website"
+  },
   icons: {
     icon: "/icon.svg"
   }
