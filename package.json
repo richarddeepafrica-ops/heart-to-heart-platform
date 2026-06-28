@@ -6,7 +6,7 @@
     "dev": "next dev --hostname 127.0.0.1 --port 3000",
     "build": "next build",
     "start": "node server.js",
-    "postinstall": "prisma generate",
+    "hostafrica:prepare": "cd $APP_ROOT && prisma generate --schema=$APP_ROOT/prisma/schema.prisma && next build",
     "typecheck": "tsc --noEmit",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
