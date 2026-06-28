@@ -6,7 +6,7 @@
     "dev": "next dev --hostname 127.0.0.1 --port 3000",
     "build": "next build",
     "start": "node server.js",
-    "hostafrica:prepare": "cd /home/techsasa/domains/h2h.techsasaonline.com/app && (prisma generate --schema=/home/techsasa/domains/h2h.techsasaonline.com/app/prisma/schema.prisma && next build --webpack) > /home/techsasa/logs/h2h-build.log 2>&1",
+    "hostafrica:prepare": "cd /home/techsasa/domains/h2h.techsasaonline.com/app && (npm install --omit=dev && prisma generate --schema=/home/techsasa/domains/h2h.techsasaonline.com/app/prisma/schema.prisma && next build --webpack) > /home/techsasa/logs/h2h-build.log 2>&1",
     "typecheck": "tsc --noEmit",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
@@ -21,9 +21,7 @@
     "next": "16.2.9",
     "prisma": "6.10.1",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
-  },
-  "devDependencies": {
+    "react-dom": "19.1.0",
     "@types/node": "24.0.3",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
