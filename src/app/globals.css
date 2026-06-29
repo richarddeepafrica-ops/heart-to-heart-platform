@@ -9168,6 +9168,17 @@ body:not(:has(.adminApp)) :where(
   background-position: center 26%;
 }
 
+@media (max-width: 1180px) and (min-width: 901px) {
+  .donationCheckout {
+    grid-template-columns: minmax(210px, 240px) minmax(0, 1fr);
+  }
+
+  .checkoutSummary {
+    position: static;
+    grid-column: 1 / -1;
+  }
+}
+
 @media (max-width: 900px) {
   .mainNav {
     display: none;
@@ -9328,6 +9339,7 @@ body:not(:has(.adminApp)) :where(
   .eventPackageAdminTable .tableHead,
   .eventPackageAdminTable .tableLine,
   .eventPackageRules,
+  .eventQueueToolbar,
   .contentAdminForm,
   .simpleTable > div,
   .simpleTable.six > div,
@@ -9670,6 +9682,7 @@ body:not(:has(.adminApp)) :where(
   }
 
   .adminWorkspace {
+    min-width: 0;
     padding: 16px;
   }
 
@@ -9677,8 +9690,62 @@ body:not(:has(.adminApp)) :where(
   .span5,
   .span6,
   .span7,
-  .span8 {
-    grid-column: auto;
+  .span8,
+  .span12 {
+    grid-column: 1 / -1;
+  }
+
+  .appPanel,
+  .contentEditorPanel,
+  .collapsiblePanel,
+  .packageSetupEditor {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .panelHeader {
+    flex-wrap: wrap;
+  }
+
+  .packageSetupList,
+  .packageSetupEditor {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .packageSetupList button,
+  .packageSetupList strong,
+  .packageSetupList span,
+  .packageSetupList small {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .adminAlbumImageGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .simpleTable > div,
+  .simpleTable.six > div,
+  .simpleTable[class] > div,
+  .eventPackageAdminTable .tableHead,
+  .eventPackageAdminTable .tableLine {
+    grid-template-columns: 1fr;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .simpleTable > .tableHead,
+  .simpleTable[class] > .tableHead,
+  .eventPackageAdminTable > .tableHead {
+    display: none;
+  }
+
+  .simpleTable .tableLine,
+  .eventPackageAdminTable .tableLine {
+    gap: 8px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    background: white;
   }
 
   .adminTopbar,
@@ -9779,7 +9846,9 @@ body:not(:has(.adminApp)) :where(
   .checkoutTrustStrip,
   .paymentMethods,
   .segmentedControl,
-  .financeActionForm {
+  .financeActionForm,
+  .packageSetupEditor,
+  .adminAlbumImageGrid {
     grid-template-columns: 1fr;
   }
 
